@@ -1,25 +1,42 @@
-
 package main
 
 import (
-    "net/http"
+
+    "fmt"
+    "runtime"
+
     "github.com/gin-gonic/gin"
+
+    "./routes"
+    "./ws"
+)
+
+const (
+    port = ":3000"
 )
 
 func main() {
-
-    r := gin.Default()
-
-    r.GET("/ping", func(c *gin.Context) {
-        c.String(200, "pong")
-    })
-
-    r.GET("/welcome", func(c *gin.Context) {
-        firstname := c.DefaultQuery("firstname", "Guest")
-        lastname := c.Query("lastname") // shortcut for c.Request.URL.Query().Get("lastname")
-
-        c.String(http.StatusOK, "Hello %s %s", firstname, lastname)
-    })
-
-    r.Run(":3000")
+    configureRuntime()
+    startServer()
 }
+
+func configureRuntime() {
+    numCPU := runtime.NumCPU()
+    runtime.GOMAXPROCS(numCPU)
+    fmt.Printf("Running with %d CPUs\n", numCPU)
+}
+
+func startServer() {
+
+    router := gin.Default()
+
+    router.Static("/assets", "src/assets")
+    router.LoadHTMLGlob("src/templates/*")
+
+    router.GET("/", routes.HomeGet)
+
+    router.GET("/sync", ws.Sync);
+
+    router.Run(port)
+}
+
