@@ -60,16 +60,16 @@ if ! which "go-bindata" >/dev/null; then
     go get -u github.com/jteeuwen/go-bindata/...
 fi
 
-echo " # templates"
-$GOPATH/bin/go-bindata -ignore=\\.gitignore -o src/_gen_templates.go src/templates
-echo " # assets"
-$GOPATH/bin/go-bindata -ignore=\\.gitignore -o src/_gen_assets.go src/assets
+for RES in "templates" "assets"; do
+    echo " # $RES"
+    $GOPATH/bin/go-bindata -ignore=\\.gitignore -o "src/_gen_$RES.go" src/$RES
+done
 
 section "Building binary"
 
 for GOOS in $PLATFORM; do
     for GOARCH in $ARCH; do
-        echo " Building $GOOS-$GOARCH"
+        echo " Building bin/infinitely-$GOOS-$GOARCH"
         GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go
     done
 done
