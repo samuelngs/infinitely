@@ -1,5 +1,5 @@
 # infinitely
-A re-brand infinitely written in Rust
+A re-brand infinitely written in Go Lang
 
 ~~~
 The MIT License (MIT)
