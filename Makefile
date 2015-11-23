@@ -1,11 +1,15 @@
-all: build
+all:
+	./build.bash all
 
 build:
-	bash -c "./build.bash"
+	./build.bash build
+
+assets:
+	./build.bash assets
 
 run:
-	bash -c "./build.bash run"
+	./build.bash run
 
 clean:
-	rm -rf bin src/_gen_*.go
+	./build.bash clean
 

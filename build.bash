@@ -32,56 +32,101 @@ _PLATFORM() {
     eval "$1=$_PLATFORM"
 }
 
-# OPTIONS: 386 amd64
-if [ -z $ARCH ]; then
-    _ARCH ARCH
-fi
+GEN_ASSETS() {
+	for RES in $@; do
+		echo " # $RES"
+		$GOPATH/bin/go-bindata -ignore=\\.gitignore -o "src/_gen_$RES.go" src/$RES
+	done
+}
 
-# OPTIONS: darwin linux windows
-if [ -z $PLATFORM ]; then
-    _PLATFORM PLATFORM
-fi
+case $1 in
+	build)
+		# OPTIONS: 386 amd64
+		if [ -z $ARCH ]; then
+			_ARCH ARCH
+		fi
 
-section "Download packages"
+		# OPTIONS: darwin linux windows
+		if [ -z $PLATFORM ]; then
+			_PLATFORM PLATFORM
+		fi
 
-for DEP in `go list -json ./src/... | jq '.Imports[]'`
-do
-    DEP="${DEP%\"}"
-    DEP="${DEP#\"}"
-    if [[ "$DEP" != _* ]]; then
-        echo " Importing $DEP..."
-        eval "go get $DEP"
-    fi
-done
+		section "Download packages"
 
-section "Packing resources"
+		for DEP in `go list -json ./src/... | jq '.Imports[]'`
+		do
+			DEP="${DEP%\"}"
+			DEP="${DEP#\"}"
+			if [[ "$DEP" != _* ]]; then
+				echo " Importing $DEP..."
+				eval "go get $DEP"
+			fi
+		done
 
-if ! which "go-bindata" >/dev/null; then
-    go get -u github.com/jteeuwen/go-bindata/...
-fi
+		./$0 assets
 
-for RES in "templates" "assets"; do
-    echo " # $RES"
-    $GOPATH/bin/go-bindata -ignore=\\.gitignore -o "src/_gen_$RES.go" src/$RES
-done
+		section "Building binary"
 
-section "Building binary"
+		for GOOS in $PLATFORM; do
+			for GOARCH in $ARCH; do
+				echo " Building bin/infinitely-$GOOS-$GOARCH"
+				GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go
+			done
+		done
+		;;
+	assets)
+		if [ -z "$ASSETS" ]; then
+			ASSETS=("templates" "assets")
+		fi
 
-for GOOS in $PLATFORM; do
-    for GOARCH in $ARCH; do
-        echo " Building bin/infinitely-$GOOS-$GOARCH"
-        GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go
-    done
-done
+		section "Packing resources"
 
-if [ ! -z "$1" ]; then
+		if ! which "go-bindata" >/dev/null; then
+			go get -u github.com/jteeuwen/go-bindata/...
+		fi
 
-    section "Running executable application"
+		GEN_ASSETS ${ASSETS[@]}
+		;;
+	run)
 
-    _PLATFORM PLATFORM
-    _ARCH ARCH
+		section "Running executable application"
 
-    bin/infinitely-$PLATFORM-$ARCH
+		_PLATFORM PLATFORM
+		_ARCH ARCH
 
-fi
+		if [ ! -f bin/infinitely-$PLATFORM-$ARCH ]; then
+			PLATFORM=$PLATFORM ARCH=$ARCH ./$0 build
+		fi
+
+		bin/infinitely-$PLATFORM-$ARCH
+		;;
+	clean)
+		rm -rf bin src/_gen_*.go
+		;;
+	all)
+		./$0 clean
+		./$0 build
+		./$0 run
+		;;
+	*)
+		echo "$0
+
+Build script for Infinitely
+
+USAGE:
+
+   [ENV_ARGS] $0 [OPTIONS]
+
+OPTIONS:
+
+   build		create binary executable
+   assets		compile assets
+
+   clean		clean project
+
+   run			start program
+   all			compile assets, create executable file and run program
+"
+		;;
+esac
 
