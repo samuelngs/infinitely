@@ -49,7 +49,7 @@ GOPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 case $1 in
     dev)
-        GOPATH=$GOPATH vim
+        GOPATH=$GOPATH $EDITOR
         ;;
     build)
         # OPTIONS: 386 amd64
