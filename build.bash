@@ -45,6 +45,8 @@ GEN_ASSETS() {
     echo
 }
 
+GOPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 case $1 in
     build)
         # OPTIONS: 386 amd64
@@ -78,13 +80,13 @@ case $1 in
         for GOOS in $PLATFORM; do
             for GOARCH in $ARCH; do
                 echo " Building bin/infinitely-$GOOS-$GOARCH"
-                GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go
+                GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go src/assets.go
             done
         done
         ;;
     assets)
         if [[ -z "$ASSETS" ]]; then
-            ASSETS=("templates" "assets")
+            ASSETS=("templates" "static")
         fi
 
         section "Packing resources"
@@ -105,7 +107,7 @@ case $1 in
         GOPATH=$GOPATH bin/infinitely-$PLATFORM-$ARCH
         ;;
     clean)
-        rm -rf bin pkg src/assets.go
+        rm -rf bin pkg src/golang.org src/gopkg.in src/github.com src/assets.go
         ;;
     all)
         ./$0 build
