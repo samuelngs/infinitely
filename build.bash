@@ -33,83 +33,86 @@ _PLATFORM() {
 }
 
 GEN_ASSETS() {
-	for RES in $@; do
-		echo " # $RES"
-		$GOPATH/bin/go-bindata -ignore=\\.gitignore -o "src/_gen_$RES.go" src/$RES
-	done
+    ASSETS_PATH=
+    if [ ! -f $GOPATH/bin/go-bindata ]; then
+        go get -u github.com/jteeuwen/go-bindata/...
+    fi
+    for RES in $@; do
+        echo " # $RES"
+        ASSETS_PATH="./src/$RES $ASSETS_PATH"
+    done
+    $GOPATH/bin/go-bindata -o src/assets.go -prefix "src/" $ASSETS_PATH
+    echo
 }
 
 case $1 in
-	build)
-		# OPTIONS: 386 amd64
-		if [ -z $ARCH ]; then
-			_ARCH ARCH
-		fi
+    build)
+        # OPTIONS: 386 amd64
+        if [ -z $ARCH ]; then
+            _ARCH ARCH
+        fi
 
-		# OPTIONS: darwin linux windows
-		if [ -z $PLATFORM ]; then
-			_PLATFORM PLATFORM
-		fi
+        # OPTIONS: darwin linux windows
+        if [ -z $PLATFORM ]; then
+            _PLATFORM PLATFORM
+        fi
 
-		section "Download packages"
+        section "Download packages"
 
-		for DEP in `go list -json ./src/... | jq '.Imports[]'`
-		do
-			DEP="${DEP%\"}"
-			DEP="${DEP#\"}"
-			if [[ "$DEP" != _* ]]; then
-				echo " Importing $DEP..."
-				eval "go get $DEP"
-			fi
-		done
+        DEPS=`go list -f '{{range $dep := .Deps}}{{printf "%s\n" $dep}}{{end}}' ./src/... | grep github.com | sort | uniq`
 
-		./$0 assets
+        for DEP in $DEPS
+        do
+            DEP="${DEP%\"}"
+            DEP="${DEP#\"}"
+            if [[ "$DEP" != _* ]]; then
+                echo " Importing $DEP..."
+                go get $DEP
+            fi
+        done
 
-		section "Building binary"
+        ./$0 assets
 
-		for GOOS in $PLATFORM; do
-			for GOARCH in $ARCH; do
-				echo " Building bin/infinitely-$GOOS-$GOARCH"
-				GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go
-			done
-		done
-		;;
-	assets)
-		if [ -z "$ASSETS" ]; then
-			ASSETS=("templates" "assets")
-		fi
+        section "Building binary"
 
-		section "Packing resources"
+        for GOOS in $PLATFORM; do
+            for GOARCH in $ARCH; do
+                echo " Building bin/infinitely-$GOOS-$GOARCH"
+                GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go
+            done
+        done
+        ;;
+    assets)
+        if [ -z "$ASSETS" ]; then
+            ASSETS=("templates" "assets")
+        fi
 
-		if ! which "go-bindata" >/dev/null; then
-			go get -u github.com/jteeuwen/go-bindata/...
-		fi
+        section "Packing resources"
 
-		GEN_ASSETS ${ASSETS[@]}
-		;;
-	run)
+        GEN_ASSETS ${ASSETS[@]}
+        ;;
+    run)
 
-		section "Running executable application"
+        section "Running executable application"
 
-		_PLATFORM PLATFORM
-		_ARCH ARCH
+        _PLATFORM PLATFORM
+        _ARCH ARCH
 
-		if [ ! -f bin/infinitely-$PLATFORM-$ARCH ]; then
-			PLATFORM=$PLATFORM ARCH=$ARCH ./$0 build
-		fi
+        if [ ! -f bin/infinitely-$PLATFORM-$ARCH ]; then
+            PLATFORM=$PLATFORM ARCH=$ARCH ./$0 build
+        fi
 
-		bin/infinitely-$PLATFORM-$ARCH
-		;;
-	clean)
-		rm -rf bin src/_gen_*.go
-		;;
-	all)
-		./$0 clean
-		./$0 build
-		./$0 run
-		;;
-	*)
-		echo "$0
+        GOPATH=$GOPATH bin/infinitely-$PLATFORM-$ARCH
+        ;;
+    clean)
+        rm -rf bin pkg src/assets.go
+        ;;
+    all)
+        ./$0 build
+        ./$0 run
+        ;;
+    *)
+        echo "$0
 
 Build script for Infinitely
 
@@ -119,14 +122,14 @@ USAGE:
 
 OPTIONS:
 
-   build		create binary executable
-   assets		compile assets
+   build        create binary executable
+   assets       compile assets
 
-   clean		clean project
+   clean        clean project
 
-   run			start program
-   all			compile assets, create executable file and run program
+   run          start program
+   all          compile assets, create executable file and run program
 "
-		;;
+        ;;
 esac
 
