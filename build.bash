@@ -48,12 +48,12 @@ GEN_ASSETS() {
 case $1 in
     build)
         # OPTIONS: 386 amd64
-        if [ -z $ARCH ]; then
+        if [[ -z $ARCH ]]; then
             _ARCH ARCH
         fi
 
         # OPTIONS: darwin linux windows
-        if [ -z $PLATFORM ]; then
+        if [[ -z $PLATFORM ]]; then
             _PLATFORM PLATFORM
         fi
 
@@ -83,7 +83,7 @@ case $1 in
         done
         ;;
     assets)
-        if [ -z "$ASSETS" ]; then
+        if [[ -z "$ASSETS" ]]; then
             ASSETS=("templates" "assets")
         fi
 
@@ -122,13 +122,13 @@ USAGE:
 
 OPTIONS:
 
-   build        create binary executable
-   assets       compile assets
+   build        create binary executable [ARCH, PLATFORM]
+   assets       compile assets [ASSETS]
 
    clean        clean project
 
    run          start program
-   all          compile assets, create executable file and run program
+   all          compile assets, create executable file and run program [ARCH, PLATFORM, ASSETS]
 "
         ;;
 esac
