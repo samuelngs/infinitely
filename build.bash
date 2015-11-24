@@ -39,7 +39,7 @@ GEN_ASSETS() {
     fi
     for RES in $@; do
         echo " # $RES"
-        ASSETS_PATH="./src/$RES $ASSETS_PATH"
+        ASSETS_PATH="./src/$RES/... $ASSETS_PATH"
     done
     $GOPATH/bin/go-bindata -o src/assets.go -prefix "src/" $ASSETS_PATH
     echo
@@ -48,6 +48,9 @@ GEN_ASSETS() {
 GOPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 case $1 in
+    dev)
+        GOPATH=$GOPATH vim
+        ;;
     build)
         # OPTIONS: 386 amd64
         if [[ -z $ARCH ]]; then
@@ -123,6 +126,8 @@ USAGE:
    [ENV_ARGS] $0 [OPTIONS]
 
 OPTIONS:
+
+   dev          set GOPATH to current folder
 
    build        create binary executable [ARCH, PLATFORM]
    assets       compile assets [ASSETS]
