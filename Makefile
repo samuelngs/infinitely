@@ -1,15 +1,15 @@
 all:
-	./build.bash all
+	@./build.bash all ||:
 
 build:
-	./build.bash build
+	@./build.bash build ||:
 
 assets:
-	./build.bash assets
+	@./build.bash assets ||:
 
 run:
-	./build.bash run
+	@./build.bash run ||:
 
 clean:
-	./build.bash clean
+	@./build.bash clean ||:
 
