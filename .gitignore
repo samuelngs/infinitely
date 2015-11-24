@@ -17,8 +17,7 @@ _cgo_defun.c
 _cgo_gotypes.go
 _cgo_export.*
 
-_gen_templates.go
-_gen_assets.go
+assets.go
 
 _testmain.go
 
