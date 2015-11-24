@@ -17,7 +17,10 @@ _cgo_defun.c
 _cgo_gotypes.go
 _cgo_export.*
 
-assets.go
+src/assets.go
+src/github.com
+src/golang.org
+src/gopkg.in
 
 _testmain.go
 
