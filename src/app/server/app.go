@@ -125,7 +125,6 @@ func (app *App) AddRoute(route *Route) *App {
     case route.Method == "OPTIONS":
         app.Engine.OPTIONS(route.URI, route.Callback)
     }
-    fmt.Printf("[Route] %s >> %s\n", route.Method, route.URI)
     return app
 }
 
