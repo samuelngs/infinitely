@@ -12,45 +12,45 @@ import (
 
 // App struct.
 type App struct {
-	API         *API
-	Conf        *config.Config
-	Engine      *gin.Engine
+    API         *API
+    Conf        *config.Config
+    Engine      *gin.Engine
     WebSocket   *WebSocket
 }
 
 func Create(opts ...AppOptions) *App {
     options := AppOptions{}
-	for _, i := range opts {
-		options = i
-		break
-	}
-	options.init()
+    for _, i := range opts {
+        options = i
+        break
+    }
+    options.init()
 
-	// Parse config yaml string from ./conf.go
-	conf, err := config.ParseYaml(confs)
-	Must(err)
-	// Choise a config section by given string
-	conf, err = conf.Get(options.Config)
-	Must(err)
+    // Parse config yaml string from ./conf.go
+    conf, err := config.ParseYaml(confs)
+    Must(err)
+    // Choise a config section by given string
+    conf, err = conf.Get(options.Config)
+    Must(err)
 
-	// Parse environ variables for defined
-	// in config constants
-	conf.Env()
+    // Parse environ variables for defined
+    // in config constants
+    conf.Env()
 
-	// Set up gin
+    // Set up gin
     if !options.Verbose {
-		gin.SetMode(gin.ReleaseMode)
+        gin.SetMode(gin.ReleaseMode)
     }
 
-	// Make an engine
-	engine := gin.Default()
+    // Make an engine
+    engine := gin.Default()
 
-	// Initialize the application
-	app := &App{
-		API:    &API{},
-		Conf:   conf,
-		Engine: engine,
-	}
+    // Initialize the application
+    app := &App{
+        API:    &API{},
+        Conf:   conf,
+        Engine: engine,
+    }
 
     // Load embedded templates
     app.Engine.SetHTMLTemplate(
@@ -63,22 +63,22 @@ func Create(opts ...AppOptions) *App {
         Prefix:   "static",
     })
 
-	// Map app struct to access from request handlers
-	// and middlewares
-	app.Engine.Use(func(c *gin.Context) {
-		c.Set("app", app)
-	})
+    // Map app struct to access from request handlers
+    // and middlewares
+    app.Engine.Use(func(c *gin.Context) {
+        c.Set("app", app)
+    })
 
     app.Engine.GET("/favicon.ico", func(c *gin.Context) {
-		c.Redirect(301, "/static/images/favicon.png")
-	})
+        c.Redirect(301, "/static/images/favicon.png")
+    })
 
     // Bind api hadling for URL api.prefix
-	app.API.Bind(
-		app.Engine.Group(
-			app.Conf.UString("api.prefix"),
-		),
-	)
+    app.API.Bind(
+        app.Engine.Group(
+            app.Conf.UString("api.prefix"),
+        ),
+    )
 
     return app
 
@@ -91,7 +91,7 @@ func (app *App) init() {
 }
 
 func (app *App) Run() *App {
-	Must(app.Engine.Run(":" + app.Conf.UString("port")))
+    Must(app.Engine.Run(":" + app.Conf.UString("port")))
     return app
 }
 

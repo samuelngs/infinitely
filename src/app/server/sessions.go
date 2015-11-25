@@ -6,7 +6,7 @@ import (
 
 type Sessions struct {
     // Registered connections.
-	connections map[*websocket.Conn]*Session
+    connections map[*websocket.Conn]*Session
 }
 
 func CreateSessionsDB() *Sessions {

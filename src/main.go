@@ -2,7 +2,7 @@ package main
 
 import (
     "fmt"
-	"os"
+    "os"
 
     "app/server"
     "app/routes"
@@ -22,8 +22,8 @@ func main() {
 func Run(args []string) {
 
     app := cli.NewApp()
-	app.Name = "infinitely"
-	app.Usage = "A Re-brand infinitely written in GoLang"
+    app.Name = "infinitely"
+    app.Usage = "A Re-brand infinitely written in GoLang"
 
     app.Version = Gitbranch + "-" + Githash + " (" + Buildstamp + ")"
     app.HideVersion = true
@@ -34,19 +34,19 @@ func Run(args []string) {
     }
 
     app.Commands = []cli.Command{
-		{
-			Name:   "start",
-			Usage:  "Runs server",
-			Action: RunServer,
+        {
+            Name:   "start",
+            Usage:  "Runs server",
+            Action: RunServer,
             Flags:  []cli.Flag{verboseFlag},
-		},
-		{
-			Name:    "version",
-			Aliases: []string{"v"},
-			Usage:   "Prints app's version",
-			Action:  Version,
-		},
-	}
+        },
+        {
+            Name:    "version",
+            Aliases: []string{"v"},
+            Usage:   "Prints app's version",
+            Action:  Version,
+        },
+    }
 
     app.Run(args)
 
@@ -58,15 +58,15 @@ func RunServer(c *cli.Context) {
         Asset: Asset,
         AssetDir: AssetDir,
         Verbose: c.Bool("verbose"),
-	})
+    })
 
-	app.AttachWS()
+    app.AttachWS()
     app.AttachRoutes(routes.HomeRoute)
     app.Run()
 }
 
 func Version(c *cli.Context) {
-	fmt.Printf(`Git branch: %s
+    fmt.Printf(`Git branch: %s
 Git Commit Hash: %s
 UTC Build Time: %s
 `, Gitbranch, Githash, Buildstamp)

@@ -12,8 +12,8 @@ var SessionStatus = map[int]string {
 }
 
 type Session struct {
-	// The websocket connection.
-	connection *websocket.Conn
+    // The websocket connection.
+    connection *websocket.Conn
 }
 
 func NewSession(conn *websocket.Conn) *Session {
