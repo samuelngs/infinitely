@@ -1,9 +1,16 @@
 package routes
 
 import (
+    "app/server"
+
     "github.com/gin-gonic/gin"
 )
 
-func HomeGet(c *gin.Context) {
-    c.HTML(200, "index.html", nil)
+var HomeRoute = map[string] *server.Route {
+
+    "GET[/]": server.NewRoute("GET", "/", func(c *gin.Context) {
+        c.HTML(200, "index.html", nil)
+    }),
+
 }
+
