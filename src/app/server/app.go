@@ -100,9 +100,11 @@ func (app *App) WebSocket() *App {
     return app
 }
 
-func (app *App) AttachRoutes(routes map[string] *Route) *App {
-    for _, r := range routes {
-        app.AddRoute(r)
+func (app *App) AttachRoutes(args ...map[string]*Route) *App {
+    for _, arg := range args {
+        for _, r := range arg {
+            app.AddRoute(r)
+        }
     }
     return app
 }
