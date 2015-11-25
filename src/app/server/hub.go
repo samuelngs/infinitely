@@ -4,22 +4,16 @@ import (
     "github.com/gorilla/websocket"
 )
 
-type Sessions struct {
+type Hub struct {
     // Registered connections.
     connections map[*websocket.Conn]*Session
 }
 
-func CreateSessionsDB() *Sessions {
-    return &Sessions {
-        map[*websocket.Conn]*Session {},
-    }
-}
-
-func (s *Sessions) Get(conn *websocket.Conn) *Session {
+func (s *Hub) Get(conn *websocket.Conn) *Session {
     return s.connections[conn]
 }
 
-func (s *Sessions) Bind(conn *websocket.Conn) *Session {
+func (s *Hub) Bind(conn *websocket.Conn) *Session {
     session := s.Get(conn)
     if session == nil {
         session = &Session {
@@ -30,7 +24,7 @@ func (s *Sessions) Bind(conn *websocket.Conn) *Session {
     return session
 }
 
-func (s *Sessions) UnBind(conn *websocket.Conn) *Sessions {
+func (s *Hub) UnBind(conn *websocket.Conn) *Hub {
     _session := s.Get(conn)
     if _session != nil {
         delete(s.connections, conn)
@@ -38,13 +32,13 @@ func (s *Sessions) UnBind(conn *websocket.Conn) *Sessions {
     return s
 }
 
-func (s *Sessions) Clear() *Sessions {
+func (s *Hub) Clear() *Hub {
     for k := range s.connections {
         delete(s.connections, k)
     }
     return s
 }
 
-func (s *Sessions) Count() int {
+func (s *Hub) Count() int {
     return len(s.connections)
 }
