@@ -12,10 +12,9 @@ import (
 
 // App struct.
 type App struct {
-	Engine      *gin.Engine
-    WebSocket   *WebSocket
-	Conf        *config.Config
 	API         *API
+	Conf        *config.Config
+	Engine      *gin.Engine
 }
 
 func Create(opts ...AppOptions) *App {
@@ -38,42 +37,30 @@ func Create(opts ...AppOptions) *App {
 	conf.Env()
 
 	// Set up gin
-	if !conf.UBool("debug") {
+    if !options.Verbose {
 		gin.SetMode(gin.ReleaseMode)
-	}
+    }
 
 	// Make an engine
 	engine := gin.Default()
 
 	// Initialize the application
 	app := &App{
+		API:    &API{},
 		Conf:   conf,
 		Engine: engine,
-		API:    &API{},
 	}
 
-    if options.Asset != nil && options.AssetDir != nil {
-
-        // Define routes and middlewares
-        app.Engine.StaticFS("/static", &assetfs.AssetFS{
-            Asset:    options.Asset,
-            AssetDir: options.AssetDir,
-            Prefix:   "static",
-        })
-
-        // Load embedded templates
-        app.Engine.SetHTMLTemplate(
-            binhtml.New(options.Asset, options.AssetDir).MustLoadDirectory("templates"),
-        )
-
-    }
-
-    // Bind api hadling for URL api.prefix
-	app.API.Bind(
-		app.Engine.Group(
-			app.Conf.UString("api.prefix"),
-		),
-	)
+    // Load embedded templates
+    app.Engine.SetHTMLTemplate(
+        binhtml.New(options.Asset, options.AssetDir).MustLoadDirectory("templates"),
+    )
+    // Define routes and middlewares
+    app.Engine.StaticFS("/static", &assetfs.AssetFS{
+        Asset:    options.Asset,
+        AssetDir: options.AssetDir,
+        Prefix:   "static",
+    })
 
 	// Map app struct to access from request handlers
 	// and middlewares
@@ -85,6 +72,13 @@ func Create(opts ...AppOptions) *App {
 		c.Redirect(301, "/static/images/favicon.ico")
 	})
 
+    // Bind api hadling for URL api.prefix
+	app.API.Bind(
+		app.Engine.Group(
+			app.Conf.UString("api.prefix"),
+		),
+	)
+
     return app
 
 }
@@ -95,7 +89,39 @@ func (app *App) init() {
     fmt.Printf("Running with %d CPUs\n and PORT %d", numCPU, app.Conf.UString("port"))
 }
 
-func (app *App) Run() {
+func (app *App) Run() *App {
 	Must(app.Engine.Run(":" + app.Conf.UString("port")))
+    return app
 }
 
+func (app *App) WebSocket() *App {
+    ws := &WebSocket{}
+    ws.Bind(app)
+    return app
+}
+
+func (app *App) AttachRoutes(routes map[string] *Route) *App {
+    for _, r := range routes {
+        app.AddRoute(r)
+    }
+    return app
+}
+
+func (app *App) AddRoute(route *Route) *App {
+    switch {
+    case route.Method == "GET":
+        app.Engine.GET(route.URI, route.Callback)
+    case route.Method == "POST":
+        app.Engine.POST(route.URI, route.Callback)
+    case route.Method == "PUT":
+        app.Engine.PUT(route.URI, route.Callback)
+    case route.Method == "PATCH":
+        app.Engine.PATCH(route.URI, route.Callback)
+    case route.Method == "DELETE":
+        app.Engine.DELETE(route.URI, route.Callback)
+    case route.Method == "OPTIONS":
+        app.Engine.OPTIONS(route.URI, route.Callback)
+    }
+    fmt.Printf("[Route] %s >> %s\n", route.Method, route.URI)
+    return app
+}
