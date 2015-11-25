@@ -15,6 +15,7 @@ type App struct {
 	API         *API
 	Conf        *config.Config
 	Engine      *gin.Engine
+    WebSocket   *WebSocket
 }
 
 func Create(opts ...AppOptions) *App {
@@ -69,7 +70,7 @@ func Create(opts ...AppOptions) *App {
 	})
 
     app.Engine.GET("/favicon.ico", func(c *gin.Context) {
-		c.Redirect(301, "/static/images/favicon.ico")
+		c.Redirect(301, "/static/images/favicon.png")
 	})
 
     // Bind api hadling for URL api.prefix
@@ -94,9 +95,9 @@ func (app *App) Run() *App {
     return app
 }
 
-func (app *App) WebSocket() *App {
-    ws := &WebSocket{}
-    ws.Bind(app)
+func (app *App) AttachWS() *App {
+    app.WebSocket = NewWebSocket()
+    app.WebSocket.Bind(app)
     return app
 }
 
@@ -127,3 +128,4 @@ func (app *App) AddRoute(route *Route) *App {
     fmt.Printf("[Route] %s >> %s\n", route.Method, route.URI)
     return app
 }
+
