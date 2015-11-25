@@ -10,7 +10,7 @@ type API struct{}
 
 // Bind attaches api routes
 func (api *API) Bind(group *gin.RouterGroup) {
-	group.GET("/v1/conf", api.ConfHandler)
+	group.GET("/v1/config", api.ConfHandler)
 }
 
 // ConfHandler handle the app config, for example
