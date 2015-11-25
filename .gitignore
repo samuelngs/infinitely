@@ -6,6 +6,7 @@
 # Folders
 _obj
 _test
+node_modules
 
 # Architecture specific extensions/prefixes
 *.[568vq]
@@ -27,6 +28,9 @@ _testmain.go
 *.exe
 *.test
 *.prof
+
+# Compiled stylesheets file
+*.css
 
 release
 bin
