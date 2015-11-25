@@ -29,23 +29,21 @@ var upgrader = websocket.Upgrader {
 
 type WebSocket struct {}
 
-func (ws *WebSocket) Handler() (func(w http.ResponseWriter, r *http.Request)) {
-    return func(w http.ResponseWriter, r *http.Request) {
-        conn, err := upgrader.Upgrade(w, r, nil)
-        if err != nil {
-            fmt.Println("Failed to set websocket upgrade:", err)
-        } else {
-            c := &Connection{send: make(chan []byte, 256), ws: conn}
-            ag.register <- c
-            go c.writePump()
-            c.readPump()
-        }
+func (ws *WebSocket) Handler(w http.ResponseWriter, r *http.Request) {
+    conn, err := upgrader.Upgrade(w, r, nil)
+    if err != nil {
+        fmt.Println("Failed to set websocket upgrade:", err)
+    } else {
+        c := &Connection{send: make(chan []byte, 256), ws: conn}
+        ag.register <- c
+        go c.writePump()
+        c.readPump()
     }
 }
 
 func (ws *WebSocket) Bind(app *App) {
     app.Engine.GET("/sync", func(c *gin.Context) {
-        ws.Handler()(c.Writer, c.Request)
+        ws.Handler(c.Writer, c.Request)
     });
 }
 
