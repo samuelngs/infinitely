@@ -1,15 +1,16 @@
 package server
 
 type AppOptions struct {
-	Config string
-	Asset func(path string) ([]byte, error)
-	AssetDir func(path string) ([]string, error)
+	Asset		func(path string) ([]byte, error)
+	AssetDir	func(path string) ([]string, error)
+	Config		string
+    Verbose		bool
 }
 
 func (ao *AppOptions) init() {
-    // Set default to development
+    // Set default to production
 	if ao.Config == "" {
-		ao.Config = "development"
+		ao.Config = "production"
 	}
 }
 
