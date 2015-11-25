@@ -127,7 +127,7 @@ USAGE:
 
 OPTIONS:
 
-   dev          set GOPATH to current folder
+   dev          open project in editor ($EDITOR)
 
    build        create binary executable [ARCH, PLATFORM]
    assets       compile assets [ASSETS]
