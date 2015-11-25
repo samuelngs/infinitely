@@ -107,7 +107,7 @@ case $1 in
             PLATFORM=$PLATFORM ARCH=$ARCH ./$0 build
         fi
 
-        GOPATH=$GOPATH bin/infinitely-$PLATFORM-$ARCH
+        GOPATH=$GOPATH bin/infinitely-$PLATFORM-$ARCH start
         ;;
     clean)
         rm -rf bin pkg src/golang.org src/gopkg.in src/github.com src/assets.go

@@ -11,7 +11,7 @@ assets:
 	@./build.bash assets ||:
 
 run:
-	@./build.bash run ||:
+	@./build.bash run $@ ||:
 
 clean:
 	@./build.bash clean ||:
