@@ -24,6 +24,7 @@ func Run(args []string) {
     app := cli.NewApp()
 	app.Name = "infinitely"
 	app.Usage = "A Re-brand infinitely written in GoLang"
+
     app.Version = Gitbranch + "-" + Githash + " (" + Buildstamp + ")"
     app.HideVersion = true
 
