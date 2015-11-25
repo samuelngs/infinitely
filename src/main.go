@@ -60,7 +60,7 @@ func RunServer(c *cli.Context) {
         Verbose: c.Bool("verbose"),
 	})
 
-	app.WebSocket()
+	app.AttachWS()
     app.AttachRoutes(routes.HomeRoute)
     app.Run()
 }
