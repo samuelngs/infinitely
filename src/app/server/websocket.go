@@ -23,28 +23,30 @@ const (
 )
 
 type WebSocket struct {
-    Upgrader websocket.Upgrader
-    Sessions *Sessions
+    upgrader websocket.Upgrader
+    hub *Hub
 }
 
-func NewWebSocket() *WebSocket {
-    sessions := CreateSessionsDB()
+func CreateWebSocket() *WebSocket {
+    h := &Hub {
+        map[*websocket.Conn]*Session {},
+    }
     ws := &WebSocket {
-        Upgrader: websocket.Upgrader {
+        upgrader: websocket.Upgrader {
             ReadBufferSize:  1024,
             WriteBufferSize: 1024,
         },
-        Sessions: sessions,
+        hub: h,
     }
     return ws
 }
 
 func (ws *WebSocket) Handler(w http.ResponseWriter, r *http.Request) {
-    conn, err := ws.Upgrader.Upgrade(w, r, nil)
+    conn, err := ws.upgrader.Upgrade(w, r, nil)
     if err != nil {
         fmt.Println("Failed to set websocket upgrade:", err)
     } else {
-        s := ws.Sessions
+        s := ws.hub
         defer func() {
             s.UnBind(conn)
         }()
@@ -56,5 +58,9 @@ func (ws *WebSocket) Bind(app *App) {
     app.Engine.GET("/sync", func(c *gin.Context) {
         ws.Handler(c.Writer, c.Request)
     });
+}
+
+func (ws *WebSocket) Hub() *Hub {
+    return ws.hub
 }
 

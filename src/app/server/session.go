@@ -2,14 +2,10 @@ package server
 
 import (
     "fmt"
+    "time"
 
     "github.com/gorilla/websocket"
 )
-
-var SessionStatus = map[int]string {
-    0: "CONNECTED",
-    1: "DISCONNECTED",
-}
 
 type Session struct {
     // The websocket connection.
@@ -34,9 +30,17 @@ func (s *Session) Emit(messageType int, data []byte) bool {
 func (s *Session) ReadMessages() {
     for {
         t, msg, err := s.connection.ReadMessage()
+        m := string(msg[:])
         if err != nil {
             break
         }
-        fmt.Println("websocket", t, msg)
+        s.WriteMessage(t, msg)
+        fmt.Println("[receive]", m)
     }
 }
+
+func (s *Session) WriteMessage(messageType int, message []byte) error {
+    s.connection.SetWriteDeadline(time.Now().Add(writeWait))
+    return s.connection.WriteMessage(messageType, message)
+}
+

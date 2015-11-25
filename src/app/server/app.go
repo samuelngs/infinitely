@@ -96,7 +96,7 @@ func (app *App) Run() *App {
 }
 
 func (app *App) AttachWS() *App {
-    app.WebSocket = NewWebSocket()
+    app.WebSocket = CreateWebSocket()
     app.WebSocket.Bind(app)
     return app
 }
