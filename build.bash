@@ -83,7 +83,7 @@ case $1 in
         for GOOS in $PLATFORM; do
             for GOARCH in $ARCH; do
                 echo " Building bin/infinitely-$GOOS-$GOARCH"
-                GOOS=$GOOS GOARCH=$GOARCH go build -o bin/infinitely-$GOOS-$GOARCH src/main.go src/assets.go
+                GOOS=$GOOS GOARCH=$GOARCH go build -ldflags "-X main.Gitbranch=`git rev-parse --abbrev-ref HEAD` -X main.Githash=`git rev-parse HEAD` -X main.Buildstamp=`date -u '+%Y-%m-%d_%I:%M:%S%p'`" -o bin/infinitely-$GOOS-$GOARCH src/main.go src/assets.go
             done
         done
         ;;

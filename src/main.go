@@ -10,6 +10,11 @@ import (
     "github.com/infinitelyio/cli"
 )
 
+// build version
+var Githash,
+    Gitbranch,
+    Buildstamp string
+
 func main() {
     Run(os.Args)
 }
@@ -19,6 +24,8 @@ func Run(args []string) {
     app := cli.NewApp()
 	app.Name = "infinitely"
 	app.Usage = "A Re-brand infinitely written in GoLang"
+    app.Version = Gitbranch + "-" + Githash + " (" + Buildstamp + ")"
+    app.HideVersion = true
 
     verboseFlag := cli.BoolFlag{
         Name:  "verbose, v",
@@ -57,11 +64,9 @@ func RunServer(c *cli.Context) {
     app.Run()
 }
 
-var githash, gittag, buildstamp string
-
 func Version(c *cli.Context) {
-	fmt.Printf(`Git tag: %s
+	fmt.Printf(`Git branch: %s
 Git Commit Hash: %s
 UTC Build Time: %s
-`, gittag, githash, buildstamp)
+`, Gitbranch, Githash, Buildstamp)
 }
