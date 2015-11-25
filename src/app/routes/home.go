@@ -16,7 +16,7 @@ var HomeRoute = map[string] *server.Route {
 
     "GET[/online]": server.NewRoute("GET", "/online", func(c *gin.Context) {
         app := c.MustGet("app").(*server.App)
-        c.String(http.StatusOK, "Hello %d", app.WebSocket.Sessions.Count())
+        c.String(http.StatusOK, "Hello %d", app.WebSocket.Hub().Count())
     }),
 
 }
