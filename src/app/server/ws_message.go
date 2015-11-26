@@ -18,7 +18,7 @@ const (
 var types = [...]string {
     "publish",
     "subscribe",
-    "unscribe",
+    "unsubscribe",
     "disconnect",
 }
 
