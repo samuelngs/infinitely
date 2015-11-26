@@ -62,6 +62,7 @@ GEN_ASSETS() {
 }
 
 GOPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+export GOPATH=$GOPATH
 
 case $1 in
     dev)
