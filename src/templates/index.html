@@ -1,15 +1,51 @@
 <html>
-  <head>
+<head>
     <title>Testing</title>
-  </head>
+</head>
 
-  <body>
+<body>
+    <input id="input" type="text">
+    <button id="submit">Send Message</button>
+    <div id="display"></div>
+</body>
 
-    <script>
-      var url = 'ws://127.0.0.1:3000/sync';
-      var ws = new WebSocket(url);
-      console.log('test')
-    </script>
+<script>
 
-  </body>
+    var url = 'ws://127.0.0.1:3000/sync';
+    var ws = new WebSocket(url);
+
+    var btn = document.querySelector('#submit'),
+        ipt = document.querySelector('#input'),
+        dsp = document.querySelector('#display');
+
+    var append = function(type, msg) {
+        var el = document.createElement('p'),
+            t  = document.createTextNode('[' + type + '] ' + ipt.value);
+        el.appendChild(t);
+        dsp.appendChild(el);
+    }
+
+    var send = function(e) {
+        if (typeof ipt.value === 'string' && ipt.value.trim().length > 0) {
+            ws.send(ipt.value);
+            append('SENT', ipt.value);
+        }
+    };
+
+    ws.addEventListener('message', function(msg) {
+        append('RECE', msg);
+    });
+
+    ipt.addEventListener('keydown', function(e) {
+        if (e.keyCode == 13) {
+            send(e);
+        }
+    });
+
+    btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        send(e);
+    });
+
+</script>
 </html>
