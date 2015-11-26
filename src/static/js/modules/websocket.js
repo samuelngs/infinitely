@@ -32,8 +32,12 @@
 
     WebSocket.prototype.send = function(msg) {
         var data = {
-            type: 'message',
-            data: msg
+            cid: 0,
+            type: 'publish',
+            data: {
+                channel: '',
+                data: msg
+            }
         };
         this.ws.send(JSON.stringify(data));
     };
