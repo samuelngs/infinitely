@@ -29,13 +29,16 @@ func (s *Session) Emit(messageType int, data []byte) bool {
 
 func (s *Session) ReadMessages() {
     for {
-        t, msg, err := s.connection.ReadMessage()
-        m := string(msg[:])
+        t, json, err := s.connection.ReadMessage()
         if err != nil {
             break
         }
-        s.WriteMessage(t, msg)
-        fmt.Println("[receive]", m)
+        m, err := ParseMessage(json)
+        if err != nil {
+            s.WriteMessage(t, []byte(err.Error()))
+        }
+        // s.WriteMessage(t, json)
+        fmt.Println("[receive]", m, err)
     }
 }
 
