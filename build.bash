@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
+
 section() {
     if [ ! -z "$1" ]; then
         echo
