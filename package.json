@@ -1,0 +1,32 @@
+{
+    "name": "infinitely-v2",
+    "description": "A re-brand infinitely website written in Go language",
+    "author": "Samuel Ng",
+    "license": "GPL-3.0",
+    "homepage": "https://github.com/samuelngs/infinitely#readme",
+    "main": "gulpfile.js",
+    "scripts": {
+        "start": "./build.bash assets"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/samuelngs/infinitely.git"
+    },
+    "keywords": [
+        "infinitely",
+        "re-brand",
+        "util"
+    ],
+    "bugs": {
+        "url": "https://github.com/samuelngs/infinitely/issues"
+    },
+    "devDependencies": {
+        "gulp": "*",
+        "gulp-callback": "*",
+        "gulp-concat": "*",
+        "gulp-less": "*",
+        "gulp-uglify": "*",
+        "gulp-minify-css": "*",
+        "yargs": "*"
+    }
+}
