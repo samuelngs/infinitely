@@ -123,7 +123,7 @@ case $1 in
         GOPATH=$GOPATH bin/infinitely-$PLATFORM-$ARCH start
         ;;
     clean)
-        rm -rf bin pkg src/golang.org src/gopkg.in src/github.com src/assets.go src/static/styles/*.css src/static/js/_*.js
+        rm -rf bin pkg src/golang.org src/gopkg.in src/github.com src/assets.go src/static/styles/*.css src/static/js/*.min.js
         ;;
     all)
         ./$0 build
