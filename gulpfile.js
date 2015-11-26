@@ -19,7 +19,12 @@ gulp.task('build-css', function() {
 
 gulp.task('build-js', function(cb) {
     return gulp.src([
-        'src/static/js/**/*.js',
+        'src/static/js/root.js',
+        'src/static/js/polyfill/**/*.js',
+        'src/static/js/vender/**/*.js',
+        'src/static/js/core/**/*.js',
+        'src/static/js/modules/**/*.js',
+        'src/static/js/views/**/*.js',
         '!src/static/js/**/*.min.js'
     ])
     .pipe(argv.development ? callback(function() {}) : uglify())
