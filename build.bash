@@ -38,7 +38,7 @@ GEN_ASSETS() {
         echo "[ notice ] please install npm"
         exit 0
     fi
-    if [ ! -f node_modules/.bin/gulp ]; then
+    if [ ! -d node_modules ] || [ ! -d node_modules/.bin ] || [ ! -f node_modules/.bin/gulp ]; then
         npm install
     fi
     if [[ $BUILD_TARGET == "development" ]]; then
@@ -123,7 +123,7 @@ case $1 in
         GOPATH=$GOPATH bin/infinitely-$PLATFORM-$ARCH start
         ;;
     clean)
-        rm -rf bin pkg src/golang.org src/gopkg.in src/github.com src/assets.go src/static/styles/*.css src/static/js/*.min.js
+        rm -rf bin pkg node_module src/golang.org src/gopkg.in src/github.com src/assets.go src/static/styles/*.css src/static/js/*.min.js
         ;;
     all)
         ./$0 build
