@@ -27,6 +27,12 @@
         "gulp-less": "*",
         "gulp-uglify": "*",
         "gulp-minify-css": "*",
+        "gulp-jshint": "*",
+        "jshint-stylish": "*",
         "yargs": "*"
+    },
+    "jshint": {
+        "expr": true,
+        "laxcomma": true
     }
 }

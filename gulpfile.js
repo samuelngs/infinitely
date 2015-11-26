@@ -6,7 +6,19 @@ var argv      = require('yargs').argv,
     concat    = require('gulp-concat'),
     uglify    = require('gulp-uglify'),
     less      = require('gulp-less'),
-    minifycss = require('gulp-minify-css');
+    minifycss = require('gulp-minify-css'),
+    jshint    = require('gulp-jshint'),
+    stylish   = require('jshint-stylish');
+
+gulp.task('lint', function() {
+    return gulp.src([
+        'src/static/js/**/*.js',
+        '!src/static/js/**/*.min.js'
+    ])
+    .pipe(jshint(require('./package.json').jshint))
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'));
+});
 
 gulp.task('build-css', function() {
     return gulp.src([
@@ -17,7 +29,7 @@ gulp.task('build-css', function() {
     .pipe(gulp.dest('src/static/styles'));
 });
 
-gulp.task('build-js', function(cb) {
+gulp.task('build-js', ['lint'], function(cb) {
     return gulp.src([
         'src/static/js/root.js',
         'src/static/js/polyfill/**/*.js',
