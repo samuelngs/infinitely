@@ -1,10 +1,9 @@
 
 ;(function() {
 
-    var app = this;
-
     var Base = function Base(options) {
         'use strict';
+        EventEmitter.call(this);
         // Set options to an empty object if passed options is empty
         if (typeof options !== 'object') {
             options = {};
@@ -20,15 +19,15 @@
         }
     };
 
-    Base.is = function() {
-        console.log('scope', this);
-    };
-
     Base.prototype = Object.create(EventEmitter.prototype);
     Base.prototype.constructor = Base;
 
+    Base.prototype.is = function(_class, scope) {
+        return (scope || this) instanceof (_class || this.constructor);
+    };
+
     Base.prototype.get = function(key) {
-        Base.is();
+        if (!this.is(Base)) return;
         if (typeof key === 'string') {
             return this.attributes[key];
         }
@@ -36,14 +35,14 @@
     };
 
     Base.prototype.set = function(key, value) {
-        Base.is();
+        if (!this.is(Base)) return;
         if (typeof key === 'string') {
             this.attributes[key] = value;
         }
         return this;
     };
 
-    global.App.Core.Base = Base;
+    App.Core.Base = Base;
 
 }.call(this || window));
 
