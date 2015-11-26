@@ -63,6 +63,12 @@ func Create(opts ...AppOptions) *App {
         Prefix:   "static",
     })
 
+    // Map app struct to access from request handlers
+    // and middlewares
+    app.Engine.Use(func(c *gin.Context) {
+        c.Set("app", app)
+    })
+
     // Redirect favicon url
     app.Engine.GET("/favicon.ico", func(c *gin.Context) {
         c.Redirect(301, "/static/images/favicon.png")

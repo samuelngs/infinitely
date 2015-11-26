@@ -1,8 +1,6 @@
 package server
 
 import (
-    "time"
-
     "github.com/gin-gonic/gin"
 )
 
@@ -16,7 +14,6 @@ func (api *API) Bind(group *gin.RouterGroup) {
 // ConfHandler handle the app config, for example
 func (api *API) ConfHandler(c *gin.Context) {
     app := c.MustGet("app").(*App)
-    <-time.After(time.Millisecond * 500)
     c.JSON(200, app.Conf.Root)
 }
 
