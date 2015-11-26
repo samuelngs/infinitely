@@ -1,5 +1,5 @@
 
-(function() {
+;(function() {
 
     var app = this;
 
@@ -12,5 +12,5 @@
 
     global.App.Module.WebSocket = WebSocket;
 
-}.call(this || window))
+}.call(this || window));
 
