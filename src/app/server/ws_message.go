@@ -1,7 +1,6 @@
 package server
 
 import (
-    "fmt"
     "errors"
     "encoding/json"
 )
@@ -9,7 +8,7 @@ import (
 type Type int
 
 const (
-    MSG_PUBLISH Type = 1 + iota
+    MSG_PUBLISH Type = iota
     MSG_SUBSCRIBE
     MSG_UNSUBSCRIBE
     MSG_DISCONNECT
@@ -23,22 +22,18 @@ var types = [...]string {
 }
 
 func (t Type) String() string {
-    return types[t - 1]
-}
-
-func (t Type) UnmarshalJSON(data []byte) error {
-    s := string(data[:])
-    fmt.Println(s)
-    return nil
+    return types[t]
 }
 
 type Message struct {
-    Cid  int `json:"cid"`
-    Event Type `json:"event"`
-    Data struct {
-        Channel string `json:"channel"`
-        Data    string `json:"data"`
-    } `json:"data"`
+    Cid  int `json:"cid,omitempty"`
+    Event Type `json:"event,omitempty"`
+    Data Data `json:"data"`
+}
+
+type Data struct {
+    Channel string `json:"channel"`
+    Data    interface{} `json:"data"`
 }
 
 func ParseMessage(t []byte) (*Message, error) {
@@ -56,9 +51,14 @@ func (m *Message) validate() error {
     switch m.Event {
     case MSG_PUBLISH, MSG_SUBSCRIBE, MSG_UNSUBSCRIBE, MSG_DISCONNECT:
     default:
-        fmt.Println(m.Event)
         return errors.New("invalid message type")
     }
     return nil
 }
+
+func (m *Message) toJSON() ([]byte, error) {
+    o, err := json.Marshal(m)
+    return o, err
+}
+
 

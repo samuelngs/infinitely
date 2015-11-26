@@ -20,6 +20,7 @@ func (h *Hub) Bind(conn *websocket.Conn) *Session {
     if session == nil {
         session = &Session {
             connection: conn,
+            cid: 0,
         }
         h.connections[conn] = session
     }
