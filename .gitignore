@@ -32,5 +32,8 @@ _testmain.go
 # Compiled stylesheets file
 *.css
 
+# Compiled javascript file
+*.min.js
+
 release
 bin
