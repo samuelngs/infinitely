@@ -63,12 +63,7 @@ func Create(opts ...AppOptions) *App {
         Prefix:   "static",
     })
 
-    // Map app struct to access from request handlers
-    // and middlewares
-    app.Engine.Use(func(c *gin.Context) {
-        c.Set("app", app)
-    })
-
+    // Redirect favicon url
     app.Engine.GET("/favicon.ico", func(c *gin.Context) {
         c.Redirect(301, "/static/images/favicon.png")
     })
@@ -101,29 +96,13 @@ func (app *App) AttachWS() *App {
     return app
 }
 
-func (app *App) AttachRoutes(args ...map[string]*Route) *App {
+func (app *App) AttachRoutes(args ...[]*Route) *App {
     for _, arg := range args {
         for _, r := range arg {
-            app.AddRoute(r)
+            app.Engine.Handle(r.Method, r.URI, func(c *gin.Context) {
+                r.Callback(app, c)
+            })
         }
-    }
-    return app
-}
-
-func (app *App) AddRoute(route *Route) *App {
-    switch {
-    case route.Method == "GET":
-        app.Engine.GET(route.URI, route.Callback)
-    case route.Method == "POST":
-        app.Engine.POST(route.URI, route.Callback)
-    case route.Method == "PUT":
-        app.Engine.PUT(route.URI, route.Callback)
-    case route.Method == "PATCH":
-        app.Engine.PATCH(route.URI, route.Callback)
-    case route.Method == "DELETE":
-        app.Engine.DELETE(route.URI, route.Callback)
-    case route.Method == "OPTIONS":
-        app.Engine.OPTIONS(route.URI, route.Callback)
     }
     return app
 }

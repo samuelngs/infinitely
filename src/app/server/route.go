@@ -16,10 +16,10 @@ var RouteMethods = []string{
 type Route struct {
     Method string
     URI string
-    Callback gin.HandlerFunc
+    Callback func(app *App, c *gin.Context)
 }
 
-func NewRoute(method string, uri string, callback gin.HandlerFunc) *Route {
+func NewRoute(method string, uri string, callback func(app *App, c *gin.Context)) *Route {
     route := &Route{
         Method  : method,
         URI     : uri,
