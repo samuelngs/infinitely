@@ -1,6 +1,7 @@
 <html>
 <head>
     <title>Testing</title>
+    <script src="static/js/app.min.js"></script>
 </head>
 
 <body>
@@ -11,8 +12,7 @@
 
 <script>
 
-    var url = 'ws://127.0.0.1:3000/sync';
-    var ws = new WebSocket(url);
+    var ws = new App.Module.WebSocket('ws://127.0.0.1:3000/sync');
 
     var btn = document.querySelector('#submit'),
         ipt = document.querySelector('#input'),
@@ -32,7 +32,9 @@
         }
     };
 
-    ws.addEventListener('message', function(msg) {
+
+    ws.on('message', function(msg) {
+        console.log(msg);
         append('RECE', msg);
     });
 
