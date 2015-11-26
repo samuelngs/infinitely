@@ -34,6 +34,19 @@ _PLATFORM() {
 
 GEN_ASSETS() {
     ASSETS_PATH=
+    if ! which npm > /dev/null; then
+        echo "[ notice ] please install npm"
+        exit 0
+    fi
+    if [ ! -f node_modules/.bin/gulp ]; then
+        npm install
+    fi
+    if [[ $BUILD_TARGET == "development" ]]; then
+        node_modules/.bin/gulp --development
+    else
+        node_modules/.bin/gulp
+    fi
+    echo
     if [ ! -f $GOPATH/bin/go-bindata ]; then
         go get -u github.com/jteeuwen/go-bindata/...
     fi
@@ -110,7 +123,7 @@ case $1 in
         GOPATH=$GOPATH bin/infinitely-$PLATFORM-$ARCH start
         ;;
     clean)
-        rm -rf bin pkg src/golang.org src/gopkg.in src/github.com src/assets.go
+        rm -rf bin pkg src/golang.org src/gopkg.in src/github.com src/assets.go src/static/styles/*.css src/static/js/_*.js
         ;;
     all)
         ./$0 build
