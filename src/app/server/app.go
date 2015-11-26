@@ -105,8 +105,9 @@ func (app *App) AttachWS() *App {
 func (app *App) AttachRoutes(args ...[]*Route) *App {
     for _, arg := range args {
         for _, r := range arg {
-            app.Engine.Handle(r.Method, r.URI, func(c *gin.Context) {
-                r.Callback(app, c)
+            o := r
+            app.Engine.Handle(o.Method, o.URI, func(c *gin.Context) {
+                o.Callback(app, c)
             })
         }
     }

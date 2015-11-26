@@ -15,5 +15,8 @@ var HomeRoute = []*server.Route{
     server.NewRoute("GET", "/online", func(app *server.App, c *gin.Context) {
         c.String(http.StatusOK, "Hello %d", app.WebSocket.Hub().Count())
     }),
+    server.NewRoute("GET", "/test", func(app *server.App, c *gin.Context) {
+        c.String(http.StatusOK, "lol")
+    }),
 }
 
