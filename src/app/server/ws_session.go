@@ -2,7 +2,6 @@ package server
 
 import (
     "fmt"
-    "time"
     "errors"
 
     "github.com/gorilla/websocket"
@@ -70,7 +69,6 @@ func (s *Session) WriteMessage(messageType int, m *Message) error {
     if m == nil {
         return errors.New("message is empty")
     }
-    s.connection.SetWriteDeadline(time.Now().Add(writeWait))
     s.cid += 1
     m.Cid = s.cid
     m.Event = MSG_PUBLISH

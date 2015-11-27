@@ -68,6 +68,13 @@ func (ws *WebSocket) Handler(w http.ResponseWriter, r *http.Request) {
         defer func() {
             s.UnBind(conn)
         }()
+        conn.SetReadLimit(maxMessageSize)
+        conn.SetWriteDeadline(time.Now().Add(writeWait))
+        conn.SetReadDeadline(time.Now().Add(pongWait))
+        conn.SetPongHandler(func(string) error {
+            conn.SetReadDeadline(time.Now().Add(pongWait))
+            return nil
+        })
         s.Bind(conn).ReadMessages()
     }
 }
