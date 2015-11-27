@@ -9,20 +9,13 @@ func (c *Channel) AllSessions() []*Session {
 }
 
 func (c *Channel) Subscribe(s *Session) bool {
-    defer func() bool {
-        return false
-    }()
-    f := c.IsSubscribed(s)
-    if !f {
+    if t := c.IsSubscribed(s); !t {
         c.sessions = append(c.sessions, s)
     }
     return true
 }
 
 func (c *Channel) Unsubscribe(s *Session) bool {
-    defer func() bool {
-        return false
-    }()
     l := c.sessions
     i := -1
     for idx, session := range l {
@@ -39,12 +32,9 @@ func (c *Channel) Unsubscribe(s *Session) bool {
 }
 
 func (c *Channel) IsSubscribed(s *Session) bool {
-    defer func() bool {
-        return false
-    }()
     l := c.sessions
-    for _, session := range l {
-        if session == s {
+    for _, _s := range l {
+        if _s == s {
             return true
         }
     }
@@ -58,4 +48,11 @@ func (c *Channel) Send(t int, m *Message) {
     }
 }
 
-
+func (c *Channel) Broadcast(t int, m *Message, s *Session) {
+    l := c.sessions
+    for _, _s := range l {
+        if _s != s {
+            _s.WriteMessage(t, m)
+        }
+    }
+}

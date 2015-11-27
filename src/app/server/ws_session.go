@@ -9,16 +9,12 @@ import (
 )
 
 type Session struct {
+    // hub
+    hub *Hub
     // The websocket connection.
     connection *websocket.Conn
     // cid (count sent msg)
     cid int
-}
-
-func NewSession(conn *websocket.Conn) *Session {
-    return &Session {
-        connection: conn,
-    }
 }
 
 func (s *Session) Emit(messageType int, data []byte) bool {
@@ -39,9 +35,31 @@ func (s *Session) ReadMessages() {
         m, err := ParseMessage(json)
         if err != nil {
             s.WriteMessage(t, ErrorMessage(err))
+        } else {
+            switch m.Event {
+            case MSG_PUBLISH:
+                name := m.Data.Channel
+                l := len(name)
+                r := s.hub.IsSubscribed(name, s)
+                if l > 0 && r {
+                    s.WriteMessage(t, m)
+                    c := s.hub.Channel(name)
+                    c.Broadcast(t, m, s)
+                }
+            case MSG_SUBSCRIBE:
+                name := m.Data.Channel
+                l := len(name)
+                if l > 0 {
+                    s.hub.Subscribe(name, s)
+                }
+            case MSG_UNSUBSCRIBE:
+                name := m.Data.Channel
+                l := len(name)
+                if l > 0 {
+                    s.hub.Unsubscribe(name, s)
+                }
+            }
         }
-        s.WriteMessage(t, m)
-        // fmt.Println("[receive]", m, err)
     }
 }
 

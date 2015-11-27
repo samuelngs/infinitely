@@ -5,6 +5,7 @@ import (
     "errors"
     "encoding/gob"
     "encoding/json"
+    "strings"
 )
 
 type Type int
@@ -15,6 +16,7 @@ const (
     MSG_UNSUBSCRIBE
     MSG_DISCONNECT
     MSG_ERROR
+    MSG_UNKNOWN
 )
 
 var types = [...]string {
@@ -23,10 +25,30 @@ var types = [...]string {
     "unsubscribe",
     "disconnect",
     "error",
+    "unknown",
 }
 
 func (t Type) String() string {
     return types[t]
+}
+
+func (t *Type) UnmarshalJSON(b []byte) (err error) {
+    m := strings.Trim(string(b[:]), `"`)
+    switch m {
+    case types[0]:
+        *t = MSG_PUBLISH
+    case types[1]:
+        *t = MSG_SUBSCRIBE
+    case types[2]:
+        *t = MSG_UNSUBSCRIBE
+    case types[3]:
+        *t = MSG_DISCONNECT
+    case types[4]:
+        *t = MSG_ERROR
+    default:
+        *t = MSG_UNKNOWN
+    }
+    return nil
 }
 
 func (t *Type) MarshalJSON() ([]byte, error) {

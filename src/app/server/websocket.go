@@ -44,16 +44,18 @@ type WebSocket struct {
 
 func CreateWebSocket() *WebSocket {
     h := &Hub {
+        nil,
         map[*websocket.Conn]*Session {},
         map[string]*Channel {},
     }
     ws := &WebSocket {
-        upgrader: websocket.Upgrader {
+        websocket.Upgrader {
             ReadBufferSize:  1024,
             WriteBufferSize: 1024,
         },
-        hub: h,
+        h,
     }
+    h.ws = ws
     return ws
 }
 

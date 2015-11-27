@@ -5,6 +5,8 @@ import (
 )
 
 type Hub struct {
+    // websocket
+    ws *WebSocket
     // Registered connections.
     connections map[*websocket.Conn]*Session
     // Registered channels
@@ -19,6 +21,7 @@ func (h *Hub) Bind(conn *websocket.Conn) *Session {
     session := h.Get(conn)
     if session == nil {
         session = &Session {
+            hub: h,
             connection: conn,
             cid: 0,
         }
@@ -42,20 +45,21 @@ func (h *Hub) Clear() *Hub {
     return h
 }
 
-func (h *Hub) Count() int {
+func (h *Hub) Len() int {
     return len(h.connections)
 }
 
-func (h *Hub) ChannelsCount() int {
-    return len(h.channels)
+func (h *Hub) Channel(name string) *Channel {
+    return h.channels[name]
 }
 
 func (h *Hub) Subscribe(name string, s *Session) *Channel {
     c := h.channels[name]
     if c == nil {
         c = &Channel{
-            []*Session {s},
+            []*Session {},
         }
+        h.channels[name] = c
     }
     c.Subscribe(s)
     return c
@@ -67,6 +71,14 @@ func (h *Hub) Unsubscribe(name string, s *Session) bool {
         return true
     } else {
         return c.Unsubscribe(s)
+    }
+    return false
+}
+
+func (h *Hub) IsSubscribed(name string, s *Session) bool {
+    c := h.channels[name]
+    if c != nil {
+        return c.IsSubscribed(s)
     }
     return false
 }
