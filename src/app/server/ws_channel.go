@@ -51,10 +51,10 @@ func (c *Channel) IsSubscribed(s *Session) bool {
     return false
 }
 
-func (c *Channel) Send(mt int, msg []byte) {
+func (c *Channel) Send(t int, m *Message) {
     l := c.sessions
     for _, s := range l {
-        s.WriteMessage(mt, msg)
+        s.WriteMessage(t, m)
     }
 }
 
