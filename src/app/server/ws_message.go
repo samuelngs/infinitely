@@ -68,7 +68,7 @@ func ErrorMessage(e error) (*Message) {
 
 func (m *Message) validate() error {
     switch m.Event {
-    case MSG_PUBLISH, MSG_SUBSCRIBE, MSG_UNSUBSCRIBE, MSG_DISCONNECT:
+    case MSG_PUBLISH, MSG_SUBSCRIBE, MSG_UNSUBSCRIBE, MSG_DISCONNECT, MSG_ERROR:
     default:
         return errors.New("invalid message type")
     }
