@@ -33,14 +33,34 @@
         this.emit('message', msg);
     };
 
-    WebSocket.prototype.send = function(msg) {
+    WebSocket.prototype._incCID = function() {
         this.set('cid', this.get('cid') + 1);
+    };
+
+    WebSocket.prototype.send = function(channel, msg) {
+        this._incCID();
+        if (typeof channel === 'string' && typeof msg === 'undefined') {
+            msg = channel;
+            channel = '';
+        }
         var data = {
             cid: this.get('cid'),
-            type: 'publish',
+            event: 'publish',
             data: {
-                channel: '',
+                channel: channel,
                 data: msg
+            }
+        };
+        this.get('ws').send(JSON.stringify(data));
+    };
+
+    WebSocket.prototype.subscribe = function(name, callback) {
+        this._incCID();
+        var data = {
+            cid: this.get('cid'),
+            event: 'subscribe',
+            data: {
+                channel: name
             }
         };
         this.get('ws').send(JSON.stringify(data));

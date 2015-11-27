@@ -5,6 +5,8 @@
 </head>
 
 <body>
+    <input id="channel" type="text">
+    <button id="join">Join</button>
     <input id="input" type="text">
     <button id="submit">Send Message</button>
     <div id="display"></div>
@@ -13,6 +15,9 @@
 <script>
 
     var ws = new App.Module.WebSocket('ws://127.0.0.1:3000/sync');
+
+    var channel = document.querySelector('#channel'),
+        join = document.querySelector('#join');
 
     var btn = document.querySelector('#submit'),
         ipt = document.querySelector('#input'),
@@ -23,19 +28,34 @@
             t  = document.createTextNode('[' + type + '] ' + ipt.value);
         el.appendChild(t);
         dsp.appendChild(el);
-    }
+    };
+
+    var subscribe = function(e) {
+        if (typeof channel.value === 'string' && channel.value.trim().length > 0) {
+            ws.subscribe(channel.value);
+        }
+    };
 
     var send = function(e) {
         if (typeof ipt.value === 'string' && ipt.value.trim().length > 0) {
-            ws.send(ipt.value);
+            ws.send(channel.value, ipt.value);
             append('SENT', ipt.value);
         }
     };
 
-
     ws.on('message', function(msg) {
-        console.log(msg);
+        console.log(msg)
         append('RECE', msg);
+    });
+
+    channel.addEventListener('keydown', function(e) {
+        if (e.keyCode == 13) {
+            subscribe();
+        }
+    });
+
+    join.addEventListener('click', function(e) {
+        subscribe();
     });
 
     ipt.addEventListener('keydown', function(e) {
