@@ -7,6 +7,8 @@
 <body>
     <input id="channel" type="text">
     <button id="join">Join</button>
+    <button id="left">Left</button>
+    <input id="command" type="text">
     <input id="input" type="text">
     <button id="submit">Send Message</button>
     <div id="display"></div>
@@ -17,9 +19,11 @@
     var ws = new App.Module.WebSocket('ws://127.0.0.1:3000/sync');
 
     var channel = document.querySelector('#channel'),
-        join = document.querySelector('#join');
+        join = document.querySelector('#join'),
+        left = document.querySelector('#left');
 
-    var btn = document.querySelector('#submit'),
+    var cmd = document.querySelector('#command'),
+        btn = document.querySelector('#submit'),
         ipt = document.querySelector('#input'),
         dsp = document.querySelector('#display');
 
@@ -36,9 +40,16 @@
         }
     };
 
+    var unsubscribe = function(e) {
+        if (typeof channel.value === 'string' && channel.value.trim().length > 0) {
+            ws.unsubscribe(channel.value);
+        }
+    };
+
     var send = function(e) {
-        if (typeof ipt.value === 'string' && ipt.value.trim().length > 0) {
-            ws.send(channel.value, ipt.value);
+        if (typeof ipt.value === 'string' && ipt.value.trim().length > 0 &&
+            typeof cmd.value === 'string' && cmd.value.trim().length > 0) {
+            ws.channel(channel.value).send(cmd.value, ipt.value);
             append('SENT', ipt.value);
         }
     };
@@ -56,6 +67,10 @@
 
     join.addEventListener('click', function(e) {
         subscribe();
+    });
+
+    left.addEventListener('click', function(e) {
+        unsubscribe();
     });
 
     ipt.addEventListener('keydown', function(e) {
