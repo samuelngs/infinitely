@@ -50,7 +50,6 @@ func (c *Channel) Queue() {
                     if err := c.event.Run(m.Data.Event, m, q.session); err != nil {
                         fmt.Println(err.Error())
                     }
-                default:
                 }
             }
         }
