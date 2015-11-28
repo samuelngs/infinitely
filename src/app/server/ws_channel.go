@@ -22,16 +22,32 @@ func (c *Channel) Queue() {
             if m, ok := q.object.(*Message); ok {
                 switch m.Event {
                 case MSG_SUBSCRIBE:
-                    c.subscribe(q.session)
+                    if success := c.subscribe(q.session); success {
+                        if j, err := m.Reply(true); err == nil {
+                            q.session.emit(TextMessage, j)
+                        }
+                    } else {
+                        if j, err := m.Reply(false); err == nil {
+                            q.session.emit(TextMessage, j)
+                        }
+                    }
                 case MSG_UNSUBSCRIBE:
-                    c.unsubscribe(q.session)
+                    if success := c.unsubscribe(q.session); success {
+                        if j, err := m.Reply(true); err == nil {
+                            q.session.emit(TextMessage, j)
+                        }
+                    } else {
+                        if j, err := m.Reply(false); err == nil {
+                            q.session.emit(TextMessage, j)
+                        }
+                    }
                     if rm := len(c.sessions) == 0; rm {
                         if h, ok:= q.args.(*Hub); ok {
                             delete(h.channels, c.name)
                         }
                     }
                 case MSG_PUBLISH:
-                    if err := c.event.Run(m.Data.Event, q.session); err != nil {
+                    if err := c.event.Run(m.Data.Event, m, q.session); err != nil {
                         fmt.Println(err.Error())
                     }
                 default:
@@ -44,17 +60,15 @@ func (c *Channel) Queue() {
 func (c *Channel) subscribe(s *Session) bool {
     if t := c.isSubscribed(s); !t {
         c.sessions = append(c.sessions, s)
-        fmt.Println("subscribe me")
         return true
     }
-    return true
+    return false
 }
 
 func (c *Channel) unsubscribe(s *Session) bool {
     for i, _s := range c.sessions {
 		if _s == s {
 			c.sessions = append(c.sessions[:i], c.sessions[i+1:]...)
-            fmt.Println("unsubscribe me")
             return true
 		}
 	}

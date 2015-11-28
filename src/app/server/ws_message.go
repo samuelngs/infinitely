@@ -57,6 +57,7 @@ func (t *Type) MarshalJSON() ([]byte, error) {
 
 type Message struct {
     Cid  int `json:"cid,omitempty"`
+    Rid  int `json:"rid,omitempty"`
     Event Type `json:"event"`
     Data Data `json:"data"`
 }
@@ -65,6 +66,24 @@ type Data struct {
     Channel string `json:"channel,omitempty"`
     Event   string `json:"event,omitempty"`
     Data    interface{} `json:"data,omitempty"`
+}
+
+func Compose(channel string, command string, data string) ([]byte, error) {
+    d := &Data{
+        Data   : data,
+    }
+    if channel != "" {
+        d.Channel = channel
+    }
+    if command != "" {
+        d.Event = command
+    }
+    m := &Message{
+        Event: MSG_PUBLISH,
+        Data : *d,
+    }
+    j, err := m.toJSON()
+    return j, err
 }
 
 func ParseMessage(t []byte) (*Message, error) {
@@ -96,6 +115,21 @@ func (m *Message) validate() error {
         return errors.New("invalid message type")
     }
     return nil
+}
+
+func (m *Message) Reply(data interface{}) ([]byte, error) {
+    d := &Data{
+        Data   : data,
+    }
+    d.Channel = m.Data.Channel
+    d.Event = m.Data.Event
+    n := &Message{
+        Rid  : m.Cid,
+        Event: m.Event,
+        Data : *d,
+    }
+    j, err := n.toJSON()
+    return j, err
 }
 
 func (m *Message) toJSON() ([]byte, error) {
