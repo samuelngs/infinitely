@@ -87,10 +87,10 @@
         ws.get('ws').send(msg.toJSON());
         // callback if available
         ws.get('callbacks')[cid] = function(msg, complete) {
-            var status = msg.data.data;
+            var status = msg.data.data.subscribed;
             this.set('connected', status);
             if (typeof callback === 'function') {
-                callback.call(this, status, complete);
+                callback.call(this, msg, complete);
             }
         }.bind(this);
     };
@@ -112,10 +112,10 @@
         ws.get('ws').send(msg.toJSON());
         // callback if available
         ws.get('callbacks')[cid] = function(msg, complete) {
-            var status = msg.data.data;
+            var status = msg.data.data.subscribed;
             this.set('connected', status);
             if (typeof callback === 'function') {
-                callback.call(this, status, complete);
+                callback.call(this, msg, complete);
             }
         }.bind(this);
     };
