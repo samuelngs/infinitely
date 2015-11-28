@@ -56,16 +56,23 @@ func (t *Type) MarshalJSON() ([]byte, error) {
 }
 
 type Message struct {
-    Cid  int `json:"cid,omitempty"`
-    Rid  int `json:"rid,omitempty"`
+    Cid   int `json:"cid,omitempty"`
+    Rid   int `json:"rid,omitempty"`
     Event Type `json:"event"`
-    Data Data `json:"data"`
+    Data  Data `json:"data"`
 }
 
 type Data struct {
     Channel string `json:"channel,omitempty"`
     Event   string `json:"event,omitempty"`
     Data    interface{} `json:"data,omitempty"`
+}
+
+type Result struct {
+    Name       string `json:"name,omitempty"`
+    Error      string `json:"error,omitempty"`
+    Subscribed bool `json:"subscribed"`
+    Success    bool `json:"success"`
 }
 
 func Compose(channel string, command string, data string) ([]byte, error) {
