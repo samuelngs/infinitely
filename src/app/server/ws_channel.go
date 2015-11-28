@@ -2,6 +2,7 @@ package server
 
 import (
     "fmt"
+    "errors"
 )
 
 type Channel struct {
@@ -22,24 +23,22 @@ func (c *Channel) Queue() {
             if m, ok := q.object.(*Message); ok {
                 switch m.Event {
                 case MSG_SUBSCRIBE:
-                    if success := c.subscribe(q.session); success {
-                        if j, err := m.Reply(true); err == nil {
-                            q.session.emit(TextMessage, j)
-                        }
-                    } else {
-                        if j, err := m.Reply(false); err == nil {
-                            q.session.emit(TextMessage, j)
-                        }
+                    subscribed, success, err:= c.subscribe(q.session);
+                    r := &Result{Name: m.Data.Channel, Subscribed: subscribed, Success: success}
+                    if err != nil {
+                        r.Error = err.Error()
+                    }
+                    if j, err := m.Reply(r); err == nil {
+                        q.session.emit(TextMessage, j)
                     }
                 case MSG_UNSUBSCRIBE:
-                    if success := c.unsubscribe(q.session); success {
-                        if j, err := m.Reply(true); err == nil {
-                            q.session.emit(TextMessage, j)
-                        }
-                    } else {
-                        if j, err := m.Reply(false); err == nil {
-                            q.session.emit(TextMessage, j)
-                        }
+                    subscribed, success, err:= c.unsubscribe(q.session);
+                    r := &Result{Name: m.Data.Channel, Subscribed: subscribed, Success: success}
+                    if err != nil {
+                        r.Error = err.Error()
+                    }
+                    if j, err := m.Reply(r); err == nil {
+                        q.session.emit(TextMessage, j)
                     }
                     if rm := len(c.sessions) == 0; rm {
                         if h, ok:= q.args.(*Hub); ok {
@@ -56,22 +55,30 @@ func (c *Channel) Queue() {
     }
 }
 
-func (c *Channel) subscribe(s *Session) bool {
+/**
+ * @return subscribed, success
+ */
+func (c *Channel) subscribe(s *Session) (bool, bool, error) {
     if t := c.isSubscribed(s); !t {
         c.sessions = append(c.sessions, s)
-        return true
+        return true, true, nil
+    } else {
+        return true, false, errors.New("channel was already subscribed")
     }
-    return false
+    return false, false, nil
 }
 
-func (c *Channel) unsubscribe(s *Session) bool {
+/**
+ * @return subscribed, success
+ */
+func (c *Channel) unsubscribe(s *Session) (bool, bool, error) {
     for i, _s := range c.sessions {
 		if _s == s {
 			c.sessions = append(c.sessions[:i], c.sessions[i+1:]...)
-            return true
+            return false, true, nil
 		}
 	}
-    return false
+    return false, false, errors.New("you have not subscribed to this channel")
 }
 
 func (c *Channel) isSubscribed(s *Session) bool {
