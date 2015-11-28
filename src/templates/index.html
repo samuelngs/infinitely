@@ -36,27 +36,37 @@
 
     var subscribe = function(e) {
         if (typeof channel.value === 'string' && channel.value.trim().length > 0) {
-            ws.subscribe(channel.value);
+            ws.subscribe(channel.value, function(success, complete) {
+                console.log('subscribed', success)
+            });
         }
     };
 
     var unsubscribe = function(e) {
         if (typeof channel.value === 'string' && channel.value.trim().length > 0) {
-            ws.unsubscribe(channel.value);
+            ws.unsubscribe(channel.value, function(success, complete) {
+                console.log('unsubscribed', success)
+            });
         }
     };
 
     var send = function(e) {
         if (typeof ipt.value === 'string' && ipt.value.trim().length > 0 &&
             typeof cmd.value === 'string' && cmd.value.trim().length > 0) {
-            ws.channel(channel.value).send(cmd.value, ipt.value);
+            ws.channel(channel.value).send(cmd.value, ipt.value, function(data, complete) {
+                console.log('callback', data);
+                complete();
+            });
             append('SENT', ipt.value);
         }
     };
 
     ws.on('message', function(msg) {
-        console.log(msg)
         append('RECE', msg);
+    });
+
+    ws.channel('network').on('message', function(msg) {
+        append('CHANNEL', msg.data.data);
     });
 
     channel.addEventListener('keydown', function(e) {
