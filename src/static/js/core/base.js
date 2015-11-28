@@ -42,6 +42,55 @@
         return this;
     };
 
+    Base.prototype.append = function(key, value) {
+        if (!this.is(Base)) return;
+        if (typeof key === 'string' && typeof value !== 'undefined') {
+            if (typeof this.attributes[key] === 'string' || typeof this.attributes[key] === 'number') {
+                this.attributes[key] += value;
+            } else if (typeof s.attributes[key] === 'object' && this.attributes[key] instanceof Array) {
+                this.attributes[key].push(value);
+            } else {
+                this.attributes[key] = value;
+            }
+        }
+        return this.attributes[key];
+    };
+
+    Base.prototype.log = function(str) {
+        var args;
+        if ((typeof str === 'string' && str.indexOf('{0}') == -1) || (typeof str !== 'string')) {
+            args = ['[' + this.constructor.name + ']'];
+            for (var i = 0; i < arguments.length; i++) {
+                args.push(arguments[i]);
+            }
+            console.log(args.join(''));
+        } else if (typeof str === 'string' && str.indexOf('{0}') > -1) {
+            args = arguments;
+            str = str.replace(/\{([0-9]+)\}/g, function (match, index) {
+                return args[parseInt(index) + 1];
+            });
+            console.log('[' + this.constructor.name + ']', str);
+        }
+        return this;
+    };
+
+    Base.prototype.throw = function(str) {
+        var args;
+        if ((typeof str === 'string' && str.indexOf('{0}') == -1) || (typeof str !== 'string')) {
+            args = ['[' + this.constructor.name + ']'];
+            for (var i = 0; i < arguments.length; i++) {
+                args.push(arguments[i]);
+            }
+            throw args.join(' ');
+        } else if (typeof str === 'string' && str.indexOf('{0}') > -1) {
+            args = arguments;
+            str = str.replace(/\{([0-9]+)\}/g, function (match, index) {
+                return args[parseInt(index) + 1];
+            });
+            throw ('[' + this.constructor.name + ']' + str);
+        }
+    };
+
     App.Core.Base = Base;
 
 }.call(this || window));
