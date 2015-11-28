@@ -62,8 +62,9 @@ type Message struct {
 }
 
 type Data struct {
-    Channel string `json:"channel,omitempt"`
-    Data    interface{} `json:"data,omitempt"`
+    Channel string `json:"channel,omitempty"`
+    Event   string `json:"event,omitempty"`
+    Data    interface{} `json:"data,omitempty"`
 }
 
 func ParseMessage(t []byte) (*Message, error) {

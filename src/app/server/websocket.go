@@ -1,7 +1,6 @@
 package server
 
 import (
-
     "fmt"
     "time"
     "net/http"
@@ -43,39 +42,42 @@ type WebSocket struct {
 }
 
 func CreateWebSocket() *WebSocket {
-    h := &Hub {
-        nil,
-        map[*websocket.Conn]*Session {},
-        map[string]*Channel {},
+    h := &Hub{
+        events      : make(map[string]*WebSocketEvent),
+        connections : make(map[*websocket.Conn]*Session),
+        channels    : make(map[string]*Channel),
+        broadcast   : make(chan *Queue),
+        register    : make(chan *Queue),
+        unregister  : make(chan *Queue),
+        subscribe   : make(chan *Queue),
+        unsubscribe : make(chan *Queue),
     }
     ws := &WebSocket {
-        websocket.Upgrader {
-            ReadBufferSize:  1024,
-            WriteBufferSize: 1024,
-        },
-        h,
+        upgrader: websocket.Upgrader {ReadBufferSize:  1024, WriteBufferSize: 1024,},
+        hub: h,
     }
-    h.ws = ws
+    h.WebSocket(ws)
+    h.AttachEvents(WSEventNetwork)
+    go h.Queue()
     return ws
 }
 
 func (ws *WebSocket) Handler(w http.ResponseWriter, r *http.Request) {
-    conn, err := ws.upgrader.Upgrade(w, r, nil)
+    c, err := ws.upgrader.Upgrade(w, r, nil)
     if err != nil {
         fmt.Println("Failed to set websocket upgrade:", err)
     } else {
-        s := ws.hub
+        h := ws.hub
+        s := &Session{send: make(chan []byte, 256), cid: 0, connection: c, hub: h}
+        q := &Queue{session: s, object: c}
         defer func() {
-            s.UnBind(conn)
+            h.unregister <- q
+            c.Close()
         }()
-        conn.SetReadLimit(maxMessageSize)
-        conn.SetWriteDeadline(time.Now().Add(writeWait))
-        conn.SetReadDeadline(time.Now().Add(pongWait))
-        conn.SetPongHandler(func(string) error {
-            conn.SetReadDeadline(time.Now().Add(pongWait))
-            return nil
-        })
-        s.Bind(conn).ReadMessages()
+        h.register <- q
+        go s.write()
+        s.config()
+        s.read()
     }
 }
 
@@ -83,9 +85,5 @@ func (ws *WebSocket) Bind(app *App) {
     app.Engine.GET("/sync", func(c *gin.Context) {
         ws.Handler(c.Writer, c.Request)
     });
-}
-
-func (ws *WebSocket) Hub() *Hub {
-    return ws.hub
 }
 

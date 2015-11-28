@@ -1,37 +1,67 @@
 package server
 
+import (
+    "fmt"
+)
+
 type Channel struct {
+    // Channel name
+    name string
+    // Channel registered events
+    event *WebSocketEvent
+    // Sessions list
     sessions []*Session
+	// Subscribe requests from the connections.
+	queue chan *Queue
 }
 
-func (c *Channel) AllSessions() []*Session {
-    return c.sessions
-}
-
-func (c *Channel) Subscribe(s *Session) bool {
-    if t := c.IsSubscribed(s); !t {
-        c.sessions = append(c.sessions, s)
-    }
-    return true
-}
-
-func (c *Channel) Unsubscribe(s *Session) bool {
-    l := c.sessions
-    i := -1
-    for idx, session := range l {
-        if session == s {
-            i = idx
+func (c *Channel) Queue() {
+    for {
+        select {
+        case q := <-c.queue:
+            if m, ok := q.object.(*Message); ok {
+                switch m.Event {
+                case MSG_SUBSCRIBE:
+                    c.subscribe(q.session)
+                case MSG_UNSUBSCRIBE:
+                    c.unsubscribe(q.session)
+                    if rm := len(c.sessions) == 0; rm {
+                        if h, ok:= q.args.(*Hub); ok {
+                            delete(h.channels, c.name)
+                        }
+                    }
+                case MSG_PUBLISH:
+                    if err := c.event.Run(m.Data.Event, q.session); err != nil {
+                        fmt.Println(err.Error())
+                    }
+                default:
+                }
+            }
         }
     }
-    if i > -1 {
-        n := l
-        n = append(n[:i], n[i+1:]...)
-        l = n
+}
+
+func (c *Channel) subscribe(s *Session) bool {
+    if t := c.isSubscribed(s); !t {
+        c.sessions = append(c.sessions, s)
+        fmt.Println("subscribe me")
+        return true
     }
     return true
 }
 
-func (c *Channel) IsSubscribed(s *Session) bool {
+func (c *Channel) unsubscribe(s *Session) bool {
+    for i, _s := range c.sessions {
+		if _s == s {
+			c.sessions = append(c.sessions[:i], c.sessions[i+1:]...)
+            fmt.Println("unsubscribe me")
+            return true
+		}
+	}
+    return false
+}
+
+func (c *Channel) isSubscribed(s *Session) bool {
     l := c.sessions
     for _, _s := range l {
         if _s == s {
@@ -39,20 +69,4 @@ func (c *Channel) IsSubscribed(s *Session) bool {
         }
     }
     return false
-}
-
-func (c *Channel) Send(t int, m *Message) {
-    l := c.sessions
-    for _, s := range l {
-        s.WriteMessage(t, m)
-    }
-}
-
-func (c *Channel) Broadcast(t int, m *Message, s *Session) {
-    l := c.sessions
-    for _, _s := range l {
-        if _s != s {
-            _s.WriteMessage(t, m)
-        }
-    }
 }

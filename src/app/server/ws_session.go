@@ -1,83 +1,79 @@
 package server
 
 import (
-    "fmt"
     "time"
-    "errors"
 
     "github.com/gorilla/websocket"
 )
 
 type Session struct {
-    // hub
+    // The hub manager
     hub *Hub
     // The websocket connection.
     connection *websocket.Conn
+    // Buffered channel of outbound messages.
+    send chan []byte
     // cid (count sent msg)
     cid int
 }
 
-func (s *Session) Emit(messageType int, data []byte) bool {
-    err := s.connection.WriteMessage(messageType, data)
-    if err != nil {
-        fmt.Println(err)
-        return false
-    }
-    return true
+func (s *Session) config() {
+    c := s.connection
+    c.SetReadLimit(maxMessageSize)
+    c.SetWriteDeadline(time.Now().Add(writeWait))
+    c.SetReadDeadline(time.Now().Add(pongWait))
+    c.SetPongHandler(func(string) error {
+        c.SetReadDeadline(time.Now().Add(pongWait))
+        return nil
+    })
 }
 
-func (s *Session) ReadMessages() {
+func (s *Session) read() {
     for {
-        t, json, err := s.connection.ReadMessage()
+        _, msg, err := s.connection.ReadMessage()
         if err != nil {
-            break
-        }
-        m, err := ParseMessage(json)
-        if err != nil {
-            s.WriteMessage(t, ErrorMessage(err))
-        } else {
+			break
+		}
+        if m, err := ParseMessage(msg); err == nil {
+            q := &Queue{session: s, object: m}
             switch m.Event {
-            case MSG_PUBLISH:
-                name := m.Data.Channel
-                l := len(name)
-                r := s.hub.IsSubscribed(name, s)
-                if l > 0 && r {
-                    s.WriteMessage(t, m)
-                    c := s.hub.Channel(name)
-                    c.Broadcast(t, m, s)
-                }
             case MSG_SUBSCRIBE:
-                name := m.Data.Channel
-                l := len(name)
-                if l > 0 {
-                    s.hub.Subscribe(name, s)
-                }
+                s.hub.subscribe <- q
             case MSG_UNSUBSCRIBE:
-                name := m.Data.Channel
-                l := len(name)
-                if l > 0 {
-                    s.hub.Unsubscribe(name, s)
-                }
+                s.hub.unsubscribe <- q
+            default:
+                s.hub.broadcast <- q
             }
         }
     }
 }
 
-func (s *Session) WriteMessage(messageType int, m *Message) error {
-    defer func() error {
-        return errors.New("failed to send message")
-    }()
-    if m == nil {
-        return errors.New("message is empty")
+func (s *Session) write() {
+    t := time.NewTicker(pingPeriod)
+    defer func() {
+		t.Stop()
+		s.connection.Close()
+	}()
+    for {
+        select {
+        case message, ok := <-s.send:
+			if !ok {
+				s.emit(websocket.CloseMessage, []byte{})
+				return
+			}
+			if err := s.emit(websocket.TextMessage, message); err != nil {
+				return
+			}
+		case <-t.C:
+			if err := s.emit(websocket.PingMessage, []byte{}); err != nil {
+				return
+			}
+		}
     }
+}
+
+func (s *Session) emit(mt int, payload []byte) error {
     s.connection.SetWriteDeadline(time.Now().Add(writeWait))
-    s.cid += 1
-    m.Cid = s.cid
-    m.Event = MSG_PUBLISH
-    j, err := m.toJSON();
-    if err != nil {
-        return err
-    }
-    return s.connection.WriteMessage(messageType, j)
+	return s.connection.WriteMessage(mt, payload)
 }
 
