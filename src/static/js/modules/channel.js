@@ -5,7 +5,7 @@
 
     var WSChannel = function WSChannel(options) {
         App.Core.Base.call(this, options);
-        this.set('connected', true);
+        this.set('connected', false);
     };
 
     WSChannel.Type = {
@@ -38,7 +38,7 @@
         return this;
     };
 
-    WSChannel.prototype.send = function(command, data) {
+    WSChannel.prototype.send = function(command, data, callback) {
         if (!this.get('ws')) {
             return this.log('could not find websocket client');
         }
@@ -64,6 +64,10 @@
         msg.setData(data);
         // send message
         ws.get('ws').send(msg.toJSON());
+        // apply callback if available
+        if (typeof callback === 'function') {
+            ws.get('callbacks')[cid] = callback;
+        }
     };
 
     WSChannel.prototype.subscribe = function(callback) {
@@ -82,9 +86,13 @@
         // send message
         ws.get('ws').send(msg.toJSON());
         // callback if available
-        if (typeof callback === 'function') {
-            ws.get('callbacks')[this.get('cid')] = callback;
-        }
+        ws.get('callbacks')[cid] = function(msg, complete) {
+            var status = msg.data.data;
+            this.set('connected', status);
+            if (typeof callback === 'function') {
+                callback.call(this, status, complete);
+            }
+        }.bind(this);
     };
 
     WSChannel.prototype.unsubscribe = function(callback) {
@@ -103,9 +111,13 @@
         // send message
         ws.get('ws').send(msg.toJSON());
         // callback if available
-        if (typeof callback === 'function') {
-            ws.get('callbacks')[this.get('cid')] = callback;
-        }
+        ws.get('callbacks')[cid] = function(msg, complete) {
+            var status = msg.data.data;
+            this.set('connected', status);
+            if (typeof callback === 'function') {
+                callback.call(this, status, complete);
+            }
+        }.bind(this);
     };
 
     App.Module.WSChannel = WSChannel;

@@ -45,11 +45,17 @@
         // true if it's channel message
             isChannel = false;
         try {
-            obj = JSON.parse(msg);
+            obj = JSON.parse(msg.data);
             if (typeof obj === 'object') {
                 if (typeof obj.rid === 'number' && typeof cbs[obj.rid] === 'function') {
-                    cbs[obj.rid].call(this, obj);
-                    delete cbs[obj.rid];
+                    var timeout;
+                    var complete = function() {
+                        clearTimeout(timeout);
+                        delete cbs[obj.rid];
+                    };
+                    timeout = setTimeout(complete, 5000);
+                    cbs[obj.rid].call(this, obj, complete);
+
                 }
                 if (typeof obj.data === 'object' && typeof obj.data.channel === 'string' && typeof chs[obj.data.channel] === 'object' && chs[obj.data.channel] instanceof App.Module.WSChannel) {
                     isChannel = true;
@@ -66,16 +72,16 @@
 
     WebSocket.prototype.send = function(data, callback) {
         // increase cid
-        this.append('cid', 1);
+        var cid = this.append('cid', 1);
         // create message
         var msg = new WebSocket.Message();
-        msg.setCID(this.get('cid'));
+        msg.setCID(cid);
         msg.setData(data);
         // send message
         this.get('ws').send(msg.toJSON());
         // callback if available
         if (typeof callback === 'function') {
-            this.get('callbacks')[this.get('cid')] = callback;
+            this.get('callbacks')[cid] = callback;
         }
     };
 
@@ -92,7 +98,7 @@
             channel.setName(name);
             this.get('channels')[name] = channel;
         }
-        channel.subscribe();
+        channel.subscribe(callback);
     };
 
     WebSocket.prototype.unsubscribe = function(name, callback) {
@@ -102,7 +108,7 @@
         }
         if (typeof this.get('channels')[name] === 'object') {
             channel = this.get('channels')[name];
-            channel.unsubscribe();
+            channel.unsubscribe(callback);
         } else {
             this.log('channel [{0}] does not exist', name);
         }
@@ -115,10 +121,13 @@
         }
         if (typeof this.get('channels')[name] === 'object') {
             channel = this.get('channels')[name];
-            return channel;
         } else {
-            this.throw('channel [{0}] cannot be found', name);
+            channel = new WebSocket.Channel();
+            channel.setWebSocket(this);
+            channel.setName(name);
+            this.get('channels')[name] = channel;
         }
+        return channel;
     };
 
     App.Module.WebSocket = WebSocket;
