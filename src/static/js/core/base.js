@@ -26,6 +26,10 @@
         return (scope || this) instanceof (_class || this.constructor);
     };
 
+    Base.prototype.delete = function(key) {
+        delete this.attributes[key];
+    };
+
     Base.prototype.get = function(key) {
         if (!this.is(Base)) return;
         if (typeof key === 'string') {
