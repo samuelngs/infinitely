@@ -75,9 +75,7 @@
 
     WebSocket.prototype._resubscribe = function() {
         this.channels(false).map(function(channel) {
-            channel.subscribe(function(msg) {
-                console.log('_resubscribe', msg);
-            });
+            channel.subscribe();
         });
     };
 
