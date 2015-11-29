@@ -5,11 +5,12 @@
 
     var WebSocket = function WebSocket(url, options) {
         App.Core.Base.call(this, options);
-        this.set('ws', new global.WebSocket(url));
+        this.set('url', url);
         this.set('connected', false);
         this.set('channels', {});
         this.set('callbacks', {});
-        this._listen();
+        this._keepalive();
+        this._create();
     };
 
     WebSocket.Message = App.Module.Message;
@@ -18,21 +19,66 @@
     WebSocket.prototype = Object.create(App.Core.Base.prototype);
     WebSocket.prototype.constructor = WebSocket;
 
+    WebSocket.prototype._keepalive = function() {
+        setInterval(function() {
+            if (!this.get('connected')) {
+                this._create();
+            }
+        }.bind(this), 2500);
+    };
+
+    WebSocket.prototype._cleanup = function() {
+        var ws = this.get('ws');
+        if (typeof ws !== 'undefined' && ws instanceof global.WebSocket) {
+            ws.removeEventListener('open', this._onopen.bind(this));
+            ws.removeEventListener('close', this._onclose.bind(this));
+            ws.removeEventListener('message', this._onmessage.bind(this));
+            this.delete('ws');
+        }
+    };
+
+    WebSocket.prototype._create = function() {
+        var ws  = this.get('ws'),
+            url = this.get('url');
+        if (typeof url === 'string' && !this.get('connected')) {
+            this._cleanup();
+            this.set('ws', ws = new global.WebSocket(url));
+            this._listen();
+        }
+    };
+
     WebSocket.prototype._listen = function() {
-        this.get('ws').addEventListener('open', this._onopen.bind(this));
-        this.get('ws').addEventListener('close', this._onclose.bind(this));
-        this.get('ws').addEventListener('message', this._onmessage.bind(this));
+        var ws = this.get('ws');
+        if (typeof ws !== 'undefined' && ws instanceof global.WebSocket) {
+            ws.addEventListener('open', this._onopen.bind(this));
+            ws.addEventListener('close', this._onclose.bind(this));
+            ws.addEventListener('message', this._onmessage.bind(this));
+        }
     };
 
     WebSocket.prototype._onopen = function() {
         this.set('cid', 0);
         this.set('connected', true);
         this.emit('open');
+        this._resubscribe();
+        console.log('connected');
     };
 
     WebSocket.prototype._onclose = function() {
         this.set('connected', false);
+        this.channels(false).map(function(channel) {
+            channel.set('subscribed', false);
+        });
         this.emit('close');
+        console.log('disconnected');
+    };
+
+    WebSocket.prototype._resubscribe = function() {
+        this.channels(false).map(function(channel) {
+            channel.subscribe(function(msg) {
+                console.log('_resubscribe', msg);
+            });
+        });
     };
 
     WebSocket.prototype._onmessage = function(msg) {
@@ -116,7 +162,7 @@
 
     WebSocket.prototype.channel = function(name) {
         var channel;
-        if (typeof name !== 'string') {
+        if (typeof name !== 'string' || (typeof name === 'string' && name.trim().length === 0)) {
             return this.log('please provide the name of the channel');
         }
         if (typeof this.get('channels')[name] === 'object') {
@@ -128,6 +174,26 @@
             this.get('channels')[name] = channel;
         }
         return channel;
+    };
+
+    WebSocket.prototype.channels = function(subscribed) {
+        var list = this.get('channels'),
+            keys = Object.keys(list),
+            channels = [];
+        if (typeof subscribed !== 'boolean') {
+            subscribed = true;
+        }
+        for (var i = 0; i < keys.length; i++) {
+            var channel = list[keys[i]];
+            if (subscribed) {
+                if (channel.get('subscribed') === true) {
+                    channels.push(channel);
+                }
+            } else {
+                channels.push(channel);
+            }
+        }
+        return channels;
     };
 
     App.Module.WebSocket = WebSocket;
