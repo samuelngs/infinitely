@@ -61,7 +61,6 @@
         this.set('connected', true);
         this.emit('open');
         this._resubscribe();
-        console.log('connected');
     };
 
     WebSocket.prototype._onclose = function() {
@@ -70,7 +69,6 @@
             channel.set('subscribed', false);
         });
         this.emit('close');
-        console.log('disconnected');
     };
 
     WebSocket.prototype._resubscribe = function() {
