@@ -1,6 +1,8 @@
 package server
 
 import (
+    "errors"
+
     "github.com/gorilla/websocket"
 )
 
@@ -57,6 +59,9 @@ func (h *Hub) Queue() {
         case q := <-h.unregister:
             if c, ok := q.object.(*websocket.Conn); ok {
                 if s := h.connections[c]; s != nil {
+                    for _, c := range q.session.channels {
+                        c.unsubscribe(q.session)
+                    }
                     close(s.send)
                     delete(h.connections, c)
                 }
@@ -80,6 +85,11 @@ func (h *Hub) Queue() {
                         } else {
                             c.queue <- r
                         }
+                    } else {
+                        res := &Result{Name: n, Error: err.Error(), Subscribed: false, Success: false}
+                        if j, err := m.Reply(res); err == nil {
+                            q.session.emit(TextMessage, j)
+                        }
                     }
                 }
             }
@@ -89,6 +99,12 @@ func (h *Hub) Queue() {
                 r := &Queue{session: q.session, object: m, args: h.channels}
                 if c := h.channels[n]; c != nil {
                     c.queue <- r
+                } else {
+                    err := errors.New("you are not subscribed to this channel")
+                    res := &Result{Name: n, Error: err.Error(), Subscribed: false, Success: false}
+                    if j, err := m.Reply(res); err == nil {
+                        q.session.emit(TextMessage, j)
+                    }
                 }
             }
         case q := <-h.broadcast:

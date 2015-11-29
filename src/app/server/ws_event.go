@@ -10,13 +10,13 @@ type WebSocketEvent struct {
     // Authorize
     auth func(*Session) (error)
     // Registered events.
-    events map[string]func(*Message, *Session) (error)
+    events map[string]func(*Message, *Channel, *Session) (error)
 }
 
 func CreateWebSocketEvent(t string) *WebSocketEvent {
     return &WebSocketEvent{
         name    : t,
-        events  : make(map[string]func(*Message, *Session) (error)),
+        events  : make(map[string]func(*Message, *Channel, *Session) (error)),
     }
 }
 
@@ -27,7 +27,7 @@ func(e *WebSocketEvent) AddAuth(f func(*Session) (error)) *WebSocketEvent {
     return e
 }
 
-func(e *WebSocketEvent) AddEvent(name string, f func(*Message, *Session) (error)) *WebSocketEvent {
+func(e *WebSocketEvent) AddEvent(name string, f func(*Message, *Channel, *Session) (error)) *WebSocketEvent {
     if e.events[name] == nil {
         e.events[name] = f
     } else {
@@ -43,9 +43,9 @@ func(e *WebSocketEvent) Auth(s *Session) (error) {
     return e.auth(s)
 }
 
-func(e *WebSocketEvent) Run(name string, m *Message, s *Session) (error) {
+func(e *WebSocketEvent) Run(name string, m *Message, c *Channel, s *Session) (error) {
     if e.events[name] != nil {
-        return e.events[name](m, s)
+        return e.events[name](m, c, s)
     }
     return errors.New("event '" + name + "' does not exist")
 }

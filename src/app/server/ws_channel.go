@@ -25,6 +25,9 @@ func (c *Channel) Queue() {
                 case MSG_SUBSCRIBE:
                     subscribed, success, err:= c.subscribe(q.session);
                     r := &Result{Name: m.Data.Channel, Subscribed: subscribed, Success: success}
+                    if success {
+                        q.session.channels = append(q.session.channels, c)
+                    }
                     if err != nil {
                         r.Error = err.Error()
                     }
@@ -34,6 +37,13 @@ func (c *Channel) Queue() {
                 case MSG_UNSUBSCRIBE:
                     subscribed, success, err:= c.unsubscribe(q.session);
                     r := &Result{Name: m.Data.Channel, Subscribed: subscribed, Success: success}
+                    if success {
+                        for i, _c := range q.session.channels {
+                            if _c == c {
+                                q.session.channels = append(q.session.channels[:i], q.session.channels[i+1:]...)
+                            }
+                        }
+                    }
                     if err != nil {
                         r.Error = err.Error()
                     }
@@ -46,7 +56,7 @@ func (c *Channel) Queue() {
                         }
                     }
                 case MSG_PUBLISH:
-                    if err := c.event.Run(m.Data.Event, m, q.session); err != nil {
+                    if err := c.event.Run(m.Data.Event, m, c, q.session); err != nil {
                         fmt.Println(err.Error())
                     }
                 }
@@ -78,7 +88,7 @@ func (c *Channel) unsubscribe(s *Session) (bool, bool, error) {
             return false, true, nil
 		}
 	}
-    return false, false, errors.New("you have not subscribed to this channel")
+    return false, false, errors.New("you are not subscribed to this channel")
 }
 
 func (c *Channel) isSubscribed(s *Session) bool {
@@ -90,3 +100,15 @@ func (c *Channel) isSubscribed(s *Session) bool {
     }
     return false
 }
+
+func (c *Channel) emit(mt int, payload []byte, s *Session) error {
+    for _, _s := range c.sessions {
+        if _s != s {
+            if err := _s.emit(mt, payload); err != nil {
+                return err
+            }
+        }
+    }
+    return nil
+}
+

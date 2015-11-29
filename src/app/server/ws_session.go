@@ -11,6 +11,8 @@ type Session struct {
     hub *Hub
     // The websocket connection.
     connection *websocket.Conn
+    // Channels that have been subscribed to
+    channels []*Channel
     // Buffered channel of outbound messages.
     send chan []byte
     // cid (count sent msg)
