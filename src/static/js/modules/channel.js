@@ -5,7 +5,7 @@
 
     var WSChannel = function WSChannel(options) {
         App.Core.Base.call(this, options);
-        this.set('connected', false);
+        this.set('subscribed', false);
     };
 
     WSChannel.Type = {
@@ -42,7 +42,7 @@
         if (!this.get('ws')) {
             return this.log('could not find websocket client');
         }
-        if (!this.get('connected')) {
+        if (!this.get('subscribed')) {
             return this.log('you cannnot send any messages until you connected to channel');
         }
         if (typeof this.get('id') !== 'string') {
@@ -88,7 +88,7 @@
         // callback if available
         ws.get('callbacks')[cid] = function(msg, complete) {
             var status = msg.data.data.subscribed;
-            this.set('connected', status);
+            this.set('subscribed', status);
             if (typeof callback === 'function') {
                 callback.call(this, msg, complete);
             }
@@ -113,7 +113,7 @@
         // callback if available
         ws.get('callbacks')[cid] = function(msg, complete) {
             var status = msg.data.data.subscribed;
-            this.set('connected', status);
+            this.set('subscribed', status);
             if (typeof callback === 'function') {
                 callback.call(this, msg, complete);
             }
