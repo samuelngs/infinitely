@@ -5,7 +5,7 @@
 </head>
 
 <body>
-    <input id="channel" type="text">
+    <input id="channel" type="text" value="network">
     <button id="join">Join</button>
     <button id="left">Left</button>
     <input id="command" type="text">
@@ -29,7 +29,7 @@
 
     var append = function(type, msg) {
         var el = document.createElement('p'),
-            t  = document.createTextNode('[' + type + '] ' + ipt.value);
+            t  = document.createTextNode('[' + type + '] ' + msg);
         el.appendChild(t);
         dsp.appendChild(el);
     };
@@ -67,6 +67,7 @@
 
     ws.channel('network').on('message', function(msg) {
         append('CHANNEL', msg.data.data);
+        console.log(msg.data.data)
     });
 
     channel.addEventListener('keydown', function(e) {
