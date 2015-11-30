@@ -33,7 +33,7 @@
             ws.removeEventListener('open', this._onopen.bind(this));
             ws.removeEventListener('close', this._onclose.bind(this));
             ws.removeEventListener('message', this._onmessage.bind(this));
-            this.delete('ws');
+            this.unset('ws');
         }
     };
 
