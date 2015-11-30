@@ -42,7 +42,7 @@
     Home.prototype.onresize = function() {
         this.set('window.width', window.innerWidth);
         this.set('window.height', window.innerHeight);
-        this.immediate(m.redraw);
+        this.redraw();
     };
 
     Home.prototype.draw = function(element, init, context) {
