@@ -1,12 +1,14 @@
 
 ;(function() {
 
-    var m = global.m;
+    var m = this.m;
 
     if (!m) return console.log('Mithril is not loaded');
 
-    m.route(document.body, '/', {
-        '/': App.Render.Home,
+    m.route.mode = 'pathname';
+
+    m.route(document.body.children[0], '/', {
+        '/': new App.Render.Home(),
     });
 
 }.call(this || window));
