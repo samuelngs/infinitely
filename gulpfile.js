@@ -38,6 +38,7 @@ gulp.task('build-js', ['lint'], function(cb) {
         'src/static/js/core/**/*.js',
         'src/static/js/modules/**/*.js',
         'src/static/js/views/**/*.js',
+        'src/static/js/render/**/*.js',
         'src/static/js/autoload/**/*.js',
         '!src/static/js/**/*.min.js'
     ])
