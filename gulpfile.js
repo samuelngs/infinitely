@@ -14,6 +14,7 @@ gulp.task('lint', function() {
     return gulp.src([
         'src/static/js/**/*.js',
         '!src/static/js/vender/*.js',
+        '!src/static/js/polyfill/*.js',
         '!src/static/js/**/*.min.js'
     ])
     .pipe(jshint(require('./package.json').jshint))
