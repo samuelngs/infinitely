@@ -109,7 +109,7 @@
         }
     };
 
-    Base.prototype.timeout = function(name) {
+    Base.prototype.untimeout = function(name) {
         if (typeof name === 'string') {
             if (typeof this.attributes._timeout[name] !== 'undefined') {
                 window.clearTimeout(this.attributes._timeout[name]);
@@ -124,11 +124,16 @@
     };
 
     Base.prototype.immediate = function(name, func) {
-        if (typeof this.attributes._immediate[name] !== 'undefined') {
-            this.unimmediate(name);
-        }
-        if (typeof func === 'function') {
-            this.attributes._interval[name] = window.setImmediate(func);
+        if (typeof name === 'string') {
+            if (typeof this.attributes._immediate[name] !== 'undefined') {
+                this.unimmediate(name);
+            }
+            if (typeof func === 'function') {
+                this.attributes._interval[name] = window.setImmediate(function() {
+                    func.call(this);
+                    delete this.attributes._interval[name];
+                }.bind(this));
+            }
         }
     };
 
@@ -147,14 +152,16 @@
     };
 
     Base.prototype.interval = function(name, func, milliseconds) {
-        if (typeof this.attributes._interval[name] !== 'undefined') {
-            this.uninterval(name);
-        }
-        if (typeof func === 'function') {
-            if (typeof milliseconds === 'number') {
-                this.attributes._interval[name] = window.setInterval(func, milliseconds);
-            } else {
-                this.attributes._interval[name] = window.setInterval(func, 0);
+        if (typeof name === 'string') {
+            if (typeof this.attributes._interval[name] !== 'undefined') {
+                this.uninterval(name);
+            }
+            if (typeof func === 'function') {
+                if (typeof milliseconds === 'number') {
+                    this.attributes._interval[name] = window.setInterval(func, milliseconds);
+                } else {
+                    this.attributes._interval[name] = window.setInterval(func, 0);
+                }
             }
         }
     };
