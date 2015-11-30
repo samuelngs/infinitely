@@ -3,20 +3,10 @@
 
     var View = function View(options) {
         'use strict';
-        // Set options to an empty object if passed options is empty
-        if (typeof options !== 'object') {
-            options = {};
-        }
         if (!(this instanceof View)) {
             return new View(options);
         }
-        App.Core.Base.call(this);
-        // Defined pre-default values
-        this.attributes = {};
-        // Clone options to attributes
-        for (var i in options) {
-            this.attributes[i] = options[i];
-        }
+        App.Core.Base.call(this, options);
         // Set intialized status
         this.set('initialized', false);
         // Self init
@@ -27,6 +17,15 @@
     View.prototype = Object.create(App.Core.Base.prototype);
     View.prototype.constructor = View;
 
+    View.prototype.get          = App.Core.Base.prototype.get;
+    View.prototype.set          = App.Core.Base.prototype.set;
+    View.prototype.unset        = App.Core.Base.prototype.unset;
+    View.prototype.append       = App.Core.Base.prototype.append;
+    View.prototype.immediate    = App.Core.Base.prototype.immediate;
+    View.prototype.unimmediate  = App.Core.Base.prototype.unimmediate;
+    View.prototype.interval     = App.Core.Base.prototype.interval;
+    View.prototype.uninterval   = App.Core.Base.prototype.uninterval;
+
     View.prototype.id = function() {
         if (!(this instanceof View)) {
             View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
@@ -35,6 +34,13 @@
             this.set('_id', Math.random().toString(36).substring(7));
         }
         return this.get('_id');
+    };
+
+    View.prototype.self = View.prototype.instance = function() {
+        if (!(this instanceof View)) {
+            View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
+        }
+        return this;
     };
 
     View.prototype.component = function(options) {
@@ -67,17 +73,31 @@
         }
     };
 
-    View.prototype.autoconfig = function(element, isInit, context) {
-        if (!(this instanceof View)) {
-            View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
-        }
-        if (typeof this.unload === 'function') {
-            context.onunload = this.unload.call(this);
-        }
+    View.prototype.autoconfig = function() {
+        var args = arguments;
+        return function(element, isInit, context) {
+            for (var i = 0; i < args.length; i++) {
+                var arg = args[i];
+                if (typeof this[arg] === 'function') {
+                    this[arg].call(this, element, isInit, context);
+                }
+            }
+            if (typeof this.unload === 'function') {
+                context.onunload = this._unload.bind(this, element, isInit, context);
+            }
+        }.bind(this.instance());
     };
 
-    View.prototype.unload = function() {
-        this.set('initialized', false);
+    View.prototype._unload = function() {
+        if (this.get('initalized')) {
+            this.set('initialized', false);
+            this.untimeout();
+            this.uninterval();
+            this.unimmediate();
+            if (typeof this.unload === 'function') {
+                this.unload.call(this);
+            }
+        }
     };
 
     App.Core.View = View;
