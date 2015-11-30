@@ -1,0 +1,39 @@
+.transition-single(@type, @duration) {
+    -webkit-transition: @type @duration;
+    -moz-transition: @type @duration;
+    -ms-transition: @type @duration;
+    -o-transition: @type @duration;
+    transition: @type @duration;
+}
+
+.transition-multiple(@action) {
+    -webkit-transition: @action;
+    -moz-transition: @action;
+    -ms-transition: @action;
+    -o-transition: @action;
+    transition: @action;
+}
+
+.transform-translate(@x, @y) {
+    -webkit-transform: translate(@x, @y);
+    -moz-transform: translate(@x, @y);
+    -ms-transform: translate(@x, @y);
+    -o-transform: translate(@x, @y);
+    transform: translate(@x, @y);
+}
+
+.box-shadow-gen (@x: 0px, @y: 0px, @blur: 0px, @c: #000) {
+    -webkit-box-shadow: @x @y @blur @c;
+    -moz-box-shadow: @x @y @blur @c;
+    -ms-box-shadow: @x @y @blur @c;
+    -o-box-shadow: @x @y @blur @c;
+    box-shadow: @x @y @blur @c;
+}
+
+.text-shadow-gen (@x: 0px, @y:0px, @b:0px, @c:#000) {
+    -webkit-text-shadow: @x @y @b @c;
+    -moz-text-shadow: @x @y @b @c;
+    -ms-text-shadow: @x @y @b @c;
+    -o-text-shadow: @x @y @b @c;
+    text-shadow: @x @y @b @c;
+}
