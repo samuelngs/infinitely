@@ -1,99 +1,16 @@
-<html>
-<head>
-    <title>Testing</title>
-    <script src="static/js/app.min.js"></script>
-</head>
-
-<body>
-    <input id="channel" type="text" value="network">
-    <button id="join">Join</button>
-    <button id="left">Left</button>
-    <input id="command" type="text">
-    <input id="input" type="text">
-    <button id="submit">Send Message</button>
-    <div id="display"></div>
-</body>
-
-<script>
-
-    var ws = new App.Module.WebSocket('ws://127.0.0.1:3000/sync');
-
-    var channel = document.querySelector('#channel'),
-        join = document.querySelector('#join'),
-        left = document.querySelector('#left');
-
-    var cmd = document.querySelector('#command'),
-        btn = document.querySelector('#submit'),
-        ipt = document.querySelector('#input'),
-        dsp = document.querySelector('#display');
-
-    var append = function(type, msg) {
-        var el = document.createElement('p'),
-            t  = document.createTextNode('[' + type + '] ' + msg);
-        el.appendChild(t);
-        dsp.appendChild(el);
-    };
-
-    var subscribe = function(e) {
-        if (typeof channel.value === 'string' && channel.value.trim().length > 0) {
-            ws.subscribe(channel.value, function(success, complete) {
-                console.log('subscribed', success)
-            });
-        }
-    };
-
-    var unsubscribe = function(e) {
-        if (typeof channel.value === 'string' && channel.value.trim().length > 0) {
-            ws.unsubscribe(channel.value, function(success, complete) {
-                console.log('unsubscribed', success)
-            });
-        }
-    };
-
-    var send = function(e) {
-        if (typeof ipt.value === 'string' && ipt.value.trim().length > 0 &&
-            typeof cmd.value === 'string' && cmd.value.trim().length > 0) {
-            ws.channel(channel.value).send(cmd.value, ipt.value, function(data, complete) {
-                console.log('callback', data);
-                complete();
-            });
-            append('SENT', ipt.value);
-        }
-    };
-
-    ws.on('message', function(msg) {
-        append('RECE', msg);
-    });
-
-    ws.channel('network').on('message', function(msg) {
-        append('CHANNEL', msg.data.data);
-        console.log(msg.data.data)
-    });
-
-    channel.addEventListener('keydown', function(e) {
-        if (e.keyCode == 13) {
-            subscribe();
-        }
-    });
-
-    join.addEventListener('click', function(e) {
-        subscribe();
-    });
-
-    left.addEventListener('click', function(e) {
-        unsubscribe();
-    });
-
-    ipt.addEventListener('keydown', function(e) {
-        if (e.keyCode == 13) {
-            send(e);
-        }
-    });
-
-    btn.addEventListener('click', function(e) {
-        e.preventDefault();
-        send(e);
-    });
-
-</script>
+<!doctype html>
+<html class="no-js" lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="static/images/favicon.png">
+        <link rel="stylesheet" href="static/styles/app.css">
+    </head>
+    <body>
+        <main></main>
+        <script src="static/js/app.min.js"></script>
+    </body>
 </html>
