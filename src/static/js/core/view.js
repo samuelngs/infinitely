@@ -102,6 +102,10 @@
         }
     };
 
+    View.prototype.redraw = function() {
+        this.immediate('_redraw', m.redraw);
+    };
+
     App.Core.View = View;
 
 }.call(this || window));
