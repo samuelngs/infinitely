@@ -21,10 +21,12 @@
     View.prototype.set          = App.Core.Base.prototype.set;
     View.prototype.unset        = App.Core.Base.prototype.unset;
     View.prototype.append       = App.Core.Base.prototype.append;
-    View.prototype.immediate    = App.Core.Base.prototype.immediate;
-    View.prototype.unimmediate  = App.Core.Base.prototype.unimmediate;
+    View.prototype.timeout      = App.Core.Base.prototype.timeout;
+    View.prototype.untimeout    = App.Core.Base.prototype.untimeout;
     View.prototype.interval     = App.Core.Base.prototype.interval;
     View.prototype.uninterval   = App.Core.Base.prototype.uninterval;
+    View.prototype.immediate    = App.Core.Base.prototype.immediate;
+    View.prototype.unimmediate  = App.Core.Base.prototype.unimmediate;
 
     View.prototype.id = function() {
         if (!(this instanceof View)) {
@@ -36,7 +38,7 @@
         return this.get('_id');
     };
 
-    View.prototype.self = View.prototype.instance = function() {
+    View.prototype.instance = function() {
         if (!(this instanceof View)) {
             View.prototype.throw.call(this, 'NOT_VIEW_INSTANCE');
         }
