@@ -1,1 +1,2 @@
 src/static/js/vender/* linguist-vendored
+src/static/js/polyfill/* linguist-vendored
