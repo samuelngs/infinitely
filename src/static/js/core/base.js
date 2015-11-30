@@ -12,7 +12,11 @@
             return new Base(options);
         }
         // Defined pre-default values
-        this.attributes = {};
+        this.attributes = {
+            _timeout  : {},
+            _interval : {},
+            _immediate: {}
+        };
         // Clone options to attributes
         for (var i in options) {
             this.attributes[i] = options[i];
@@ -26,12 +30,7 @@
         return (scope || this) instanceof (_class || this.constructor);
     };
 
-    Base.prototype.delete = function(key) {
-        delete this.attributes[key];
-    };
-
     Base.prototype.get = function(key) {
-        if (!this.is(Base)) return;
         if (typeof key === 'string') {
             return this.attributes[key];
         }
@@ -39,15 +38,17 @@
     };
 
     Base.prototype.set = function(key, value) {
-        if (!this.is(Base)) return;
         if (typeof key === 'string') {
             this.attributes[key] = value;
         }
         return this;
     };
 
+    Base.prototype.unset = function(key) {
+        delete this.attributes[key];
+    };
+
     Base.prototype.append = function(key, value) {
-        if (!this.is(Base)) return;
         if (typeof key === 'string' && typeof value !== 'undefined') {
             if (typeof this.attributes[key] === 'string' || typeof this.attributes[key] === 'number') {
                 this.attributes[key] += value;
@@ -92,6 +93,83 @@
                 return args[parseInt(index) + 1];
             });
             throw ('[' + this.constructor.name + ']' + str);
+        }
+    };
+
+    Base.prototype.timeout = function(name, func, milliseconds) {
+        if (typeof this.attributes._timeout[name] !== 'undefined') {
+            this.untimeout(name);
+        }
+        if (typeof func === 'function') {
+            if (typeof milliseconds === 'number') {
+                this.attributes._timeout[name] = window.setTimeout(func, milliseconds);
+            } else {
+                this.attributes._timeout[name] = window.setTimeout(func, 0);
+            }
+        }
+    };
+
+    Base.prototype.timeout = function(name) {
+        if (typeof name === 'string') {
+            if (typeof this.attributes._timeout[name] !== 'undefined') {
+                window.clearTimeout(this.attributes._timeout[name]);
+                delete this.attributes._timeout[name];
+            }
+        } else {
+            var keys = Object.keys(this.attributes._timeout);
+            for (var i = 0; i < keys.length; i++) {
+                this.untimeout(keys[i]);
+            }
+        }
+    };
+
+    Base.prototype.immediate = function(name, func) {
+        if (typeof this.attributes._immediate[name] !== 'undefined') {
+            this.unimmediate(name);
+        }
+        if (typeof func === 'function') {
+            this.attributes._interval[name] = window.setImmediate(func);
+        }
+    };
+
+    Base.prototype.unimmediate = function(name) {
+        if (typeof name === 'string') {
+            if (typeof this.attributes._immediate[name] !== 'undefined') {
+                window.clearImmediate(this.attributes._immediate[name]);
+                delete this.attributes._immediate[name];
+            }
+        } else {
+            var keys = Object.keys(this.attributes._immediate);
+            for (var i = 0; i < keys.length; i++) {
+                this.unimmediate(keys[i]);
+            }
+        }
+    };
+
+    Base.prototype.interval = function(name, func, milliseconds) {
+        if (typeof this.attributes._interval[name] !== 'undefined') {
+            this.uninterval(name);
+        }
+        if (typeof func === 'function') {
+            if (typeof milliseconds === 'number') {
+                this.attributes._interval[name] = window.setInterval(func, milliseconds);
+            } else {
+                this.attributes._interval[name] = window.setInterval(func, 0);
+            }
+        }
+    };
+
+    Base.prototype.uninterval = function(name) {
+        if (typeof name === 'string') {
+            if (typeof this.attributes._interval[name] !== 'undefined') {
+                window.clearInterval(this.attributes._interval[name]);
+                delete this.attributes._interval[name];
+            }
+        } else {
+            var keys = Object.keys(this.attributes._interval);
+            for (var i = 0; i < keys.length; i++) {
+                this.uninterval(keys[i]);
+            }
         }
     };
 
