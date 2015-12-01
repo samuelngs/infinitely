@@ -7,6 +7,8 @@
             return new View(options);
         }
         App.Core.Base.call(this, options);
+        // listeners registry
+        this.set('_listeners', {});
         // Set intialized status
         this.set('initialized', false);
         // Self init
@@ -93,11 +95,52 @@
     View.prototype._unload = function() {
         if (this.get('initalized')) {
             this.set('initialized', false);
+            this.unbind();
             this.untimeout();
             this.uninterval();
             this.unimmediate();
             if (typeof this.unload === 'function') {
                 this.unload.call(this);
+            }
+        }
+    };
+
+    View.prototype.body = function() {
+        var classes = ['view'];
+        for (var i = 0; i < arguments.length; i++) {
+            classes.push(arguments[i]);
+        }
+        document.body.className = classes.join(' ');
+    };
+
+    View.prototype.bind = function(el, event, func) {
+        var id = Math.random().toString(36).substring(7);
+        if (typeof el === 'object' && typeof event === 'string' && typeof func === 'function') {
+            this.attributes._listeners[id] = {
+                element : el,
+                event   : event,
+                callback: func
+            };
+            el.addEventListener(event, func);
+            return id;
+        } else {
+            this.throw('please provide element, event, and callback');
+        }
+        return undefined;
+    };
+
+    View.prototype.unbind = function(id) {
+        if (typeof id === 'string') {
+            if (typeof this.attributes._listeners[id] === 'object' && typeof this.attributes._listeners[id].callback === 'function') {
+                this.attributes._listeners[id].element.removeEventListener(this.attributes._listeners[id].event, this.attributes._listeners[id].callback);
+                delete this.attributes._listeners[id];
+            } else {
+                this.log('listener is not registered or already been unregistered');
+            }
+        } else {
+            var keys = Object.keys(this.attributes._listeners);
+            for (var i = 0; i < keys.length; i++) {
+                this.unbind(keys[i]);
             }
         }
     };
