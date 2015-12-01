@@ -7,7 +7,7 @@
 
     m.route.mode = 'pathname';
 
-    m.route(document.body.children[0], '/', {
+    m.route(document.body, '/', {
         '/': new App.Render.Home(),
     });
 
