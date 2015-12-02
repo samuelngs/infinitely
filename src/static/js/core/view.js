@@ -80,10 +80,12 @@
     View.prototype.autoconfig = function() {
         var args = arguments;
         return function(element, isInit, context) {
-            for (var i = 0; i < args.length; i++) {
-                var arg = args[i];
-                if (typeof this[arg] === 'function') {
-                    this[arg].call(this, element, isInit, context);
+            if (!isInit) {
+                for (var i = 0; i < args.length; i++) {
+                    var arg = args[i];
+                    if (typeof this[arg] === 'function') {
+                        this[arg].call(this, element, isInit, context);
+                    }
                 }
             }
             if (typeof this.unload === 'function') {
