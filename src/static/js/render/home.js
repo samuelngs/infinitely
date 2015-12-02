@@ -73,7 +73,7 @@
             rendered = new THREE.CanvasRenderer();
         }
 
-        var SEPARATION = 50,
+        var SEPARATION = 100,
             AMOUNTX = 30,
             AMOUNTY = 10;
 
