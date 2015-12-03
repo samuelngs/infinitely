@@ -63,14 +63,38 @@
 
     Home.prototype.ondraw = function(element) {
 
+        var generateSprite = function() {
+
+            var canvas = document.createElement( 'canvas' );
+
+            canvas.width = 16;
+            canvas.height = 16;
+
+            var context = canvas.getContext('2d');
+            var gradient = context.createRadialGradient( canvas.width / 2, canvas.height / 2, 0, canvas.width / 2, canvas.height / 2, canvas.width / 2 );
+            gradient.addColorStop( 0, 'rgba(255,255,255,1)' );
+            gradient.addColorStop( 0.2, 'rgba(0,255,255,1)' );
+            gradient.addColorStop( 0.4, 'rgba(0,0,64,1)' );
+            gradient.addColorStop( 1, 'rgba(0,0,0,1)' );
+
+            context.fillStyle = gradient;
+            context.fillRect( 0, 0, canvas.width, canvas.height );
+
+            return canvas;
+        };
+
         var camera    = new THREE.PerspectiveCamera(75, this.get('window.width') / this.get('window.height'), 1, 10000),
             scene     = new THREE.Scene(),
             renderer;
 
+        var options = {
+            antialias: true
+        };
+
         if (this.webgl()) {
-            renderer = new THREE.WebGLRenderer();
+            renderer = new THREE.WebGLRenderer(options);
         } else {
-            rendered = new THREE.CanvasRenderer();
+            rendered = new THREE.CanvasRenderer(options);
         }
 
         var SEPARATION = 100,
@@ -91,7 +115,9 @@
         var particle,
             count = 0;
 
-        var material  = new THREE.SpriteMaterial({
+        var material = new THREE.SpriteMaterial({
+            map: new THREE.CanvasTexture(generateSprite()),
+            blending: THREE.AdditiveBlending,
             color: 0xffffff
         });
 
@@ -99,6 +125,8 @@
 
             camera.position.x += ( mouseX - camera.position.x ) * 0.05;
             camera.position.y += ( - mouseY - camera.position.y ) * 0.05;
+            // camera.position.x = 0;
+            // camera.position.y = 0;
             camera.lookAt( scene.position );
 
             var i = 0;
@@ -108,10 +136,9 @@
                 for ( var iy = 0; iy < AMOUNTY; iy ++ ) {
 
                     particle = particles[ i++ ];
-                    particle.position.y = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) +
-                        ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
-                    particle.scale.x = particle.scale.y = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 4 +
-                        ( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 4;
+                    // particle.position.y = ( Math.sin( ( ix + count ) * 0.3 ) * 50 ) + ( Math.sin( ( iy + count ) * 0.5 ) * 50 );
+                    particle.position.y = ix * 20;
+                    particle.scale.x = particle.scale.y = ( Math.sin( ( ix + count ) * 0.3 ) + 1 ) * 4 + ( Math.sin( ( iy + count ) * 0.5 ) + 1 ) * 4;
 
                 }
 
@@ -123,7 +150,7 @@
         };
 
         var animate = function() {
-            requestAnimationFrame(animate);
+            // requestAnimationFrame(animate);
             render();
         };
 
