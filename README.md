@@ -1,5 +1,5 @@
-# infinitely
-A re-brand infinitely website written in Go language
+# infinitely 2.0
+A re-brand infinitely website
 
 ## License ##
 
