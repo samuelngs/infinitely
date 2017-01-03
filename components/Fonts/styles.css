@@ -1,0 +1,91 @@
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/Montserrat/montserrat-regular-webfont.woff2') format('woff2'),
+         url('./fonts/Montserrat/montserrat-regular-webfont.woff') format('woff'),
+         url('./fonts/Montserrat/montserrat-regular-webfont.eot') format('eof');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/Montserrat/montserrat-bold-webfont.woff2') format('woff2'),
+         url('./fonts/Montserrat/montserrat-bold-webfont.woff') format('woff'),
+         url('./fonts/Montserrat/montserrat-bold-webfont.eot') format('eof');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./fonts/Work_Sans/worksans-regular-webfont.woff2') format('woff2'),
+         url('./fonts/Work_Sans/worksans-regular-webfont.woff') format('woff'),
+         url('./fonts/Work_Sans/worksans-regular-webfont.eot') format('eof');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./fonts/Work_Sans/worksans-medium-webfont.woff2') format('woff2'),
+         url('./fonts/Work_Sans/worksans-medium-webfont.woff') format('woff'),
+         url('./fonts/Work_Sans/worksans-medium-webfont.eot') format('eof');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./fonts/Work_Sans/worksans-semibold-webfont.woff2') format('woff2'),
+         url('./fonts/Work_Sans/worksans-semibold-webfont.woff') format('woff'),
+         url('./fonts/Work_Sans/worksans-semibold-webfont.eot') format('eof');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Work Sans';
+    src: url('./fonts/Work_Sans/worksans-bold-webfont.woff2') format('woff2'),
+         url('./fonts/Work_Sans/worksans-bold-webfont.woff') format('woff'),
+         url('./fonts/Work_Sans/worksans-bold-webfont.eot') format('eof');
+    font-weight: 700;
+    font-style: normal;
+}
+
+:global(body) {
+    font-family: 'Work Sans', sans-serif;
+}
+
+:global(h1),
+:global(h2),
+:global(h3),
+:global(h4),
+:global(h5),
+:global(h6) {
+    font-family: 'Montserrat', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 14px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+    margin: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #d6d6d6;
+    border: 5px solid rgba(0, 0, 0, 0);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-button {
+    display: none;
+}
+
+::-webkit-scrollbar-corner {
+    display: none;
+}

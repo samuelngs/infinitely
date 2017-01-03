@@ -1,0 +1,11 @@
+
+$logo_margin: 40px;
+
+.root {
+    position: fixed;
+    z-index: 1;
+}
+
+.logo {
+    margin: $logo_margin;
+}

@@ -1,0 +1,10 @@
+
+:global(body),
+:global(main) {
+    margin: 0;
+    padding: 0;
+}
+
+:global(body) {
+    background-color: #F7F7F7;
+}

@@ -1,0 +1,11 @@
+
+$logo_size: 30px;
+
+.root {
+    width: $logo_size;
+    height: $logo_size;
+}
+
+.svg {
+    transition: fill ease-in-out 0.2s;
+}

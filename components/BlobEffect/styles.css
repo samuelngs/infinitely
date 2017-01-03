@@ -1,0 +1,27 @@
+
+.root {
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    bottom: -150px;
+    opacity: 0;
+    transition: opacity ease .5s;
+}
+
+.visible {
+    opacity: 1;
+}
+
+.canvas{
+    margin: 0;
+    padding: 0;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    filter: url("#filter");
+}
+
+.svg {
+    margin: 0;
+    padding: 0;
+}
