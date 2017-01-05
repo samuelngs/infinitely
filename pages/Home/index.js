@@ -7,9 +7,11 @@ import { Head, Title, Meta } from 'weave-head';
 
 import AnimationFadeIn from '../../components/AnimationFadeIn';
 import HeroGrid from '../../components/HeroGrid';
+import Introduction from '../../components/Introduction';
 import HeroMain from './HeroMain';
 import HeroTop from './HeroTop';
 import HeroBottom from './HeroBottom';
+import Profile from './Profile';
 
 export default class Home extends Component {
 
@@ -29,6 +31,24 @@ export default class Home extends Component {
           bottom: <HeroBottom bg="#c6e2e9" />,
         })}
       </HeroGrid>
+      <Introduction
+        title="Who am I"
+        content={[
+          "I am Sam, a software developer. I studied computer science at Northern Alberta Institute of Technology in Edmonton, Alberta.",
+          "I am a highly motivated individual and a team player. I always have a great passion for design and programming.",
+        ]}
+        timeout={800}
+      >
+        <Profile />
+      </Introduction>
+      <Introduction
+        title="Skills & Experience"
+        content={[
+          "Strong in design and problem solving skills. Expertise in *nix system and command-line. Fluent in Golang, Javascript, Node.js, PHP, Java and Objective-C. Worked with MySQL, Redis, RethinkDB, MongoDB and Cassandra. ",
+          "Proficient in frontend development using React, Inferno, Mithril and Angular.js. Experience in Micro-services architecture, Distributed systems and Continuous delivery with Docker and Kubernetes.",
+        ]}
+        timeout={1000}
+      />
       <Link href="/athena">Go to link</Link>
     </div>
   }

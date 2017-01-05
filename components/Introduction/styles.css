@@ -1,0 +1,97 @@
+
+$main_bg: #fff;
+
+$title_margin: 8px;
+$title_padding: 0;
+$title_width: calc(100% - 80px);
+$title_max_width: 600px;
+
+$content_margin: 8px;
+$content_padding: 0;
+$content_width: calc(100% - 80px);
+$content_max_width: 600px;
+$content_color: #878787;
+$content_size: 22px;
+$content_weight: 400;
+
+$content_first_letter_color: #000;
+$content_first_letter_size: 84px;
+$content_first_letter_weight: 200;
+$content_first_letter_lineheight: 72px;
+
+.root {
+    display: flex;
+    flex-direction: column;
+}
+
+.c2 {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+}
+
+.c1 {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.c1, .c2 {
+    min-height: calc(50vh - 100px);
+}
+
+.main {
+    padding-top: 80px;
+    padding-bottom: 50px;
+    min-height: calc(50vh - 100px);
+    align-items: center;
+    justify-content: center;
+    background-color: $main_bg;
+}
+
+.title {
+    margin: $title_margin;
+    padding: $title_padding;
+    width: $title_width;
+    max-width: $title_max_width;
+    font-size: 30px;
+    margin: 10px 0;
+}
+
+.content {
+    margin: $content_margin;
+    padding: $content_padding;
+    width: $content_width;
+    max-width: $content_max_width;
+    font-size: $content_size;
+    font-weight: $content_weight;
+    color: $content_color;
+    white-space: pre-line;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-overflow: ellipsis;
+    line-height: 1.7;
+    clear: both;
+}
+
+.content:first-child:first-letter {
+    margin-right: 5px;
+    margin-left: -7px;
+    float: left;
+    font-size: $content_first_letter_size;
+    font-weight: $content_first_letter_weight;
+    line-height: $content_first_letter_lineheight;
+    color: $content_first_letter_color;
+}
+
+.content:nth-child(even) {
+    color: #696969;
+}
+
+@media screen and (min-width: 1000px) {
+
+    .root {
+        flex-direction: row;
+    }
+
+}

@@ -20,6 +20,8 @@ $separator_animation_duration: 1.0s;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    user-select: none;
+    cursor: default;
 }
 
 .title {
