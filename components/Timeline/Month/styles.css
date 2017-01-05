@@ -1,0 +1,50 @@
+
+.root {
+    flex: 1;
+    flex-direction: row;
+    display: flex;
+    position: relative;
+    width: 15px;
+    pointer-events: none;
+}
+
+.full { }
+.half { }
+
+.line {
+    position: absolute;
+    bottom: 0;
+    left: 7px;
+    width: 1px;
+    height: 44%;
+    background-color: rgba(213, 209, 211, 0.54);
+}
+
+.half .line {
+    height: 50%;
+    background-color: rgba(80, 225, 255, 0.53);
+}
+
+.full .line {
+    height: 70%;
+    background-color: rgba(80, 225, 255, 0.53);
+}
+
+.month {
+    position: absolute;
+    bottom: 46%;
+    left: -2px;
+    transform: rotate(-90deg);
+    font-size: 10px;
+    font-weight: 500;
+    color: #999;
+    white-space: pre;
+}
+
+.half .month {
+    bottom: 52%;
+}
+
+.full .month {
+    bottom: 72%;
+}

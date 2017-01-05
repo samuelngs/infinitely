@@ -12,6 +12,7 @@ import HeroMain from './HeroMain';
 import HeroTop from './HeroTop';
 import HeroBottom from './HeroBottom';
 import Profile from './Profile';
+import TimeTravel from './TimeTravel';
 
 export default class Home extends Component {
 
@@ -48,7 +49,20 @@ export default class Home extends Component {
           "Proficient in frontend development using React, Inferno, Mithril and Angular.js. Experience in Micro-services architecture, Distributed systems and Continuous delivery with Docker and Kubernetes.",
         ]}
         timeout={1000}
-      />
+      >
+        <TimeTravel since={2010} />
+      </Introduction>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
+      <div>test</div>
       <Link href="/athena">Go to link</Link>
     </div>
   }

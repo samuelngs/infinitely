@@ -1,0 +1,37 @@
+
+.root {
+    display: flex;
+    flex-direction: row;
+    pointer-events: none;
+}
+
+.year {
+    flex: 1;
+    flex-direction: row;
+    display: flex;
+    position: relative;
+    width: 15px;
+}
+
+.year span {
+    padding: 3px 4px;
+    position: absolute;
+    bottom: 86%;
+    left: -5px;
+    transform: rotate(-90deg);
+    font-size: 9px;
+    font-weight: 500;
+    white-space: pre;
+    background-color: #ccffe2;
+    border-radius: 2px;
+    color: #46d181;
+}
+
+.line {
+    position: absolute;
+    bottom: 0;
+    left: 7px;
+    width: 1px;
+    height: 100%;
+    background-color: rgba(213, 209, 211, 0.3);
+}
