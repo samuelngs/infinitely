@@ -1,0 +1,127 @@
+
+.root {
+    width: 320px;
+    height: 568px;
+    padding: 105px 22px;
+    background: #2c2b2c;
+    border-radius: 50px;
+    vertical-align: top;
+    position: relative;
+}
+
+.topbar {
+    position: absolute;
+    top: 70px;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    display: block;
+    background: white;
+}
+
+.sleep {
+    position: absolute;
+    top: -4px;
+    right: 60px;
+    width: 60px;
+    height: 4px;
+    border-radius: 2px 2px 0px 0px;
+    background: #282727;
+}
+
+.volume {
+    position: absolute;
+    top: 180px;
+    left: -4px;
+    z-index: 0;
+    height: 27px;
+    width: 4px;
+    border-radius: 2px 0px 0px 2px;
+    background: #282727;
+}
+
+.volume:before {
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: -75px;
+    height: 35px;
+    width: 4px;
+    border-radius: 2px 0px 0px 2px;
+    background: inherit;
+    display: block;
+}
+
+.volume:after {
+    content: '';
+    position: absolute;
+    left: 0px;
+    bottom: -64px;
+    height: 27px;
+    width: 4px;
+    border-radius: 2px 0px 0px 2px;
+    background: inherit;
+    display: block;
+}
+
+.camera {
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    background: #3c3d3d;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.sensor {
+    position: absolute;
+    top: 60px;
+    left: 160px;
+    background: #3c3d3d;
+    width: 10px;
+    height: 10px;
+    z-index: 3;
+    margin-left: -32px;
+    border-radius: 5px;
+}
+
+.speaker {
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    width: 64px;
+    height: 10px;
+    margin-left: -32px;
+    background: #292728;
+    border-radius: 5px;
+    z-index: 3;
+}
+
+.screen {
+    width: 100%;
+    position: relative;
+    height: 100%;
+    color: white;
+    z-index: 2;
+    text-align: center;
+    display: block;
+    border-radius: 1px;
+    box-shadow: 0 0 0 3px #111;
+    background-color: #fff;
+    pointer-events: none;
+}
+
+.home {
+    position: absolute;
+    left: 50%;
+    bottom: 19px;
+    height: 68px;
+    width: 68px;
+    margin-left: -34px;
+    box-shadow: inset 0 0 0 4px #393939;
+    border-radius: 36px;
+    z-index: 3;
+}

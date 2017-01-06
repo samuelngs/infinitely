@@ -68,9 +68,7 @@ export default class Home extends Component {
       <HeroGrid showcases={true}>
         {() => ({
           main  : <HeroMain effect="blob" title="A full stack developer living in Edmonton, Canada." subtitle={["Develop apps for Web and Mobile with ", <span>♥</span>]} />,
-          // top   : <HeroTop />,
-          // bottom: <HeroBottom />,
-          top   : <HeroTop bg="#edf4ec" />,
+          top   : <HeroTop bg="#11192A" />,
           bottom: <HeroBottom bg="#c6e2e9" />,
         })}
       </HeroGrid>

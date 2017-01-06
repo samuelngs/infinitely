@@ -50,7 +50,7 @@ export default class HeroMain extends Component {
         <h2 className={`${styles.defaults} ${visible ? styles.visible : defaults.string}`}>{ subtitle }</h2>
       </div>
       <div className={`${styles.separator} ${visible ? styles.visible : defaults.string}`}><div /></div>
-      { ((effect === 'random' && random) || effect === 'blob') ? <BlobEffect timeout={2000} visible={viewport} /> : <GooEffect timeout={2000} visible={viewport} /> }
+      { false && (((effect === 'random' && random) || effect === 'blob') ? <BlobEffect timeout={2000} visible={viewport} /> : <GooEffect timeout={2000} visible={viewport} />) }
     </Visibility>
   }
 
