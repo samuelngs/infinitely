@@ -9,6 +9,7 @@ import styles from './styles.css';
 const defaults = {
   year: '20XX',
   position: 'bottom',
+  events: { },
 };
 
 const months = [
@@ -29,8 +30,8 @@ const months = [
 export default class Year extends Component {
 
   renderMonths() {
-    const { year = defaults.year, position = defaults.position } = this.props;
-    return months.map((month, i) => <Month number={i + 1} month={month} year={year} position={position} />);
+    const { year = defaults.year, position = defaults.position, events = defaults.events } = this.props;
+    return months.map((month, i) => <Month number={i + 1} month={month} year={year} position={position} events={events[i + 1]} />);
   }
 
   render() {

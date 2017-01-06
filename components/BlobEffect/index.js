@@ -5,13 +5,14 @@ import Component from 'inferno-component';
 import styles from './styles.css';
 
 const defaults = {
-  string: '',
-  number: 500,
-  width : 500,
-  height: 500,
-  origin: { x: 500 / 2, y: 500 / 2 },
-  colors: ['#44c1ff', '#6dffab', '#ffdd02'],
-  fill  : '#c6e2e9',
+  string  : '',
+  number  : 500,
+  width   : 500,
+  height  : 500,
+  origin  : { x: 500 / 2, y: 500 / 2 },
+  colors  : ['#44c1ff', '#6dffab', '#ffdd02'],
+  fill    : '#c6e2e9',
+  visible : true,
 };
 
 class Dot {
@@ -80,6 +81,8 @@ export default class BlobEffect extends Component {
   }
 
   componentDrawCanvas(canvas, context) {
+    const { visible: viewport = defaults.visible } = this.props;
+    if ( !viewport ) return false;
     context.clearRect(0, 0, defaults.width, defaults.height);
     if ( this.state.count === this.state.random ) {
       this.state.dots.push(new Dot());

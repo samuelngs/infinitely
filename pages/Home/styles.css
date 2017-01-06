@@ -1,0 +1,146 @@
+
+.skill_html {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #CCFFE2;
+    color: #00CE59;
+}
+
+.skill_css {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #838E98;
+    color: #fff;
+}
+
+.skill_java {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #000;
+    color: #fff;
+}
+
+.skill_go {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #6AD7E5;
+    color: #004851;
+}
+
+.skill_js {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #F0DB4F;
+    color: #6f641b;
+}
+
+.skill_c {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #F12B28;
+    color: #fff;
+}
+
+.skill_cpp {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #0061E0;
+    color: #fff;
+}
+
+.skill_assembly {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #414146;
+    color: #fff;
+}
+
+.skill_objc {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #349FFF;
+    color: #fff;
+}
+
+.skill_android {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #97C024;
+    color: #fff;
+}
+
+.skill_php {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #8892BF;
+    color: #222530;
+}
+
+.skill_mysql {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #F29111;
+    color: #fff;
+}
+
+.skill_rethinkdb {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #1E4C59;
+    color: #fff;
+}
+
+.skill_redis {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #D92B21;
+    color: #fff;
+}
+
+.skill_mongodb {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #2A2B2D;
+    color: #fff;
+}
+
+.skill_etcd {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #1C425B;
+    color: #fff;
+}
+
+.skill_nsq {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #01ADED;
+    color: #fff;
+}
+
+.skill_spring_framework {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #6DB33F;
+    color: #fff;
+}
+
+.skill_linux {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #003764;
+    color: #fff;
+}
+
+.skill_nas {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #FF4C00;
+    color: #fff;
+}
+
+.skill_docker {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #1396C3;
+    color: #fff;
+}
+
+.skill_web {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #eee;
+    color: #777;
+}
+
+.skill_os {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #F15F6E;
+    color: #5B0D16;
+}
+
+.skill_backbone {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #000;
+    color: #fff;
+}
+
+.skill_reactjs {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #1E1F3D;
+    color: #B4E6F0;
+}
+
+.skill_microservices {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #EE5C5C;
+    color: #fff;
+}
+
+.skill_kubernetes {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #9C9151;
+    color: #fff;
+}
+
+.skill_inferno {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #eee;
+    color: #D92B21;
+}
+
+.skill_nait {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #0560A9;
+    color: #fff;
+}
+

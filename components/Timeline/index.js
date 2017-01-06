@@ -10,6 +10,7 @@ const defaults = {
   since: new Date().getFullYear() - 1,
   currentYear: new Date().getFullYear(),
   position: 'bottom',
+  events: [ ],
 };
 
 export default class Timeline extends Component {
@@ -18,6 +19,14 @@ export default class Timeline extends Component {
     x: 0,
     y: 0,
     dragging: false,
+  }
+
+  componentDidMount() {
+    const { node } = this;
+    if ( !node ) {
+      return false;
+    }
+    node.scrollLeft = node.scrollWidth || node.offsetWidth;
   }
 
   onMouseDown(e) {
@@ -55,16 +64,35 @@ export default class Timeline extends Component {
     return this.setState({ dragging: false });
   }
 
-  renderYear(year) {
+  events() {
+    const { events = defaults.events } = this.props;
+    const list = { };
+    const count = { };
+    for ( const event of events ) {
+      const { date } = event;
+      if ( !date ) continue;
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1;
+      count[year] || (count[year] = 0);
+      list[year] || (list[year] = {});
+      list[year][month] || (list[year][month] = []);
+      list[year][month].push({ ...event, n: count[year] });
+      count[year]++;
+    }
+    return list;
+  }
+
+  renderYear(year, events) {
     const { position = defaults.position } = this.props;
-    return <Year year={year} position={position} />
+    return <Year year={year} position={position} events={events} />
   }
 
   renderYears() {
     const { since = defaults.since } = this.props;
+    const events = this.events();
     const from = since < defaults.currentYear ? since : defaults.currentYear - 1;
     const to = defaults.currentYear;
-    return [ ...Array(to - from + 1) ].map((_, year) => this.renderYear(from + year));
+    return [ ...Array(to - from + 1) ].map((_, year) => this.renderYear(from + year, events[from + year]));
   }
 
   render() {

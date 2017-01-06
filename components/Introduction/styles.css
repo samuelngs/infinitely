@@ -5,19 +5,24 @@ $title_margin: 8px;
 $title_padding: 0;
 $title_width: calc(100% - 80px);
 $title_max_width: 600px;
+$title_size: 22px;
+$title_size_large: 30px;
 
 $content_margin: 8px;
 $content_padding: 0;
 $content_width: calc(100% - 80px);
 $content_max_width: 600px;
 $content_color: #878787;
-$content_size: 22px;
+$content_size: 18px;
+$content_size_large: 22px;
 $content_weight: 400;
 
 $content_first_letter_color: #000;
-$content_first_letter_size: 84px;
+$content_first_letter_size: 60px;
+$content_first_letter_size_large: 84px;
 $content_first_letter_weight: 200;
-$content_first_letter_lineheight: 72px;
+$content_first_letter_lineheight: 60px;
+$content_first_letter_lineheight_large: 72px;
 
 .root {
     display: flex;
@@ -61,6 +66,7 @@ $content_first_letter_lineheight: 72px;
     width: $title_width;
     max-width: $title_max_width;
     font-size: 30px;
+    font-size: $title_size;
     margin: 10px 0;
 }
 
@@ -92,6 +98,29 @@ $content_first_letter_lineheight: 72px;
 
 .content:nth-child(even) {
     color: #696969;
+}
+
+.paragraph {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+
+    .title {
+        font-size: $title_size_large;
+    }
+
+    .content {
+        font-size: $content_size_large;
+    }
+
+    .content:first-child:first-letter {
+        font-size: $content_first_letter_size_large;
+        line-height: $content_first_letter_lineheight_large;
+    }
+
 }
 
 @media screen and (min-width: 1000px) {

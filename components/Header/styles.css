@@ -1,11 +1,49 @@
 
-$logo_margin: 40px;
+$root_padding: 40px;
+$root_height: 130px;
 
 .root {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 $root_padding;
     position: fixed;
+    right: 0;
+    left: 0;
     z-index: 1;
+    height: 130px;
+    transition: height .4s ease, background-color .4s ease;
 }
 
 .logo {
-    margin: $logo_margin;
+    transition: transform .4s ease;
+}
+
+.sticky {
+    height: 82px;
+    background-color: #fff;
+    box-shadow: 0 3px 5px rgba(0, 33, 60, 0.04);
+}
+
+.sticky .logo {
+    transform: scale(0.8);
+}
+
+@media screen and (max-width: 376px) {
+
+    .root {
+        height: 82px;
+        background-color: #fff;
+        box-shadow: 0 3px 5px rgba(0, 33, 60, 0.04);
+    }
+
+}
+
+@media screen and (min-width: 768px) {
+
+    .root {
+        justify-content: flex-start;
+    }
+
 }

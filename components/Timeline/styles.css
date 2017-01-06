@@ -7,6 +7,9 @@
     overflow: auto;
     cursor: grab;
     user-select: none;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    min-height: 300px;
 }
 
 .root:active {

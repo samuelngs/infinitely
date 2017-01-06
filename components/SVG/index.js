@@ -17,7 +17,7 @@ export default class SVG extends Component {
 
   componentWillMount() {
     const { src = defaults.string } = this.props;
-    if ( src.indexOf('http') === 0 || src.indexOf('https') === 0 ) {
+    if ( src.indexOf('http') === 0 || src.indexOf('https') === 0 || src.indexOf('/') === 0 ) {
       return fetch(src).then(res => res.text()).then(data => this.setState({ data })).catch(e => e);
     }
     return this.setState({ data: src });

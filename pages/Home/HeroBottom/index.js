@@ -26,6 +26,13 @@ export default class HeroBottom extends Component {
     }, timeout);
   }
 
+  shouldComponentUpdate(props, state) {
+    if ( this.state.visible !== state.visible ) {
+      return true;
+    }
+    return false;
+  }
+
   render() {
     const { bg = defaults.string } = this.props;
     const { visible } = this.state;

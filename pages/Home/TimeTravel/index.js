@@ -1,15 +1,16 @@
 
 import Inferno from 'inferno';
 
-import TimeLine from '../../../components/Timeline';
+import Timeline from '../../../components/Timeline';
 
 import styles from './styles.css';
 
 const defaults = {
   since: 2016,
+  events: [ ],
 };
 
-export default ({ since = defaults.since }) => <div className={styles.root}>
-  <TimeLine since={since} />
+export default ({ since = defaults.since, events = defaults.events }) => <div className={styles.root}>
+  <Timeline since={since} events={events} />
 </div>
 

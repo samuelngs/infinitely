@@ -5,6 +5,7 @@
     display: flex;
     position: relative;
     width: 15px;
+    min-width: 15px;
     pointer-events: none;
 }
 
@@ -13,7 +14,7 @@
 
 .line {
     position: absolute;
-    bottom: 0;
+    bottom: 7px;
     left: 7px;
     width: 1px;
     height: 44%;
@@ -21,11 +22,13 @@
 }
 
 .half .line {
+    bottom: 3px;
     height: 50%;
     background-color: rgba(80, 225, 255, 0.53);
 }
 
 .full .line {
+    bottom: 0;
     height: 70%;
     background-color: rgba(80, 225, 255, 0.53);
 }
@@ -33,6 +36,7 @@
 .month {
     position: absolute;
     bottom: 46%;
+    bottom: calc(46% + 7px);
     left: -2px;
     transform: rotate(-90deg);
     font-size: 10px;
@@ -43,8 +47,28 @@
 
 .half .month {
     bottom: 52%;
+    bottom: calc(52% + 3px);
 }
 
 .full .month {
     bottom: 72%;
+}
+
+.event {
+    padding: 7px;
+    position: absolute;
+    bottom: 35%;
+    left: 2px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #3ac776;
+    border-radius: 2px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(16, 22, 26, 0.1) rgba(16, 22, 26, 0.1) rgba(16, 22, 26, 0.3) rgba(16, 22, 26, 0.1);
+    box-shadow: 0 1px 1px rgba(16, 22, 26, 0.15);
+    background-clip: border-box;
+    background-color: #fff;
+    z-index: 1;
+    white-space: pre;
 }

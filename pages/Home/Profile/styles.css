@@ -8,6 +8,7 @@ $bg: url('./bg.jpg');
     background-image: $bg;
     background-size: cover;
     background-repeat: no-repeat;
+    min-height: 300px;
 }
 
 .root:hover .ga,

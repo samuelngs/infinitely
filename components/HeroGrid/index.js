@@ -12,13 +12,14 @@ const defaults = {
     top: null,
     bottom: null,
   },
+  showcases: false,
   timeout: 600,
 };
 
 export default class HeroGrid extends Component {
 
   render() {
-    const { children, timeout = defaults.timeout  } = this.props;
+    const { children, timeout = defaults.timeout, showcases = defaults.showcases } = this.props;
     const { main, top, bottom } = typeof children === 'function' ? { ...defaults.template, ...children() }  : defaults.template;
     return <div className={styles.root}>
       <div className={styles.big}>
@@ -26,7 +27,7 @@ export default class HeroGrid extends Component {
         { main }
         </AnimationFadeIn>
       </div>
-      <div className={styles.showcases}>
+      { showcases && <div className={styles.showcases}>
         <div className={styles.small}>
           <AnimationFadeIn timeout={timeout + 550} className={`${styles.container} ${styles.bslider}`} custom={styles.aslider}>
             { top }
@@ -37,7 +38,7 @@ export default class HeroGrid extends Component {
             { bottom }
           </AnimationFadeIn>
         </div>
-      </div>
+      </div> }
     </div>
   }
 
