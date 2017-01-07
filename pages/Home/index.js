@@ -93,18 +93,6 @@ export default class Home extends Component {
       >
         <TimeTravel since={2005} events={skills} />
       </Introduction>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <div>test</div>
-      <Link href="/athena">Go to link</Link>
     </div>
   }
 

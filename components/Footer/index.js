@@ -1,7 +1,9 @@
 
 import Inferno from 'inferno';
+import Introduction from '../Introduction';
 
-export default () => <footer>
-  footer
+import styles from './styles.css';
+
+export default () => <footer className={styles.root}>
 </footer>
 

@@ -1,8 +1,9 @@
 
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-
 import { Link } from 'weave-router';
+
+import Browser from '../../../components/Browser';
 
 import styles from './styles.css';
 
@@ -37,6 +38,7 @@ export default class HeroBottom extends Component {
     const { bg = defaults.string } = this.props;
     const { visible } = this.state;
     return <div className={styles.root} style={bg && { backgroundColor: bg }}>
+      <Browser className={styles.browser} address="https://test.com" />
     </div>
   }
 

@@ -2,5 +2,14 @@
 .root {
     display: flex;
     flex: 1;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
+.browser {
+    position: absolute;
+    top: -10%;
+    left: -25%;
+    transform: scale(0.75);
+}

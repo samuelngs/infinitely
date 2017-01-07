@@ -1,0 +1,122 @@
+
+$title_margin: 8px;
+$title_padding: 0;
+$title_width: calc(100% - 80px);
+$title_max_width: 600px;
+$title_color: #000;
+$title_size: 44px;
+$title_animation_duration: 0.6s;
+$title_index: 1;
+
+$subtitle_color: #888;
+$subtitle_size: 18px;
+
+.root {
+    background-color: #fff;
+    overflow: hidden;
+}
+
+.before {
+    transform: translate(-100%, 0);
+    transition: opacity .5s ease, transform .9s ease;
+}
+
+.after {
+    transform: translate(0, 0);
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1060px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.container + .container {
+    margin-top: 60px;
+}
+
+.showcase {
+    background-color: #F9FAFF;
+}
+
+.center {
+    align-items: center;
+}
+
+.left {
+    align-items: flex-end;
+}
+
+.right {
+    align-items: flex-start;
+}
+
+.hr {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.fill {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+}
+
+.c1 {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.c2 {
+    display: flex;
+    flex: 2;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.container:first-child {
+    padding-top: 150px;
+}
+
+.title {
+    margin: 5px;
+    padding: 0 0 0 26px;
+    max-width: 600px;
+    font-size: $title_size;
+    color: $title_color;
+    position: relative;
+}
+
+.title:before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    background-color: $title_color;
+    height: 2px;
+    width: 20px;
+}
+
+.subtitle {
+    margin: 5px;
+    padding: 0;
+    max-width: 600px;
+    font-size: $subtitle_size;
+    font-weight: 400;
+    line-height: 1.6;
+    color: $subtitle_color;
+}
+
+.browser {
+    transform: scale(0.75);
+    border-color: #aaa;
+}
+
+.browser + .browser {
+    margin-left: -300px;
+}

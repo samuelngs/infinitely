@@ -45,10 +45,15 @@ export default class HeroTop extends Component {
     return false;
   }
 
+  onClick() {
+    const { router: { push } } = this.context;
+    return push('/athena');
+  }
+
   render() {
     const { bg = defaults.string } = this.props;
     const { visible, pre, ready } = this.state;
-    return <div className={`${styles.root} ${ready ? styles.ready : defaults.string}`} style={bg && { backgroundColor: bg }}>
+    return <div className={`${styles.root} ${ready ? styles.ready : defaults.string}`} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
       <Device className={styles.device} bg="#11192A">
         <video ref={n => this.node = n} width="320px" height="568px" preload="auto" autoplay loop muted>
           <source src={video} type="video/mp4" />
