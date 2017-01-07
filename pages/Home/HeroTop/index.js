@@ -6,6 +6,7 @@ import { Link } from 'weave-router';
 import Device from '../../../components/Device';
 
 import video from '../../../assets/athena/videos/athena-iphone-login.mp4';
+import cover from '../../../assets/athena/images/athena-iphone-login.png';
 import styles from './styles.css';
 
 const defaults = {
@@ -39,7 +40,11 @@ export default class HeroTop extends Component {
   }
 
   shouldComponentUpdate(props, state) {
-    if ( this.state.visible !== state.visible || this.state.pre !== state.pre || this.state.ready !== state.ready ) {
+    if (
+      this.state.visible !== state.visible ||
+      this.state.pre     !== state.pre ||
+      this.state.ready   !== state.ready
+    ) {
       return true;
     }
     return false;
@@ -55,7 +60,7 @@ export default class HeroTop extends Component {
     const { visible, pre, ready } = this.state;
     return <div className={`${styles.root} ${ready ? styles.ready : defaults.string}`} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
       <Device className={styles.device} bg="#11192A">
-        <video ref={n => this.node = n} width="320px" height="568px" preload="auto" autoplay loop muted>
+        <video width="320px" height="568px" preload="metadata" poster={cover} autoplay loop muted>
           <source src={video} type="video/mp4" />
         </video>
       </Device>

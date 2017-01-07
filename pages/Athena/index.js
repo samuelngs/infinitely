@@ -9,6 +9,7 @@ import AnimationFadeIn from '../../components/AnimationFadeIn';
 import Browser from '../../components/Browser';
 
 import video from '../../assets/athena/videos/athena-large-login.mp4';
+import cover from '../../assets/athena/images/athena-large-login.png';
 import styles from './styles.css';
 
 const doc = {
@@ -35,12 +36,12 @@ export default class Athena extends Component {
         <AnimationFadeIn timeout={1500} className={`${styles.container} ${styles.center}`}>
           <div className={`${styles.hr} ${styles.showcase}`}>
             <Browser className={styles.browser} address="https://yardly.ca" bg="#11192A">
-              <video width="100%" height="100%" preload="auto" autoplay loop muted>
+              <video width="100%" height="100%" preload="metadata" poster={cover} autoplay loop muted>
                 <source src={video} type="video/mp4" />
               </video>
             </Browser>
             <Browser className={styles.browser} address="https://yardly.ca" bg="#11192A">
-              <video width="100%" height="100%" preload="auto" autoplay loop muted>
+              <video width="100%" height="100%" preload="metadata" poster={cover} autoplay loop muted>
                 <source src={video} type="video/mp4" />
               </video>
             </Browser>

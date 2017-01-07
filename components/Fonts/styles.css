@@ -6,6 +6,7 @@
          url('./fonts/Montserrat/montserrat-regular-webfont.eot') format('eof');
     font-weight: 400;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -15,6 +16,7 @@
          url('./fonts/Montserrat/montserrat-bold-webfont.eot') format('eof');
     font-weight: 700;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -24,6 +26,7 @@
          url('./fonts/Work_Sans/worksans-regular-webfont.eot') format('eof');
     font-weight: 400;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -33,6 +36,7 @@
          url('./fonts/Work_Sans/worksans-medium-webfont.eot') format('eof');
     font-weight: 500;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -42,6 +46,7 @@
          url('./fonts/Work_Sans/worksans-semibold-webfont.eot') format('eof');
     font-weight: 600;
     font-style: normal;
+    font-display: fallback;
 }
 
 @font-face {
@@ -51,6 +56,7 @@
          url('./fonts/Work_Sans/worksans-bold-webfont.eot') format('eof');
     font-weight: 700;
     font-style: normal;
+    font-display: fallback;
 }
 
 :global(body) {
