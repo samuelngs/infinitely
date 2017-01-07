@@ -6,7 +6,9 @@
   "homepage": "https://github.com/samuelngs/infinitely#readme",
   "scripts": {
     "start": "weave",
-    "build": "weave build"
+    "build": "weave build",
+    "image": "rm -rf ./dist && npm run build && docker build --no-cache --tag gcr.io/develo-pe/infinitely:latest .",
+    "deploy": "gcloud docker push gcr.io/develo-pe/infinitely:latest"
   },
   "repository": {
     "type": "git",
