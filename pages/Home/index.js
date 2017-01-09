@@ -63,7 +63,7 @@ export default class Home extends Component {
         <Meta name="HandheldFriendly" content="true" />
         <Meta name="MobileOptimized" content="320" />
         <Meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <Meta name="description" content="We create elegant and functional custom‑designed websites. Our fine studio of two know the value of hard work." />
+        <Meta name="description" content="Sam Ng, full stack developer living in Canada" />
       </Head>
       <HeroGrid showcases={true}>
         {() => ({
