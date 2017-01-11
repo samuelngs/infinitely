@@ -9,6 +9,9 @@ import AnimationFadeIn from '../../components/AnimationFadeIn';
 import Browser from '../../components/Browser';
 
 import video from '../../assets/athena/videos/athena-large-login.mp4';
+import video2 from '../../assets/athena/videos/athena-large-user.mp4';
+import video3 from '../../assets/athena/videos/athena-large-map.mp4';
+import video4 from '../../assets/athena/videos/athena-large-services.mp4';
 import cover from '../../assets/athena/images/athena-large-login.png';
 import styles from './styles.css';
 
@@ -37,13 +40,35 @@ export default class Athena extends Component {
         <AnimationFadeIn timeout={1500} className={`${styles.container} ${styles.center}`}>
           <div className={`${styles.hr} ${styles.showcase}`}>
             <Browser className={styles.browser} address="https://yardly.ca" bg="#11192A">
-              <video width="100%" height="100%" preload="metadata" poster={cover} autoplay loop muted>
+              <video width="1440px" height="798px" preload="metadata" poster={cover} autoplay loop muted>
                 <source src={video} type="video/mp4" />
               </video>
             </Browser>
-            <Browser className={styles.browser} address="https://yardly.ca" bg="#11192A">
-              <video width="100%" height="100%" preload="metadata" poster={cover} autoplay loop muted>
-                <source src={video} type="video/mp4" />
+          </div>
+        </AnimationFadeIn>
+        <AnimationFadeIn timeout={1800} className={`${styles.container} ${styles.center}`}>
+          <div className={`${styles.hr} ${styles.showcase}`}>
+            <Browser className={styles.browser} address="https://yardly.ca" bg="#eee">
+              <video width="1440px" height="798px" preload="metadata" poster={cover} autoplay loop muted>
+                <source src={video2} type="video/mp4" />
+              </video>
+            </Browser>
+          </div>
+        </AnimationFadeIn>
+        <AnimationFadeIn timeout={2100} className={`${styles.container} ${styles.center}`}>
+          <div className={`${styles.hr} ${styles.showcase}`}>
+            <Browser className={styles.browser} address="https://yardly.ca" bg="#eee">
+              <video width="1440px" height="798px" preload="metadata" poster={cover} autoplay loop muted>
+                <source src={video3} type="video/mp4" />
+              </video>
+            </Browser>
+          </div>
+        </AnimationFadeIn>
+        <AnimationFadeIn timeout={2400} className={`${styles.container} ${styles.center}`}>
+          <div className={`${styles.hr} ${styles.showcase}`}>
+            <Browser className={styles.browser} address="https://yardly.ca" bg="#eee">
+              <video width="1440px" height="798px" preload="metadata" poster={cover} autoplay loop muted>
+                <source src={video4} type="video/mp4" />
               </video>
             </Browser>
           </div>

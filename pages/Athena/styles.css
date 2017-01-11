@@ -113,10 +113,10 @@ $subtitle_size: 18px;
 }
 
 .browser {
-    transform: scale(0.75);
     border-color: #aaa;
+    margin: 25px;
 }
 
 .browser + .browser {
-    margin-left: -300px;
+    margin-left: 0;
 }
