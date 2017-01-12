@@ -22,6 +22,16 @@
     background: linear-gradient(to bottom, #efefef 0%,#e6e6e6 50%,#dfdfdf 100%);
 }
 
+.fill {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.fill:last-child {
+    justify-content: flex-end;
+}
+
 .group {
     display: flex;
 }
@@ -75,10 +85,15 @@
     margin-left: 8px;
 }
 
+.lock {
+    width: 11px;
+    height: 11px;
+    margin: 0 4px 2px 4px;
+}
+
 .addressbar {
     margin: 0 auto;
-    transform: translateX(-60px);
-    width: 450px;
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,6 +109,7 @@
     font-size: 13px;
     font-weight: 400;
     font-style: normal;
+    color: #11C575;
 }
 
 .orange {

@@ -1,16 +1,30 @@
 
 $logo_size: 50px;
 
+@keyframes color {
+  0%   { fill: #f12b28 }
+  20%  { fill: #838e98 }
+  40%  { fill: #0061e0 }
+  60%  { fill: #f0db4f }
+  80%  { fill: #6ad7e5 }
+  100% { fill: #f12b28 }
+}
+
 .root {
     width: $logo_size;
     height: $logo_size;
 }
 
 .svg {
-    transition: fill ease-in-out 0.2s;
-}
-
-.svg svg {
     width: $logo_size;
     height: $logo_size;
+    transition: fill ease-in-out 0.2s, transform ease .3s;
+}
+
+.root:hover .path {
+    animation: color 3s linear infinite;
+}
+
+.root:active .svg {
+    transform: scale(0.9);
 }

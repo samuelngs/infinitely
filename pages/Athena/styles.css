@@ -8,8 +8,17 @@ $title_size: 44px;
 $title_animation_duration: 0.6s;
 $title_index: 1;
 
-$subtitle_color: #888;
+$subtitle_color: #707581;
 $subtitle_size: 18px;
+
+$section_title_size: 14px;
+$section_title_color: #000;
+
+$copyright_color: #aaa;
+$copyright_size: 12px;
+
+$video_option_height: 63px;
+$video_option_width: 35px;
 
 .root {
     background-color: #fff;
@@ -30,53 +39,11 @@ $subtitle_size: 18px;
     flex-direction: column;
     max-width: 1060px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 40px;
 }
 
 .container + .container {
     margin-top: 60px;
-}
-
-.showcase {
-    background-color: rgb(236, 255, 250);
-}
-
-.center {
-    align-items: center;
-}
-
-.left {
-    align-items: flex-end;
-}
-
-.right {
-    align-items: flex-start;
-}
-
-.hr {
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-}
-
-.fill {
-    flex: 1;
-    display: flex;
-    overflow: hidden;
-}
-
-.c1 {
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-    overflow: hidden;
-}
-
-.c2 {
-    display: flex;
-    flex: 2;
-    flex-direction: column;
-    overflow: hidden;
 }
 
 .container:first-child {
@@ -112,11 +79,173 @@ $subtitle_size: 18px;
     color: $subtitle_color;
 }
 
+.subtitle strong {
+    color: #828f9b;
+}
+
+.copyright {
+    margin: 5px;
+    padding: 0;
+    max-width: 600px;
+    font-size: $copyright_size;
+    font-weight: 400;
+    line-height: 1.6;
+    color: $copyright_color;
+}
+
+.sectitle {
+    margin: 5px;
+    padding: 0;
+    max-width: 600px;
+    font-size: $section_title_size;
+    color: $section_title_color;
+}
+
+.sectitle + .subtitle {
+    margin-top: 15px;
+}
+
+.timeline {
+    margin: 80px 0 0;
+    display: flex;
+    height: 400px;
+}
+
+.showcase {
+    margin: 80px 0;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(240, 252, 255);
+}
+
+.screens {
+    background-color: rgb(255, 255, 255);
+    margin: 0 0 50px 0;
+    padding: 0;
+}
+
+.scroll {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    height: 760px;
+    max-width: 100%;
+}
+
 .browser {
     border-color: #aaa;
     margin: 25px;
+    user-select: none;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .browser + .browser {
     margin-left: 0;
+}
+
+.mini {
+    width: 1008px;
+    height: 594px;
+    margin-left: 80px;
+}
+
+.mini:last-child {
+    padding-right: 80px;
+}
+
+.mini .browser {
+    transform-origin: left top;
+    transform: scale(0.7);
+    max-width: initial;
+}
+
+.media {
+    width: 1440px;
+    height: 798px;
+    max-width: 100%;
+}
+
+.mask {
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.play {
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px;
+    width: 70px;
+    border-radius: 35px;
+    background-color: #20D5FF;
+    transform: translate(-50%, -50%);
+    transition: transform ease .4s;
+    cursor: pointer;
+    pointer-events: none;
+}
+
+.play:hover {
+    transform: translate(-50%, -50%) scale(.9);
+}
+
+.play:active {
+    transform: translate(-50%, -50%) scale(.84);
+}
+
+.play svg {
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    fill: #fff;
+    pointer-events: none;
+}
+
+.options {
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.option {
+    width: $video_option_height;
+    height: $video_option_width;
+    border: 1px solid #b7d2eb;
+    border-radius: 3px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 1px 1px 1px;
+    cursor: pointer;
+}
+
+.option img {
+    width: $video_option_height;
+    height: $video_option_width;
+}
+
+.option + .option {
+    margin-left: 5px;
+}
+
+@media screen and (min-width: 768px) {
+
+    .title {
+        font-size: 50px;
+    }
+
+    .subtitle {
+        font-size: 22px;
+    }
+
 }

@@ -1,7 +1,6 @@
 
 import Inferno from 'inferno';
 import Component from 'inferno-component';
-import { Link } from 'weave-router';
 
 import Logo from '../Logo';
 
@@ -13,10 +12,30 @@ const defaults = {
 
 export default class Header extends Component {
 
+  state = {
+    y: 0,
+  }
+
+  componentDidMount() {
+    const { store: { subscribe, getState } } = this.context;
+    const { position: { y } } = getState();
+    this.setState({ y }, () => {
+      subscribe(_ => {
+        const { position: { y } } = getState();
+        return this.setState({ y });
+      });
+    });
+  }
+
   onLogoClick(e) {
     e.preventDefault && e.preventDefault();
     const { router: { push } } = this.context;
     push('/');
+  }
+
+  shouldComponentUpdate(props, { y: next }) {
+    const { y: prev } = this.state;
+    return next !== prev;
   }
 
   render() {

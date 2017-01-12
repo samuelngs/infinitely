@@ -28,7 +28,9 @@ export default class HeroTop extends Component {
     }
     return this.timeout({ visible: true }, timeout, () => {
       this.timeout({ pre: true }, 1200, () => {
-        this.timeout({ ready: true }, 100);
+        this.timeout({ ready: true }, 100, () => {
+          this.node && this.node.play();
+        });
       });
     });
   }
@@ -39,11 +41,11 @@ export default class HeroTop extends Component {
     }), ms);
   }
 
-  shouldComponentUpdate(props, state) {
+  shouldComponentUpdate(props, { visible, pre, ready }) {
     if (
-      this.state.visible !== state.visible ||
-      this.state.pre     !== state.pre ||
-      this.state.ready   !== state.ready
+      this.state.visible !== visible ||
+      this.state.pre     !== pre ||
+      this.state.ready   !== ready
     ) {
       return true;
     }
@@ -60,13 +62,13 @@ export default class HeroTop extends Component {
     const { visible, pre, ready } = this.state;
     return <div className={`${styles.root} ${ready ? styles.ready : defaults.string}`} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
       <Device className={styles.device} bg="#11192A">
-        <video width="320px" height="568px" preload="metadata" poster={cover} autoplay loop muted>
+        <video ref={n => this.node = n} width="320px" height="568px" preload="none" poster={cover} loop muted>
           <source src={video} type="video/mp4" />
         </video>
       </Device>
-      { pre && <div className={styles.c1} /> }
-      { pre && <div className={styles.c2} /> }
-      { pre && <div className={styles.c3} /> }
+      <div className={styles.c2} />
+      <div className={styles.c1} />
+      <div className={styles.c3} />
     </div>
   }
 

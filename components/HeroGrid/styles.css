@@ -33,14 +33,9 @@
     overflow: hidden;
 }
 
-.container {
-    display: flex;
-    flex: 1;
-}
-
 .bslidel {
     transform: translate(-100%, 0);
-    transition: opacity .3s ease-in-out, transform .7s ease-in-out;
+    transition: opacity .3s ease, transform .7s ease;
 }
 
 .aslidel {

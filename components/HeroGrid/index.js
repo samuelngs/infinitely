@@ -18,26 +18,24 @@ const defaults = {
 
 export default class HeroGrid extends Component {
 
+  shouldComponentUpdate() {
+    return false;
+  }
+
   render() {
     const { children, timeout = defaults.timeout, showcases = defaults.showcases } = this.props;
     const { main, top, bottom } = typeof children === 'function' ? { ...defaults.template, ...children() }  : defaults.template;
     return <div className={styles.root}>
-      <div className={styles.big}>
-        <AnimationFadeIn timeout={timeout} className={`${styles.container} ${styles.bslidel} ${styles.main}`} custom={styles.aslidel}>
+      <AnimationFadeIn timeout={timeout} className={`${styles.big} ${styles.bslidel} ${styles.main}`} custom={styles.aslidel}>
         { main }
-        </AnimationFadeIn>
-      </div>
+      </AnimationFadeIn>
       { showcases && <div className={styles.showcases}>
-        <div className={styles.small}>
-          <AnimationFadeIn timeout={timeout + 550} className={`${styles.container} ${styles.bslider}`} custom={styles.aslider}>
-            { top }
-          </AnimationFadeIn>
-        </div>
-        <div className={styles.small}>
-          <AnimationFadeIn timeout={timeout + 650} className={`${styles.container} ${styles.bslider}`} custom={styles.aslider}>
-            { bottom }
-          </AnimationFadeIn>
-        </div>
+        <AnimationFadeIn timeout={timeout + 650} className={`${styles.small} ${styles.bslider}`} custom={styles.aslider}>
+          { top }
+        </AnimationFadeIn>
+        <AnimationFadeIn timeout={timeout + 750} className={`${styles.small} ${styles.bslider}`} custom={styles.aslider}>
+          { bottom }
+        </AnimationFadeIn>
       </div> }
     </div>
   }

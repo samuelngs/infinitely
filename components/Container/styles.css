@@ -8,3 +8,7 @@
 :global(body) {
     background-color: #F7F7F7;
 }
+
+:global(strong) {
+    font-weight: inherit;
+}

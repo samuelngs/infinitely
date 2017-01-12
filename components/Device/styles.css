@@ -9,16 +9,6 @@
     position: relative;
 }
 
-.topbar {
-    position: absolute;
-    top: 70px;
-    left: 0;
-    height: 3px;
-    width: 100%;
-    display: block;
-    background: white;
-}
-
 .sleep {
     position: absolute;
     top: -4px;
@@ -101,9 +91,9 @@
 }
 
 .screen {
-    width: 100%;
+    width: 320px;
     position: relative;
-    height: 100%;
+    height: 568px;
     color: white;
     z-index: 2;
     text-align: center;

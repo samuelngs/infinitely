@@ -12,7 +12,6 @@ import styles from './styles.css';
 
 const defaults = {
   string : '',
-  effect : 'random',
   timeout: 1500,
 };
 
@@ -20,8 +19,6 @@ export default class HeroMain extends Component {
 
   state = {
     visible: false,
-    viewport: false,
-    random : Math.round(Math.random()),
   }
 
   componentDidMount() {
@@ -34,15 +31,16 @@ export default class HeroMain extends Component {
     }, timeout);
   }
 
-  onVisibleChange(viewport) {
-    this.setState({ viewport });
+  shouldComponentUpdate(props, { visible }) {
+    const { visible: current } = this.state;
+    return current !== visible;
   }
 
   render() {
     const { bg = defaults.string, effect = defaults.effect } = this.props;
     const { title, subtitle } = this.props;
-    const { visible, random, viewport } = this.state;
-    return <Visibility className={styles.root} style={bg && { backgroundColor: bg }} onChange={::this.onVisibleChange}>
+    const { visible } = this.state;
+    return <div className={styles.root} style={bg && { backgroundColor: bg }}>
       <div className={styles.title}>
         <h1 className={`${styles.defaults} ${visible ? styles.visible : defaults.string}`}>{ title }</h1>
       </div>
@@ -50,8 +48,7 @@ export default class HeroMain extends Component {
         <h2 className={`${styles.defaults} ${visible ? styles.visible : defaults.string}`}>{ subtitle }</h2>
       </div>
       <div className={`${styles.separator} ${visible ? styles.visible : defaults.string}`}><div /></div>
-      { false && (((effect === 'random' && random) || effect === 'blob') ? <BlobEffect timeout={2000} visible={viewport} /> : <GooEffect timeout={2000} visible={viewport} />) }
-    </Visibility>
+    </div>
   }
 
 }

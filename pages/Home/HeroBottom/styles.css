@@ -5,11 +5,12 @@
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    background-image: url(../../../assets/vaniila/images/vaniila.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 }
 
-.browser {
-    position: absolute;
-    top: -10%;
-    left: -25%;
-    transform: scale(0.75);
+.cover {
+    height: 100%;
 }

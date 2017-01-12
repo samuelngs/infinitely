@@ -13,6 +13,21 @@
     transform: scale(1.0);
 }
 
+.ready .c1 {
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(57, 255, 218, 0.32) 100%);
+    transition: transform .75s cubic-bezier(.87,-.41,.19,2.04);
+}
+
+.ready .c2 {
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(57, 255, 218, 0.22) 100%);
+    transition: transform .85s cubic-bezier(.87,-.41,.19,1.84);
+}
+
+.ready .c3 {
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(57, 255, 218, 0.12) 100%);
+    transition: transform .95s cubic-bezier(.87,-.41,.19,1.64);
+}
+
 .root:hover .device {
     transform: scale(.76);
 }
@@ -25,6 +40,11 @@
 .ready:hover .c2,
 .ready:hover .c3 {
     transform: scale(.95);
+}
+
+.cover {
+    width: 320px;
+    height: 568px;
 }
 
 .device {
@@ -44,9 +64,6 @@
     margin-left: -150px;
     margin-top: -120px;
     border-radius: 150px;
-    background-color: transparent;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(57, 255, 218, 0.32) 100%);
-    transition: transform .75s cubic-bezier(.87,-.41,.19,2.04);
     transform: scale(0.5);
 }
 
@@ -59,9 +76,6 @@
     margin-left: -190px;
     margin-top: -160px;
     border-radius: 190px;
-    background-color: transparent;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(57, 255, 218, 0.22) 100%);
-    transition: transform .85s cubic-bezier(.87,-.41,.19,1.84);
     transform: scale(0.5);
 }
 
@@ -74,8 +88,5 @@
     margin-left: -230px;
     margin-top: -200px;
     border-radius: 230px;
-    background-color: transparent;
-    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 50%, rgba(57, 255, 218, 0.12) 100%);
-    transition: transform .95s cubic-bezier(.87,-.41,.19,1.64);
     transform: scale(0.5);
 }

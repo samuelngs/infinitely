@@ -27,18 +27,15 @@ export default class HeroBottom extends Component {
     }, timeout);
   }
 
-  shouldComponentUpdate(props, state) {
-    if ( this.state.visible !== state.visible ) {
-      return true;
-    }
-    return false;
+  shouldComponentUpdate(props, { visible }) {
+    const { visible: current } = this.state;
+    return current !== visible;
   }
 
   render() {
     const { bg = defaults.string } = this.props;
     const { visible } = this.state;
     return <div className={styles.root} style={bg && { backgroundColor: bg }}>
-      <Browser className={styles.browser} address="https://test.com" />
     </div>
   }
 

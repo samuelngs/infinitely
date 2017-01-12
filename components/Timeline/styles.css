@@ -5,6 +5,7 @@
     flex-grow: 1;
     flex-shrink: 1;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
     cursor: grab;
     user-select: none;
     backface-visibility: hidden;
