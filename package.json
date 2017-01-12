@@ -23,6 +23,6 @@
     "url": "https://github.com/samuelngs/infinitely/issues"
   },
   "devDependencies": {
-    "weave-io": "0.8.7"
+    "weave-io": "0.8.9"
   }
 }

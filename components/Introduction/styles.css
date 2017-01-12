@@ -100,6 +100,22 @@ $content_first_letter_lineheight_large: 72px;
     color: #696969;
 }
 
+.content a {
+    position: relative;
+    color: #6abde5;
+    text-decoration: none;
+}
+
+.content a:after {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #d7f2ff;
+}
+
 .paragraph {
     display: flex;
     flex-direction: column;

@@ -80,11 +80,19 @@ export default class Athena extends Component {
     return <div>
       <Head>
         <Title>Athena | Infinitely</Title>
+        <Meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <Meta name="HandheldFriendly" content="true" />
         <Meta name="MobileOptimized" content="320" />
         <Meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <Meta name="description" content={description} />
         <Meta name="keywords" content={keywords} />
+        <Meta name="classification" content={keywords} />
+        <Meta name="referrer" content="origin-when-cross-origin" />
+        <Meta name="distribution" content="Global" />
+        <Meta name="rating" content="General" />
+        <Meta name="robots" content="index, follow" />
+        <Meta name="creator" content="Sam Ng" />
+        <Meta name="publisher" content="infinitely.io" />
       </Head>
       <AnimationFadeIn timeout={200} className={`${styles.root} ${styles.before}`} custom={styles.after}>
         <AnimationFadeIn timeout={1200} className={styles.container}>
@@ -95,7 +103,7 @@ export default class Athena extends Component {
         <AnimationFadeIn timeout={1500} className={styles.showcase}>
           <div>
             <div className={styles.options}>
-              { videos.map((video, i) => <div className={styles.option} onClick={() => this.onOptionClick(i)}><img src={video.cover} /></div>) }
+              { videos.map((video, i) => <div className={styles.option} onClick={() => this.onOptionClick(i)}><img src={video.cover} alt={video.desc} /></div>) }
             </div>
             <Browser className={styles.browser} address="Yardly, Athena" bg="#11192A">
               <div className={styles.play}>
@@ -147,7 +155,7 @@ export default class Athena extends Component {
           <div>
             <h4 className={styles.sectitle}>Technologies</h4>
             <p className={styles.subtitle}>
-              <strong>Microservices architecture</strong>, <strong>Go</strong>, <strong>Javascript</strong>, <strong>React</strong>, <strong>Etcd</strong>, <strong>NSQ</strong>, <strong>Redis</strong>, <strong>Cassandra</strong> and <strong>Docker</strong>
+              <strong>Microservices architecture</strong>, <strong>Go</strong>, <strong>Javascript</strong>, <strong>React</strong>, <strong>NSQ</strong>, <strong>Redis</strong>, <strong>Cassandra</strong>, <strong>Open Data</strong>, <strong>Stripe Payment</strong>, <strong>Twilio Messaging</strong>, <strong>Google Cloud</strong>, <strong>Docker</strong> and <strong>Kubernetes</strong>
             </p>
           </div>
         </AnimationFadeIn>

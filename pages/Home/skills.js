@@ -19,6 +19,7 @@ export default [
   { render: 'Node.js', style: styles.skill_js, date: new Date(2011, 0, 1) },
   { render: 'PHP 5', style: styles.skill_php, date: new Date(2011, 1, 1) },
   { render: 'MySQL', style: styles.skill_mysql, date: new Date(2011, 1, 1) },
+  { render: 'Cassandra', style: styles.skill_cassandra, date: new Date(2012, 11, 1) },
   { render: 'Northern Alberta Institute of Technology', style: styles.skill_nait, date: new Date(2013, 5, 1) },
   { render: 'Docker', style: styles.skill_docker, offset: 1, date: new Date(2014, 2, 1) },
   { render: 'Websocket', style: styles.skill_web, date: new Date(2014, 8, 1) },

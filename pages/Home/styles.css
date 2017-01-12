@@ -84,6 +84,11 @@
     color: #fff;
 }
 
+.skill_cassandra {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #6DB33F;
+    color: #fff;
+}
+
 .skill_spring_framework {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #6DB33F;
     color: #fff;

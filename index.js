@@ -9,7 +9,7 @@ import Redirect from './pages/Redirect';
 import Home from './pages/Home';
 import Athena from './pages/Athena';
 
-export default () => <Router reducers={Reducer}>
+export default () => <Router reducers={Reducer} offline={false}>
   <Route component={Container}>
     <Route path="/" component={Home} />
     <Route path="/athena" component={Athena} />
