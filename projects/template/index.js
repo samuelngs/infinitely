@@ -47,6 +47,7 @@ const meta = [
 const base = {
   name        : defaults.string,
   desc        : defaults.string,
+  summary     : defaults.string,
   keys        : defaults.array,
   brand       : defaults.string,
   creator     : defaults.string,
@@ -87,6 +88,7 @@ export default class Template {
 
   setName(s = defaults.string) { this.base.name = s; return this; }
   setDesc(s = defaults.string) { this.base.desc = s; return this; }
+  setSummary(s = defaults.string) { this.base.summary = s; return this; }
   setKeys(a = defaults.array) { this.base.keys = a; return this; }
   setBrand(s = defaults.string) { this.base.brand = s; return this; }
   setCreator(s = defaults.string) { this.base.creator = s; return this; }

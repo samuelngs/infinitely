@@ -26,6 +26,7 @@ export default create().
   setHero(null).
   setName('Athena').
   setDesc('Customer and provider management console for Yardly, a lawn care & snow removal company located in Edmonton, Canada.').
+  setSummary('Customer and provider management console').
   setKeys([
     'Athena',
     'Yardly',
@@ -40,7 +41,7 @@ export default create().
   setCreator('Sam Ng').
   setPublisher('infinitely.io').
   setCopyright(true).
-  setDate(new Date(2016, 10, 1)).
+  setDate(new Date(2016, 8, 1)).
   addContent('intro', 'Athena allows to manage customer and partner profiles, payment and contact information, monitor providers\' activities, and track visits statuses.').
   addVideo('login', { desc: 'Athena Login', path: video1, cover: cover1 }).
   addVideo('people', { desc: 'Athena People', path: video2, cover: cover2 }).
@@ -54,6 +55,7 @@ export default create().
   addImage('composer', { desc: 'Athena Expression Composer', path: shot6 }).
   setTechnologies([
     'Microservices architecture',
+    'Protocol Buffers',
     'Go',
     'Javascript',
     'React',

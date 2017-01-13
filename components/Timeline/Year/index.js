@@ -39,7 +39,7 @@ export default class Year extends Component {
     return <div className={styles.root}>
       <div className={styles.year}>
         <div className={styles.line} />
-        <span>{ year }</span>
+        <span data-year={ year } />
       </div>
       { this.renderMonths() }
     </div>

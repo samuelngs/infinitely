@@ -33,7 +33,8 @@
     background-color: rgba(80, 225, 255, 0.53);
 }
 
-.month {
+.month:after {
+    content: attr(data-month);
     position: absolute;
     bottom: 46%;
     bottom: calc(46% + 7px);
@@ -45,12 +46,12 @@
     white-space: pre;
 }
 
-.half .month {
+.half .month:after {
     bottom: 52%;
     bottom: calc(52% + 3px);
 }
 
-.full .month {
+.full .month:after {
     bottom: 72%;
 }
 

@@ -15,7 +15,8 @@
     min-width: 15px;
 }
 
-.year span {
+.year span:after {
+    content: attr(data-year);
     padding: 3px 4px;
     position: absolute;
     bottom: 86%;

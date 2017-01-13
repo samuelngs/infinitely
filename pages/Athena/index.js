@@ -28,15 +28,16 @@ export default class Athena extends Component {
   }
 
   render() {
-    const { page: { meta, base: { name, desc, keys, brand, creator, publisher, copyright }, assets: { content, videos, images, technologies } } } = this.props;
+    const { page: { meta, base: { name, desc, summary, keys, brand, creator, publisher, copyright }, assets: { content, videos, images, technologies } }, history } = this.props;
     const { vkey } = this.state;
     const video = videos[vkey];
     return <div>
       <Head>
-        <Title>{ `${ name } | Infinitely` }</Title>
+        <Title>{ `${ name } - ${ summary } | Infinitely` }</Title>
         { meta.map( n => <Meta { ...n } /> ) }
         <Meta name="keywords" content={ keys.join(', ') } />
         <Meta name="classification" content={ keys.join(', ') } />
+        <Meta name="description" content={ desc } />
         <Meta name="creator" content={ creator } />
         <Meta name="publisher" content={ publisher } />
       </Head>
@@ -106,7 +107,7 @@ export default class Athena extends Component {
           </div>
         </AnimationFadeIn>
         <AnimationFadeIn timeout={2700} className={styles.timeline}>
-          <Timeline since={2003} />
+          <Timeline since={2003} events={history} />
         </AnimationFadeIn>
       </AnimationFadeIn>
     </div>
