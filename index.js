@@ -9,10 +9,12 @@ import Redirect from './pages/Redirect';
 import Home from './pages/Home';
 import Athena from './pages/Athena';
 
+import pages from './projects';
+
 export default () => <Router reducers={Reducer} offline={false}>
   <Route component={Container}>
     <Route path="/" component={Home} />
-    <Route path="/athena" component={Athena} />
+    { pages.map( page => <Route path={ page.route.path } component={ page.render({ pages }) } /> ) }
   </Route>
   <Route path="*" component={Redirect} />
 </Router>

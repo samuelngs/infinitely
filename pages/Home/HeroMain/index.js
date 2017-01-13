@@ -48,6 +48,7 @@ export default class HeroMain extends Component {
         <h2 className={`${styles.defaults} ${visible ? styles.visible : defaults.string}`}>{ subtitle }</h2>
       </div>
       <div className={`${styles.separator} ${visible ? styles.visible : defaults.string}`}><div /></div>
+      { false && <BlobEffect timeout={2000} /> }
     </div>
   }
 

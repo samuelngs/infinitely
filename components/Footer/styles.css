@@ -1,28 +1,32 @@
 
 .root {
+    position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: center;
     background-color: #fff;
     padding-top: 80px;
     padding-bottom: 80px;
 }
 
-.button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-    height: 44px;
-    max-width: 100%;
-    max-width: calc(100% - 40px);
-
+.svg {
+    height: 30px;
+    width: 30px;
+    margin: 0 50px;
+    position: relative;
+    z-index: 1;
     background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    box-shadow: 0 1px 0.5px 0 #efefef;
-    font-size: 30px;
-    font-weight: 500;
-    color: #bbb;
 }
 
+.path {
+    fill: #aebcc8;
+}
+
+.line {
+    position: absolute;
+    top: 50%;
+    width: 100px;
+    height: 1px;
+    background-color: #e7eef4;
+}

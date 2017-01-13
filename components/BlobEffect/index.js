@@ -23,7 +23,7 @@ class Dot {
     this.angle = Math.PI * 2 * Math.random();
     this.vx = (1.6 + Math.random() * .3) * Math.cos(this.angle);
     this.vy = (1.6 + Math.random() * .3) * Math.sin(this.angle);
-    this.r = 6 + 3 * Math.random();
+    this.r = 5 + 2 * Math.random();
     this.color = defaults.colors[Math.floor(Math.random() * defaults.colors.length)];
   }
 
@@ -99,7 +99,7 @@ export default class BlobEffect extends Component {
     }
     context.fillStyle = defaults.fill;
     context.beginPath();
-    context.arc(defaults.origin.x, defaults.origin.y, 40, 0, Math.PI * 2, false);
+    context.arc(defaults.origin.x, defaults.origin.y, 60, 0, Math.PI * 2, false);
     context.fill();
     for (var i = 0; i < this.state.dots.length; i++) {
       const dot = this.state.dots[i];
