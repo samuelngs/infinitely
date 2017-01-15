@@ -77,10 +77,10 @@ const core = {
 
 export default class Template {
 
-  meta    = meta;
-  base    = base;
-  assets  = assets;
-  route   = route;
+  meta    = [ ...meta ];
+  base    = { ...base };
+  assets  = { ...assets };
+  route   = { ...route };
 
   setPath(v = defaults.string) { this.route.path = v; return this; }
   setView(v = defaults.nil) { this.route.view = v; return this; }

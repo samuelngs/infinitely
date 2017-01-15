@@ -2,9 +2,11 @@
 import styles from './styles.css';
 
 import athena from './athena';
+import vaniila from './vaniila';
 
 export const projects = [
   athena,
+  vaniila,
 ];
 
 export const history = projects.map(project => ({

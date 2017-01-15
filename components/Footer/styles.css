@@ -26,6 +26,8 @@
 .line {
     position: absolute;
     top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
     width: 100px;
     height: 1px;
     background-color: #e7eef4;

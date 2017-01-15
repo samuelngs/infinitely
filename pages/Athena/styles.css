@@ -151,7 +151,7 @@ $video_option_width: 35px;
 }
 
 .mini {
-    width: 1008px;
+    min-width: 1008px;
     height: 594px;
     margin-left: 80px;
 }
@@ -236,6 +236,10 @@ $video_option_width: 35px;
 
 .option + .option {
     margin-left: 5px;
+}
+
+.metadata {
+    display: none;
 }
 
 @media screen and (min-width: 768px) {

@@ -74,7 +74,7 @@ export default class Athena extends Component {
         </AnimationFadeIn>
         <AnimationFadeIn timeout={1800} className={styles.container}>
           <div>
-            <h4 className={styles.sectitle}>Application Overview</h4>
+            <h2 className={styles.sectitle}>Application Overview</h2>
             <p className={styles.subtitle}>{ content.intro }</p>
           </div>
         </AnimationFadeIn>
@@ -100,7 +100,7 @@ export default class Athena extends Component {
         </AnimationFadeIn>
         <AnimationFadeIn timeout={2400} className={styles.container}>
           <div>
-            <h4 className={styles.sectitle}>Technologies</h4>
+            <h2 className={styles.sectitle}>Technologies</h2>
             <p className={styles.subtitle}>
               { technologies.map((name, i) => [ i > 0 && (i === technologies.length - 1 ? ' and ' : ', '), <strong>{ name }</strong>] ) }
             </p>

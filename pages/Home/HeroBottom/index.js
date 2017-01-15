@@ -32,10 +32,15 @@ export default class HeroBottom extends Component {
     return current !== visible;
   }
 
+  onClick() {
+    const { router: { push } } = this.context;
+    return push('/vaniila');
+  }
+
   render() {
     const { bg = defaults.string } = this.props;
     const { visible } = this.state;
-    return <div className={styles.root} style={bg && { backgroundColor: bg }}>
+    return <div className={styles.root} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
     </div>
   }
 

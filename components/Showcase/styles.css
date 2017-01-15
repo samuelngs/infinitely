@@ -1,0 +1,15 @@
+
+.root {
+    background-color: #fff;
+    overflow: hidden;
+    min-height: 100vh;
+}
+
+.pre {
+    transform: translate(-100%, 0);
+    transition: opacity .5s ease, transform .9s ease;
+}
+
+.rendered {
+    transform: translate(0, 0);
+}
