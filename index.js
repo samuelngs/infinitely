@@ -59,7 +59,7 @@ function sitemap (ctx) {
 
 export default () => <Router reducers={Reducer} offline={false} ga="UA-90337948-1" robots={robots} sitemap={sitemap}>
   <Route component={Container}>
-    <Route path="/" component={Home} />
+    <Route path="/" component={() => <Home pages={pages} />} />
     { pages.map( page => <Route path={ page.route.path } component={ page.render({ pages, history }) } /> ) }
   </Route>
   <Route path="*" component={Redirect} />

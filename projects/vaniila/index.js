@@ -1,6 +1,7 @@
 
 import { create, carousel, showcase, paragraph } from '../template';
 
+import Hero from './Hero';
 import Project from '../../components/Project';
 
 import video1 from '../../assets/vaniila/videos/vaniila-intro.mp4';
@@ -17,7 +18,7 @@ import image7 from '../../assets/vaniila/images/7.jpg';
 export default create().
   setPath('/vaniila').
   setView(Project).
-  setHero(null).
+  setHero(Hero).
   setName('Vaniila').
   setDesc('Vaniila is a unified network to connect remarkable people and ideas. It encourages everyone to spread their passion, engage with the world, and make the impossible happen.').
   setSummary('A unified network to connect remarkable people and ideas').

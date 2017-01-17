@@ -8,9 +8,8 @@ import { Head, Title, Meta } from 'weave-head';
 import Footer from '../../components/Footer';
 import HeroGrid from '../../components/HeroGrid';
 import Introduction from '../../components/Introduction';
+
 import HeroMain from './HeroMain';
-import HeroTop from './HeroTop';
-import HeroBottom from './HeroBottom';
 import Profile from './Profile';
 import TimeTravel from './TimeTravel';
 
@@ -24,7 +23,9 @@ export default class Home extends Component {
     }
   }
 
-  render() {
+  render({ pages }) {
+    const { route: { hero: HeroTop } } = pages[pages.length - 2];
+    const { route: { hero: HeroBottom } } = pages[pages.length - 1];
     return <div>
       <Head>
         <Title>Infinitely</Title>

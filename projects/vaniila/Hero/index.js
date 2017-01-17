@@ -11,7 +11,7 @@ const defaults = {
   string: '',
 };
 
-export default class HeroBottom extends Component {
+export default class Hero extends Component {
 
   state = {
     visible: false,
@@ -32,7 +32,8 @@ export default class HeroBottom extends Component {
     return current !== visible;
   }
 
-  onClick() {
+  onClick(e) {
+    e.preventDefault && e.preventDefault();
     const { router: { push } } = this.context;
     return push('/vaniila');
   }
@@ -40,9 +41,10 @@ export default class HeroBottom extends Component {
   render() {
     const { bg = defaults.string } = this.props;
     const { visible } = this.state;
-    return <div className={styles.root} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
-    </div>
+    return <a href="/vaniila" className={styles.root} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
+    </a>
   }
 
 }
+
 

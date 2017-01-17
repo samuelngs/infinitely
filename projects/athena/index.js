@@ -2,6 +2,7 @@
 import { create } from '../template';
 
 import Athena from '../../pages/Athena';
+import Hero from './Hero';
 
 import video1 from '../../assets/athena/videos/athena-large-login.mp4';
 import video2 from '../../assets/athena/videos/athena-large-user.mp4';
@@ -23,7 +24,7 @@ import shot6 from '../../assets/athena/images/athena-shot-06.jpg';
 export default create().
   setPath('/athena').
   setView(Athena).
-  setHero(null).
+  setHero(Hero).
   setName('Athena').
   setDesc('Customer and provider management console for Yardly, a lawn care & snow removal company located in Edmonton, Canada.').
   setSummary('Customer and provider management console').

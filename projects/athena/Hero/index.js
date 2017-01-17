@@ -7,13 +7,14 @@ import Device from '../../../components/Device';
 
 import video from '../../../assets/athena/videos/athena-iphone-login.mp4';
 import cover from '../../../assets/athena/images/athena-iphone-login.png';
+
 import styles from './styles.css';
 
 const defaults = {
   string: '',
 };
 
-export default class HeroTop extends Component {
+export default class Hero extends Component {
 
   state = {
     visible: false,
@@ -52,7 +53,8 @@ export default class HeroTop extends Component {
     return false;
   }
 
-  onClick() {
+  onClick(e) {
+    e.preventDefault && e.preventDefault();
     const { router: { push } } = this.context;
     return push('/athena');
   }
@@ -60,7 +62,7 @@ export default class HeroTop extends Component {
   render() {
     const { bg = defaults.string } = this.props;
     const { visible, pre, ready } = this.state;
-    return <div className={`${styles.root} ${ready ? styles.ready : defaults.string}`} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
+    return <a href="/athena" className={`${styles.root} ${ready ? styles.ready : defaults.string}`} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
       <Device className={styles.device} bg="#11192A">
         <video ref={n => this.node = n} width="320px" height="568px" preload="none" poster={cover} loop muted>
           <source src={video} type="video/mp4" />
@@ -69,8 +71,9 @@ export default class HeroTop extends Component {
       <div className={styles.c2} />
       <div className={styles.c1} />
       <div className={styles.c3} />
-    </div>
+    </a>
   }
 
 }
+
 
