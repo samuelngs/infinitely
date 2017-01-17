@@ -14,7 +14,7 @@ import pages, { history } from './projects';
 
 function robots (ctx) {
   const { location: { hostname } } = ctx;
-  return 'Sitemap: https://{ hostname }/sitemap.xml';
+  return `Sitemap: https://${ hostname }/sitemap.xml`;
 }
 
 function sitemap (ctx) {
