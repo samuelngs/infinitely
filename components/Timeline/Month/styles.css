@@ -73,3 +73,8 @@
     z-index: 1;
     white-space: pre;
 }
+
+.clickable {
+    pointer-events: all;
+    cursor: pointer;
+}

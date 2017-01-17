@@ -11,6 +11,7 @@ export const projects = [
 
 export const history = projects.map(project => ({
   render  : `${project.base.brand}, ${project.base.name}`,
+  url     : project.route.path,
   date    : project.base.date,
   style   : styles.event_base,
 }));

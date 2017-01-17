@@ -1,0 +1,51 @@
+
+.root {
+    margin: 0;
+    padding: 25px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.infinite {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    height: 760px;
+    max-width: 100%;
+}
+
+.browser_wrapper {
+    min-width: 1008px;
+    height: 594px;
+    margin-left: 80px;
+}
+
+.browser_wrapper:last-child {
+    padding-right: 80px;
+}
+
+.browser_ui {
+    transform-origin: left top;
+    transform: scale(0.7);
+    max-width: initial;
+    border-color: #aaa;
+    margin: 25px;
+    user-select: none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.browser_media {
+    width: 1440px;
+    height: 798px;
+    max-width: 100%;
+}
+
+.fullscreen {
+    border-radius: 5px;
+    overflow: hidden;
+}

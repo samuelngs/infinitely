@@ -1,0 +1,48 @@
+
+$title_size: 14px;
+$title_color: #000;
+
+$content_color: #707581;
+$content_size: 18px;
+
+.root {
+    display: flex;
+    flex-direction: column;
+    max-width: 1060px;
+    margin: 60px auto 0;
+    padding: 0 40px;
+}
+
+.title {
+    margin: 5px;
+    padding: 0;
+    max-width: 600px;
+    font-size: $title_size;
+    color: $title_color;
+}
+
+.title + .content {
+    margin-top: 15px;
+}
+
+.content {
+    margin: 5px;
+    padding: 0;
+    max-width: 600px;
+    font-size: $content_size;
+    font-weight: 400;
+    line-height: 1.6;
+    color: $content_color;
+}
+
+.content strong {
+    color: #828f9b;
+}
+
+@media screen and (min-width: 768px) {
+
+    .content {
+        font-size: 22px;
+    }
+
+}

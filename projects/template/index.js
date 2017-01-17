@@ -61,6 +61,7 @@ const assets = {
   images      : defaults.object,
   content     : defaults.object,
   technologies: defaults.array,
+  templates   : defaults.array,
 };
 
 const route = {
@@ -106,7 +107,10 @@ export default class Template {
   addContent(k = defaults.string, v = defaults.string) { this.assets.content = { ...this.assets.content, [k]: v }; return this; }
 
   setTechnologies(v = defaults.array) { this.assets.technologies = v; return this; }
-  addTechnology(k = defaults.string, v = defaults.string) { this.assets.technologies = [ ...this.assets.technologies, v ]; return this; }
+  addTechnology(v = defaults.string) { this.assets.technologies = [ ...this.assets.technologies, v ]; return this; }
+
+  setTemplates(v = defaults.array) { this.assets.templates = v; return this; }
+  addTemplate(v = defaults.string) { this.assets.templates = [ ...this.assets.templates, v ]; return this; }
 
   render(props = defaults.object) {
     return () => {
@@ -120,6 +124,8 @@ export default class Template {
   }
 
 };
+
+export { carousel, showcase, paragraph } from './modules.js';
 
 export function create () {
   return new Template();

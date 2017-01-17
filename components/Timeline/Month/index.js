@@ -11,8 +11,13 @@ const defaults = {
 
 export default class Month extends Component {
 
-  renderEvent({ n = 0, offset = 0, style = defaults.string, render }) {
-    return <div className={`${styles.event} ${style}`} style={{ bottom: `calc(35% - ${(n + offset) * 36}px)` }}>
+  clickEvent(url) {
+    const { router: { push } } = this.context;
+    push && push(url);
+  }
+
+  renderEvent({ n = 0, offset = 0, style = defaults.string, render, url }) {
+    return <div className={`${styles.event} ${url ? styles.clickable : defaults.string} ${style}`} style={{ bottom: `calc(35% - ${(n + offset) * 36}px)` }} onClick={url && (() => this.clickEvent(url))}>
       { typeof render === 'function' ? render() : render }
     </div>
   }
