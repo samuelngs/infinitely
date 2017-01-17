@@ -44,7 +44,7 @@ function sitemap (ctx) {
       { Object.keys(videos).length > 0 && Object.keys(videos).map(ref => {
         const { path, cover, desc } = videos[ref];
         return <video-video>
-          <video-loc>https://{ hostname }{ path }</video-loc>
+          <video-content_loc>https://{ hostname }{ path }</video-content_loc>
           { cover && <video-thumbnail_loc>https://{ hostname }{ cover }</video-thumbnail_loc> }
           { desc && <video-title>{ desc }</video-title> }
         </video-video>
