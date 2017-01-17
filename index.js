@@ -57,9 +57,18 @@ function sitemap (ctx) {
     replace(/<!---->/g, '');
 }
 
-export default () => <Router reducers={Reducer} offline={false} ga="UA-90337948-1" robots={robots} sitemap={sitemap}>
+if ( typeof window !== 'undefined' ) {
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-90337948-1', 'auto');
+  ga('send', 'pageview');
+}
+
+export default () => <Router reducers={Reducer} offline={false} robots={robots} sitemap={sitemap}>
   <Route component={Container}>
-    <Route path="/" component={() => <Home pages={pages} />} />
+    <Route path="/" component={(props) => <Home pages={pages} />} />
     { pages.map( page => <Route path={ page.route.path } component={ page.render({ pages, history }) } /> ) }
   </Route>
   <Route path="*" component={Redirect} />

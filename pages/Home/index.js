@@ -21,6 +21,9 @@ export default class Home extends Component {
     if ( typeof window !== 'undefined' ) {
       window.scrollTo(0, 0);
     }
+    if ( typeof window !== 'undefined' && typeof window.ga !== 'undefined' ) {
+      window.ga('send', 'pageview', { page: location.pathname });
+    }
   }
 
   render({ pages }) {

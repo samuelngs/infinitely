@@ -113,11 +113,12 @@ export default class Template {
   addTemplate(v = defaults.string) { this.assets.templates = [ ...this.assets.templates, v ]; return this; }
 
   render(props = defaults.object) {
-    return () => {
+    return (root = defaults.object) => {
+      const { cookies, headers, history, location, navigator, params } = root;
       const { meta, base, assets, route } = this;
       const { view } = route;
       if (view) {
-        return createElement(view, { ...props, page: { meta, base, assets, route } });
+        return createElement(view, { ...props, cookies, headers, location, navigator, params, page: { meta, base, assets, route } });
       }
       return defaults.nil;
     }
