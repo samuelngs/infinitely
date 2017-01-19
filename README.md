@@ -1,30 +1,47 @@
 # infinitely 2.0
 A re-brand infinitely website
 
-# Resource
+## Get Started
 
-### Optimizing Image for the web
+#### Run development server
+```
+$ npm start
+```
+
+#### Build production bundle
+```
+$ npm run build
+```
+
+#### Build docker image
+```
+$ npm run image
+```
+
+## Resource
+
+#### Optimizing Image for the web
 ```
 $ jpegoptim --size=250k {image_file}
 ```
 
-### Optimizing Video for the Web
+#### Optimizing Video for the Web
 
 ```
 $ ffmpeg -i {video_file} -vcodec libx264 -crf 20 output.mp4
 ```
 
-### Screen cover for video
+#### Screen cover for video
 ```
 $ ffmpeg -i {video_file} -ss 00:00:00.000 -vframes 1 out.png
 ```
 
-### Convert PNG to JPEG
+#### Convert PNG to JPEG
 ```
 $ convert {png_file} {jpg_file}
 ```
 
-### Blur screen cover
+#### Blur screen cover
 ```
 $ convert {image_file} -channel RGBA -blur 0x20 {output_file}
 ```
