@@ -5,7 +5,7 @@ EXPOSE 5000
 # set default path
 WORKDIR /infinitely
 
-# copy yardly source code to container
+# copy source code to container
 COPY ./dist /infinitely/
 COPY ./package.json /infinitely/
 
