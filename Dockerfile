@@ -6,7 +6,7 @@ EXPOSE 5000
 WORKDIR /infinitely
 
 # copy source code to container
-COPY ./package.json /infinitely/
+COPY . /infinitely/
 
 # install deps and build dist
 RUN set -x \
@@ -18,4 +18,4 @@ RUN yarn build
 # set node env to production after build
 ENV NODE_ENV production
 
-ENTRYPOINT ["node", "/infinitely/dist/server.js"]
+ENTRYPOINT ["node", "dist/server.js"]
