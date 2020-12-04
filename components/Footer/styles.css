@@ -5,7 +5,6 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
     padding-top: 80px;
     padding-bottom: 80px;
 }
@@ -16,7 +15,7 @@
     margin: 0 50px;
     position: relative;
     z-index: 1;
-    background-color: #fff;
+    fill: #ffffff;
 }
 
 .path {
@@ -28,7 +27,18 @@
     top: 50%;
     left: 50%;
     transform: translateX(-50%);
-    width: 100px;
+    width: 160px;
     height: 1px;
     background-color: #e7eef4;
+}
+
+.line::after {
+    background-color: #F7F7F7;
+    content: '';
+    position: absolute;
+    height: 30px;
+    width: 30px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

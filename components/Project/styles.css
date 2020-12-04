@@ -7,7 +7,7 @@
 
 .pre {
     transform: translate(-100%, 0);
-    transition: opacity .5s ease, transform .9s ease;
+    transition: transform .9s ease;
 }
 
 .rendered {

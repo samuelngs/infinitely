@@ -2,10 +2,12 @@
 import styles from './styles.css';
 
 import athena from './athena';
+import remarkable from './remarkable';
 import vaniila from './vaniila';
 
 export const projects = [
   athena,
+  remarkable,
   vaniila,
 ];
 

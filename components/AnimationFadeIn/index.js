@@ -26,9 +26,9 @@ export default class AnimationFadeIn extends Component {
   }
 
   render() {
-    const { children, className = defaults.string, custom = defaults.string } = this.props;
+    const { children, className = defaults.string, custom = defaults.string, ...rest } = this.props;
     const { visible } = this.state;
-    return <div className={`${styles.root} ${visible ? `${styles.visible} ${custom}` : defaults.string} ${className}`}>
+    return <div className={`${styles.root} ${visible ? `${styles.visible} ${custom}` : defaults.string} ${className}`} {...rest}>
       { children }
     </div>
   }

@@ -22,8 +22,8 @@ $root_height: 130px;
 
 .sticky {
     height: 82px;
-    background-color: #fff;
-    box-shadow: 0 3px 5px rgba(0, 33, 60, 0.04);
+    /* background-color: #fff; */
+    /* box-shadow: 0 3px 5px rgba(0, 33, 60, 0.04); */
 }
 
 .sticky .logo {

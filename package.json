@@ -24,5 +24,8 @@
   },
   "devDependencies": {
     "weave-io": "0.8.15"
+  },
+  "dependencies": {
+    "locomotive-scroll": "^4.0.4"
   }
 }

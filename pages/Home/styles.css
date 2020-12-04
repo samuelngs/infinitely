@@ -19,7 +19,7 @@
     color: #004851;
 }
 
-.skill_js {
+.skill_js, .skill_firebase {
     background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #F0DB4F;
     color: #6f641b;
 }
@@ -54,7 +54,7 @@
     color: #222530;
 }
 
-.skill_mysql {
+.skill_mysql, .skill_tensorflow {
     background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #F29111;
     color: #fff;
 }
@@ -64,12 +64,12 @@
     color: #fff;
 }
 
-.skill_redis {
+.skill_redis, .skill_rails {
     background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #D92B21;
     color: #fff;
 }
 
-.skill_mongodb {
+.skill_mongodb, .skill_Kafka {
     background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #2A2B2D;
     color: #fff;
 }
@@ -124,7 +124,7 @@
     color: #fff;
 }
 
-.skill_reactjs {
+.skill_reactjs, .skill_datadog {
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #1E1F3D;
     color: #B4E6F0;
 }
@@ -148,4 +148,3 @@
     background: linear-gradient(to bottom, rgba(255, 255, 255, .1), rgba(255, 255, 255, 0)) left no-repeat, center no-repeat #0560A9;
     color: #fff;
 }
-

@@ -8,6 +8,7 @@ $bg: url('./bg.jpg');
     background-image: $bg;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     min-height: 300px;
 }
 
@@ -27,6 +28,7 @@ $bg: url('./bg.jpg');
     background-image: $bg;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     top: 0;
     left: 2px;
@@ -43,6 +45,7 @@ $bg: url('./bg.jpg');
     background-image: $bg;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     top: 0;
     left: -2px;
@@ -60,6 +63,7 @@ $bg: url('./bg.jpg');
     background-image: $bg;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     top: 0;
     left: -4px;
@@ -76,6 +80,7 @@ $bg: url('./bg.jpg');
     background-image: $bg;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     position: absolute;
     top: 0;
     left: -2px;
@@ -83,7 +88,7 @@ $bg: url('./bg.jpg');
     clip: rect(0, 900px, 0, 0);
     animation: noise-d 3s infinite linear alternate-reverse;
     animation-play-state: paused;
-    filter: hue-rotate(20deg) contrast(1);
+    filter: hue-rotate(-20deg) contrast(1);
 }
 
 .ge {
@@ -94,6 +99,7 @@ $bg: url('./bg.jpg');
     background-image: $bg;
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
     background-position-y: -300px;
     position: absolute;
     top: 300px;
@@ -433,4 +439,3 @@ $bg: url('./bg.jpg');
     clip: rect(12px, 9999px, 341px, 0);
   }
 }
-

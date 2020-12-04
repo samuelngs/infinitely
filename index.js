@@ -8,7 +8,6 @@ import Container from './components/Container';
 
 import Redirect from './pages/Redirect';
 import Home from './pages/Home';
-import Athena from './pages/Athena';
 
 import pages, { history } from './projects';
 

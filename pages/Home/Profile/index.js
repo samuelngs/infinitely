@@ -8,5 +8,4 @@ export default () => <div className={styles.root}>
   <div className={styles.gb} />
   <div className={styles.gc} />
   <div className={styles.gd} />
-  <div className={styles.ge} />
 </div>

@@ -22,9 +22,9 @@ export default class Paragraph extends Component {
 
   render({ timeout = 300.0, template: { title } }) {
     return <AnimationFadeIn timeout={timeout} className={styles.root}>
-      <div>
-        <h2 className={styles.title}>{ title }</h2>
-        <p className={styles.content}>{ this.renderContent() }</p>
+      <div data-scroll-section>
+        <h2 className={styles.title} data-scroll data-scroll-speed="1">{ title }</h2>
+        <p className={styles.content} data-scroll data-scroll-speed="1.5">{ this.renderContent() }</p>
       </div>
     </AnimationFadeIn>
   }

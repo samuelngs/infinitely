@@ -25,15 +25,15 @@ export default class HeroGrid extends Component {
   render() {
     const { children, timeout = defaults.timeout, showcases = defaults.showcases } = this.props;
     const { main, top, bottom } = typeof children === 'function' ? { ...defaults.template, ...children() }  : defaults.template;
-    return <div className={styles.root}>
+    return <div className={styles.root} data-scroll-section>
       <AnimationFadeIn timeout={timeout} className={`${styles.big} ${styles.bslidel} ${styles.main}`} custom={styles.aslidel}>
         { main }
       </AnimationFadeIn>
       { showcases && <div className={styles.showcases}>
-        <AnimationFadeIn timeout={timeout + 650} className={`${styles.small} ${styles.bslider}`} custom={styles.aslider}>
+        <AnimationFadeIn timeout={timeout + 650} className={`${styles.small} ${styles.bslider}`} custom={styles.aslider} data-scroll data-scroll-position="left" data-scroll-direction="horizontal" data-scroll-speed="3">
           { top }
         </AnimationFadeIn>
-        <AnimationFadeIn timeout={timeout + 750} className={`${styles.small} ${styles.bslider}`} custom={styles.aslider}>
+        <AnimationFadeIn timeout={timeout + 750} className={`${styles.small} ${styles.bslider}`} custom={styles.aslider} data-scroll data-scroll-position="left" data-scroll-direction="horizontal" data-scroll-speed="2">
           { bottom }
         </AnimationFadeIn>
       </div> }

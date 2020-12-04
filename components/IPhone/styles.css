@@ -1,0 +1,18 @@
+
+.root {
+    width: 368px;
+    height: 798px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #eeeeee;
+    border-radius: 24px;
+    overflow: hidden;
+    background-color: #fff;
+}
+
+.screen {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+}

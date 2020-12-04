@@ -11,11 +11,10 @@ COPY ./package.json /infinitely/
 
 # install deps and build dist
 RUN set -x \
-    && apk --no-cache add nodejs \
-    && npm install
+    && apk --no-cache add nodejs yarn \
+    && yarn
 
 # set node env to production after build
 ENV NODE_ENV production
 
 ENTRYPOINT ["node", "/infinitely/server.js"]
-

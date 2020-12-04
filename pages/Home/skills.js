@@ -38,5 +38,10 @@ export default [
   { render: 'Microservices architecture', offset: -3, style: styles.skill_microservices, date: new Date(2016, 7, 1) },
   { render: 'Kubernetes', offset: -2, style: styles.skill_kubernetes, date: new Date(2016, 9, 1) },
   { render: 'Inferno', offset: 1, style: styles.skill_inferno, date: new Date(2017, 1, 1) },
+  { render: 'Ruby on Rails', style: styles.skill_rails, date: new Date(2018, 1, 1) },
+  { render: 'Datadog', style: styles.skill_datadog, date: new Date(2018, 4, 1) },
+  { render: 'Firebase', style: styles.skill_firebase, date: new Date(2018, 8, 1) },
+  { render: 'Apache Kafka', style: styles.skill_Kafka, date: new Date(2019, 3, 1) },
+  { render: 'TensorFlow', style: styles.skill_tensorflow, date: new Date(2020, 1, 1) },
 ];
 
