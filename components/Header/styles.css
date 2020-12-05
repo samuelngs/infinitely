@@ -30,7 +30,7 @@ $root_height: 130px;
     transform: scale(0.8);
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 428px) {
 
     .root {
         height: 82px;
