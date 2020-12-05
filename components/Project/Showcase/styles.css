@@ -21,11 +21,11 @@
 .browser_wrapper {
     min-width: 1008px;
     height: 594px;
-    margin-left: 80px;
+    margin-left: 40px;
 }
 
 .browser_wrapper:last-child {
-    padding-right: 80px;
+    padding-right: 40px;
 }
 
 .browser_ui {
@@ -52,11 +52,11 @@
 }
 
 .iphone_wrapper:first-child {
-    margin-left: 80px;
+    margin-left: 40px;
 }
 
 .iphone_wrapper:last-child {
-    padding-right: 80px;
+    padding-right: 40px;
 }
 
 .iphone_ui {
@@ -81,4 +81,22 @@
     border: none;
     border-radius: 5px;
     overflow: hidden;
+}
+
+@media screen and (min-width: 1025px) {
+    .browser_wrapper {
+        margin-left: 80px;
+    }
+
+    .browser_wrapper:last-child {
+        padding-right: 80px;
+    }
+
+    .iphone_wrapper:first-child {
+        margin-left: 80px;
+    }
+
+    .iphone_wrapper:last-child {
+        padding-right: 80px;
+    }
 }
