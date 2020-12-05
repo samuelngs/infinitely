@@ -32,6 +32,8 @@ export default class Home extends Component {
       this.scroll = new LocomotiveScroll({
         el: document.querySelector('[data-scroll-container]'),
         smooth: true,
+        tablet: { smooth: true },
+        smartphone: { smooth: true },
         reloadOnContextChange: true,
       });
       this.scroll.on('scroll', (args) => {
