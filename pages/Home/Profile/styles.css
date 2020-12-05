@@ -11,6 +11,7 @@ $bg: url('./bg.jpg');
     background-position: center;
     min-height: 300px;
     filter: grayscale(100%);
+    margin: 10px;
 }
 
 @media screen and (min-width: 1024px) {
