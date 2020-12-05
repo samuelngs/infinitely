@@ -64,7 +64,7 @@ export default class Hero extends Component {
     const { visible, pre, ready } = this.state;
     return <a href="/athena" className={`${styles.root} ${ready ? styles.ready : defaults.string}`} style={bg && { backgroundColor: bg }} onClick={::this.onClick}>
       <Device className={styles.device} bg="#11192A">
-        <video ref={n => this.node = n} width="320px" height="568px" preload="none" poster={cover} loop muted>
+        <video ref={n => this.node = n} width="320px" height="568px" preload="none" poster={cover} loop muted playsinline>
           <source src={video} type="video/mp4" />
         </video>
       </Device>
