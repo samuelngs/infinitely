@@ -33,7 +33,6 @@ export default class Home extends Component {
         el: document.querySelector('[data-scroll-container]'),
         smooth: true,
         tablet: { smooth: true },
-        smartphone: { smooth: true },
         reloadOnContextChange: true,
       });
       this.scroll.on('scroll', (args) => {
