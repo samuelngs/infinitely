@@ -10,7 +10,7 @@ const defaults = {
   events: [ ],
 };
 
-export default ({ since = defaults.since, events = defaults.events }) => <div className={styles.root}>
-  <Timeline since={since} events={events} />
+export default ({ since = defaults.since, events = defaults.events, ...rest }) => <div className={styles.root}>
+  <Timeline since={since} events={events} {...rest} />
 </div>
 

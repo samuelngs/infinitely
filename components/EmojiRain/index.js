@@ -3,7 +3,7 @@ import emojis from './emoji';
 
 const styles = {
   container: {
-    position: 'fixed',
+    position: 'sticky',
     fontSize: 0,
     top: 0,
     bottom: 0,

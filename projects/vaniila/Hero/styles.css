@@ -13,8 +13,8 @@
     position: relative;
     opacity: 0;
 
-    /* background: rgba(240, 252, 255, 1); */
-    /* background: linear-gradient(180deg, rgba(255, 255, 255, 1) 32%, rgba(240, 252, 255, 1) 100%); */
+    background: rgb(212 198 222);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 1) 32%, rgb(212 198 222) 100%);
 
     animation: fadeIn ease 1s 1 normal forwards;
     animation-delay: 1.75s;
@@ -83,14 +83,14 @@
 .title span:nth-child(1),
 .title span:nth-child(2),
 .title span:nth-child(3) {
-    color: #01869a;
+    /*color: #fff;*/
 }
 
 
 @media screen and (max-width: 768px) {
 
     .tiles {
-        transform: translate3d(-50%, -45%,0) scale(.4) rotate(22.5deg);
+        transform: translate3d(-50%, -42%,0) scale(.4) rotate(22.5deg);
     }
 
     .title {

@@ -10,6 +10,19 @@ $bg: url('./bg.jpg');
     background-repeat: no-repeat;
     background-position: center;
     min-height: 300px;
+    filter: grayscale(100%);
+}
+
+@media screen and (min-width: 1024px) {
+    .root {
+        margin-right: 100px;
+        margin-left: -200px;
+        z-index: 4;
+        /* clip-path: polygon(20% 10%, 4% 100%, 80% 90%, 100% 0%); */
+
+        margin-right: 100px;
+        margin-left: -3vw;
+    }
 }
 
 .root:hover .ga,

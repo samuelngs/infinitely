@@ -96,7 +96,8 @@ export default class Timeline extends Component {
   }
 
   render() {
-    return <div ref={n => this.node = n} className={styles.root} onMouseDown={::this.onMouseDown} onMouseUp={::this.onMouseUp} onMouseMove={::this.onMouseMove} onMouseOut={::this.onMouseOut}>
+    const { since, events, position, ...rest } = this.props;
+    return <div ref={n => this.node = n} className={styles.root} onMouseDown={::this.onMouseDown} onMouseUp={::this.onMouseUp} onMouseMove={::this.onMouseMove} onMouseOut={::this.onMouseOut} {...rest}>
       { this.renderYears() }
     </div>
   }

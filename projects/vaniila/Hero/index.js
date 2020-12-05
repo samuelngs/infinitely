@@ -81,16 +81,16 @@ export default class Hero extends Component {
           ))}
         </div>
         <h3 className={styles.title} data-scroll>
-          <span data-scroll data-scroll-delay="0.23" data-scroll-speed="-9">V</span>
-          <span data-scroll data-scroll-delay="0.22" data-scroll-speed="-8">A</span>
-          <span data-scroll data-scroll-delay="0.21" data-scroll-speed="-7">N</span>
-          <span data-scroll data-scroll-delay="0.20" data-scroll-speed="-6">I</span>
-          <span data-scroll data-scroll-delay="0.19" data-scroll-speed="-5">I</span>
-          <span data-scroll data-scroll-delay="0.18" data-scroll-speed="-4">L</span>
-          <span data-scroll data-scroll-delay="0.17" data-scroll-speed="-3">A</span>
+          <span data-scroll data-scroll-delay="0.63" data-scroll-speed="-6">V</span>
+          <span data-scroll data-scroll-delay="0.52" data-scroll-speed="-6">A</span>
+          <span data-scroll data-scroll-delay="0.41" data-scroll-speed="-6">N</span>
+          <span data-scroll data-scroll-delay="0.30" data-scroll-speed="-6">I</span>
+          <span data-scroll data-scroll-delay="0.29" data-scroll-speed="-6">I</span>
+          <span data-scroll data-scroll-delay="0.18" data-scroll-speed="-6">L</span>
+          <span data-scroll data-scroll-delay="0.10" data-scroll-speed="-6">A</span>
         </h3>
+        <EmojiRain active={true} drops={5} />
       </div>
-      <EmojiRain active={true} drops={5} />
     </a>
   }
 

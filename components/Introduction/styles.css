@@ -47,6 +47,10 @@ $content_first_letter_lineheight_large: 72px;
     overflow: hidden;
 }
 
+.c1_overlay {
+    overflow: initial;
+}
+
 .c1, .c2 {
     min-height: calc(50vh - 100px);
 }
@@ -57,7 +61,6 @@ $content_first_letter_lineheight_large: 72px;
     min-height: calc(50vh - 100px);
     align-items: center;
     justify-content: center;
-    background-color: $main_bg;
 }
 
 .title {
@@ -68,6 +71,10 @@ $content_first_letter_lineheight_large: 72px;
     font-size: 30px;
     font-size: $title_size;
     margin: 10px 0;
+}
+
+.title span {
+    display: inline-block;
 }
 
 .content {

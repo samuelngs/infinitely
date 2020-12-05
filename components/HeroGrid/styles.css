@@ -15,6 +15,7 @@
     overflow: hidden;
     height: 60vh;
     max-height: 1000px;
+    margin: 10px;
 }
 
 .showcases {
@@ -30,6 +31,13 @@
     height: 50vh;
     max-height: 500px;
     overflow: hidden;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.small:nth-child(1) {
+    margin-top: 0;
 }
 
 .bslidel {
@@ -52,6 +60,18 @@
 
 @media screen and (min-width: 768px) {
 
+    .small {
+        margin-left: 0;
+    }
+
+    .small:nth-child(2) {
+        margin-top: 0;
+    }
+
+    .small:nth-child(odd) {
+        margin-left: 10px;
+    }
+
     .showcases {
         flex-direction: row;
     }
@@ -62,12 +82,24 @@
 
     .root {
         flex-direction: row;
-        height: 100vh;
+        height: 80vh;
         max-height: 1000px;
     }
 
     .main {
-        height: 100vh;
+        height: 80vh;
+    }
+
+    .small {
+        margin-top: 10px;
+    }
+
+    .small:nth-child(odd) {
+        margin-left: 0px;
+    }
+
+    .small:nth-child(1), .small:nth-child(2) {
+        margin-top: 10px;
     }
 
     .showcases {

@@ -25,17 +25,21 @@ export default class Introduction extends Component {
   }
 
   render(props) {
-    const { timeout = defaults.timeout, title = defaults.string, content = defaults.content, children } = props;
+    const { timeout = defaults.timeout, title = defaults.string, content = defaults.content, children, allowOverlay = false, background, clipPath } = props;
     return <AnimationFadeIn timeout={timeout} className={styles.root} data-scroll-section>
-      <div className={`${styles.c2} ${styles.main}`}>
-        <h3 className={styles.title} data-scroll data-scroll-speed="0.5">— { title }</h3>
+      <div className={`${styles.c2} ${styles.main}`} style={{ background }}>
+        <h3 className={styles.title} data-scroll>
+          <span data-scroll data-scroll-speed="-0.1" data-scroll-position="bottom">—</span>
+          {' '}
+          <span data-scroll data-scroll-speed="0.5">{ title }</span>
+        </h3>
         <div className={styles.paragraph}>
           { Array.isArray(content) && content.map(
             (t, i) => <Paragraph content={t} index={i} />
           ) }
         </div>
       </div>
-      <div className={styles.c1} data-scroll data-scroll-speed="3">
+      <div className={[styles.c1, allowOverlay && styles.c1_overlay].filter(o => o).join(' ')} data-scroll data-scroll-speed="3">
         { children }
       </div>
     </AnimationFadeIn>

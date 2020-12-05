@@ -87,8 +87,10 @@ export default class Home extends Component {
           'Hey, I\'m Sam. I am a skilled and passionate software developer with more than 5 years of professional experience building large-scale systems and applications. ',
           'I excel in full-stack development and dev-ops engineering. I have built applications and systems that are used by millions, including influencers and companies such as Celine Dion, Janet Jackson, Malala, Bing, OpenTable and Product Hunt',
           <span>Some of my work are shared on <a href="https://github.com/samuelngs" target="_blank">Github</a> and <a href="https://dribbble.com/samuelngs" target="_blank">Dribbble</a>. You can also find my full resume on <a href="https://www.linkedin.com/in/sngs" target="_blank">LinkedIn</a>.</span>,
+          <br />,
         ]}
         timeout={800}
+        allowOverlay
       >
         <Profile />
       </Introduction>
@@ -98,6 +100,7 @@ export default class Home extends Component {
           "Strong in design and problem solving skills. Expertise in *nix system and command-line. Fluent in Golang, Javascript, Ruby, Java, Swift and Objective-C. Worked with Redis, Postgres, MySQL, Kafka, MongoDB and Cassandra.",
           "Proficient in front-end development with React, Inferno, Mithril and Backbone.js. Full knowledge of payment gateway, microservices architecture and distributed systems.",
           "Experience in Amazon Web Services, Google Cloud Platform, and continuous delivery with Docker and Kubernetes.",
+          <br />,
         ]}
         timeout={1000}
       >
